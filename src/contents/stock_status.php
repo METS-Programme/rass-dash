@@ -174,7 +174,9 @@ function stock_status(){
                     headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
                     pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b>'
                 },
-
+                credits: {
+                    enabled: false
+                },
                 series: [{
                     name: 'Regions',
                     colorByPoint: true,
@@ -652,7 +654,9 @@ function stock_status(){
                     headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
                     pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b>'
                 },
-
+                credits: {
+                    enabled: false
+                },
                 series: [{
                     name: 'Regions',
                     colorByPoint: true,
@@ -1284,8 +1288,8 @@ function stock_status(){
         //Adult Trends
         while($arow = pg_fetch_array($ares)){
             //stock outs per week
-            if ($arow['expectedreports'] > 0)
-                $stkouts = round(($arow['rso'] / $arow['expectedreports']) * 100, 1);
+            if ($arow['receivedreports'] > 0)
+                $stkouts = round(($arow['rso'] / $arow['receivedreports']) * 100, 1);
             else
                 $stkouts = 0;
             //affected clients per week
@@ -1294,14 +1298,14 @@ function stock_status(){
                 $arow['la'] + $arow['ma'] + $arow['na'] + $arow['oa'] + $arow['pa'] + $arow['qa'] +
                 $arow['ra'];
 
-            $atrends[] = array($arow['week'], (float)$stkouts, (int)$clients);
+            $atrends[] = array($arow['week'], (float)$stkouts, abs((int)$clients));
 
         }
         //Paediatric Trends
         while($prow = pg_fetch_array($pres)){
             //stock outs per week
-            if ($prow['expectedreports'] > 0)
-                $stkouts = round(($prow['rso'] / $prow['expectedreports']) * 100, 1);
+            if ($prow['receivedreports'] > 0)
+                $stkouts = round(($prow['rso'] / $prow['receivedreports']) * 100, 1);
             else
                 $stkouts = 0;
             //affected clients per week
@@ -1309,7 +1313,7 @@ function stock_status(){
                 $prow['fa'] + $prow['ga'] + $prow['ha'] + $prow['ia'] + $prow['ja'] + $prow['ka'] +
                 $prow['la'] + $prow['ma'] + $prow['na'] + $prow['oa'] + $prow['pa'];
 
-            $ptrends[] = array($prow['week'], (float)$stkouts, (int)$clients);
+            $ptrends[] = array($prow['week'], (float)$stkouts, abs((int)$clients));
 
         }
 
