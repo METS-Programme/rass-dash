@@ -1310,11 +1310,11 @@ function stock_status(){
 
         }
 
-        $psrate = round(($atrends[10][1] / $atrends[10][3]) * 100, 1);
-        $csrate = round(($reports[2] / $reports[0])*100, 1);
+        $psrate = $atrends[10][1];
+        $csrate = round(($reports[2] / $reports[0]) * 100, 1);
 
         $prrate = round(($atrends[10][3] / $atrends[10][4]) * 100);
-        $crrate = round(($reports[0] / $reports[1])*100);
+        $crrate = round(($reports[0] / $reports[1]) * 100);
 
         $simg = "";
         if ($atrends[11][1] > $atrends[10][1])
