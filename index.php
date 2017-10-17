@@ -65,7 +65,7 @@ requireFiles("src/contents");
         $(document).ready(function(){
             //alert("Hello");
             //$('#btns-sum').attr('hidden', false);
-            $('.arrow-img').tooltip();
+            //$('.arrow-img').tooltip();
             /*
             var jtext = $('#jtext').val();
 
