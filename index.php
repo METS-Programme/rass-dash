@@ -58,7 +58,7 @@ requireFiles("src/contents");
         $(document).ready(function(){
             //alert("Hello");
             //$('#btns-sum').attr('hidden', false);
-            $( ".arrow-img" ).tooltip();
+            $('.arrow-img').tooltip();
             /*
             var jtext = $('#jtext').val();
 
@@ -448,8 +448,10 @@ if ($('#ounit option:selected').val() != 0 || $('#operiod option:selected').val(
     </div>
 </div>
 
-<script src="assets/js/vendor.js"></script>
+
+
 <script src="assets/js/app.js"></script>
+<script src="assets/js/vendor.js"></script>
 
 <script src="assets/js/jquery.dataTables.min.js" type="text/javascript"></script>
 
@@ -468,6 +470,7 @@ if ($('#ounit option:selected').val() != 0 || $('#operiod option:selected').val(
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- <script src="assets/js/bootstrap.min.js" type="text/javascript"></script> -->
+<script src="assets/js/bootstrap.min.js" type="text/javascript">
 </body>
 
 </html>
