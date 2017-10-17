@@ -1318,9 +1318,9 @@ function stock_status(){
 
         $simg = "";
         if ($atrends[11][1] > $atrends[10][1])
-            $simg = '<img class = "arrow-img" title = "' . ($csrate - $psrate) . '%" src="assets/images/up_arrow_red.png" />';
+            $simg = '<img class = "arrow-img" title = "' . round(($csrate - $psrate), 1) . '%" src="assets/images/up_arrow_red.png" />';
         else
-            $simg = '<img class = "arrow-img" title = "' . ($csrate - $psrate) . '%" src="assets/images/down_arrow_green.png" />';
+            $simg = '<img class = "arrow-img" title = "' . roudn(($csrate - $psrate)) . '%" src="assets/images/down_arrow_green.png" />';
 
         $rimg = "";
         if ($atrends[11][3] > $atrends[10][3])
