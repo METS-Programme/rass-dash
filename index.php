@@ -39,7 +39,7 @@ requireFiles("src/contents");
 
     <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
 
-    <script src="assets/js/jquery-1.12.4.js" type="text/javascript"></script>
+    <script src="assets/js/jquery-3.2.1.min.js" type="text/javascript"></script> <!--1.12.4 -->
 
     <link rel="stylesheet" href="assets/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="assets/css/rass.css">
