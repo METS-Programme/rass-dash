@@ -30,12 +30,9 @@ requireFiles("src/contents");
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
-<link rel="shortcut icon" href="assets/images/logo.png" type="image/png" />
+    <link rel="shortcut icon" href="assets/images/logo.png" type="image/png" />
     <link rel="stylesheet" href="assets/css/vendor.css">
     <link rel="stylesheet" href="assets/css/app.css">
-
-
-    <link rel="stylesheet" href="assets/css/rass.css">
 
     <!-- Bootstrap core CSS -->
     <!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -45,11 +42,23 @@ requireFiles("src/contents");
     <script src="assets/js/jquery-1.12.4.js" type="text/javascript"></script>
 
     <link rel="stylesheet" href="assets/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="assets/css/rass.css">
+
+    <style>
+        .arrow-img {
+            width: 16px;
+            height: 14px;
+            position: relative;
+            top: -1px;
+            left: -3px;
+        }
+    </style>
 
     <script type="text/javascript">
         $(document).ready(function(){
             //alert("Hello");
             //$('#btns-sum').attr('hidden', false);
+            $( ".arrow-img" ).tooltip();
             /*
             var jtext = $('#jtext').val();
 

@@ -82,7 +82,9 @@ function stock_status(){
                     backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
                 },
                 credits: {
-                    enabled: false
+                    enabled: true,
+                    text: 'Mets.or.ug',
+                    href: 'http://www.mets.or.ug'
                 },
                 series: [{
                     name: 'Affected Clients - Adults',
@@ -175,7 +177,9 @@ function stock_status(){
                     pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b>'
                 },
                 credits: {
-                    enabled: false
+                    enabled: true,
+                    text: 'Mets.or.ug',
+                    href: 'http://www.mets.or.ug'
                 },
                 series: [{
                     name: 'Regions',
@@ -655,7 +659,9 @@ function stock_status(){
                     pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b>'
                 },
                 credits: {
-                    enabled: false
+                    enabled: true,
+                    text: 'Mets.or.ug',
+                    href: 'http://www.mets.or.ug'
                 },
                 series: [{
                     name: 'Regions',
@@ -1174,6 +1180,7 @@ function stock_status(){
             $wdata[] = array("TDF/3TC + NVP", "Adult", $row['r'], $row['ramc'], $row['ru'], $row['rn'], $row['rm'], $row['ro'], abs($row['ra']));
 
         }
+
         //STKC data
         while($crow = pg_fetch_array($cres)) {
             $wdata[] = array("NVP 50mg", "Paediatric", $crow['a'], $crow['aamc'], $crow['au'], $crow['an'], $crow['am'], $crow['ao'], abs($crow['aa']));
@@ -1298,9 +1305,29 @@ function stock_status(){
                 $arow['la'] + $arow['ma'] + $arow['na'] + $arow['oa'] + $arow['pa'] + $arow['qa'] +
                 $arow['ra'];
 
-            $atrends[] = array($arow['week'], (float)$stkouts, abs((int)$clients));
+            $atrends[] = array($arow['week'], (float)$stkouts, abs((int)$clients), (int)$arow['receivedreports'],
+                        (int)$arow['expectedreports']);
 
         }
+
+        $psrate = round(($atrends[10][1] / $atrends[10][3]) * 100, 1);
+        $csrate = round(($reports[2] / $reports[0])*100, 1);
+
+        $prrate = round(($atrends[10][3] / $atrends[10][4]) * 100);
+        $crrate = round(($reports[0] / $reports[1])*100);
+
+        $simg = "";
+        if ($atrends[11][1] > $atrends[10][1])
+            $simg = '<img class = "arrow-img" title = "' . ($csrate - $psrate) . '%" src="assets/images/up_arrow_red.png" />';
+        else
+            $simg = '<img class = "arrow-img" title = "' . ($csrate - $psrate) . '%" src="assets/images/down_arrow_green.png" />';
+
+        $rimg = "";
+        if ($atrends[11][3] > $atrends[10][3])
+            $rimg = '<img class = "arrow-img" title="' . ($crrate - $prrate) . '%" src="assets/images/up_green.png" />';
+        else
+            $rimg = '<img class = "arrow-img" title="' . ($crrate - $prrate) . '%" src="assets/images/down_red.png" />';
+
         //Paediatric Trends
         while($prow = pg_fetch_array($pres)){
             //stock outs per week
@@ -1342,7 +1369,7 @@ function stock_status(){
 
                                 <section class="">
                                     <div class="">
-                                        <h1 class="title"><span><?php echo round(($reports[2] / $reports[0])*100, 1); ?></span>% <img src="assets/images/up-small.png" /></h1>
+                                        <h1 class="title"><span><?php echo $csrate; ?></span>% <?php echo $simg; ?></h1>
                                         <p class="title-description"><span><a href="#"><?php echo $reports[2]; ?></a></span> of <span><a href="#"><?php echo $reports[0]; ?></a></span> Health Facilities Stocked Out - <a href="#">View</a></p>
                                     </div>
                                 </section>
@@ -1355,12 +1382,12 @@ function stock_status(){
                             <div class="card-block">
 
                                 <div class="card-title-block">
-                                    <h3 class="title"><span>Reporting Rate: <?php echo $w; ?></span><span class = ""><?php echo isset($_GET['w']) ? $_GET['w']:$per ; ?></span> (<span class = ""><?php echo isset($_GET['o']) ? $_GET['o']:$org ; ?></span>)</h3>
+                                    <h3 class="title"><span>Reporting Rate: <?php echo $w; ?></span><span class = ""><?php echo isset($_GET['w']) ? $_GET['w']:$per ; ?></span> (<span><?php echo isset($_GET['o']) ? $_GET['o']:$org ; ?></span>)</h3>
                                 </div>
 
                                 <section class="">
                                     <div class="">
-                                        <h1 class="title"><span><?php echo round(($reports[0] / $reports[1])*100); ?></span>% <img src="assets/images/up-small.png" /></h1>
+                                        <h1 class="title"><span><?php echo $crrate; ?></span>% <?php echo $rimg; ?></h1>
                                         <p class="title-description"><span><a href="#"><?php echo $reports[0]; ?></a></span> of <span><a href="#"><?php echo $reports[1]; ?></a></span> Health Facilities Reported - <a href="#">View</a></p>
                                     </div>
                                 </section>
