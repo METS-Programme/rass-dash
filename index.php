@@ -31,9 +31,11 @@ requireFiles("src/contents");
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
     <link rel="shortcut icon" href="assets/images/logo.png" type="image/png" />
+
     <link rel="stylesheet" href="assets/css/vendor.css">
     <link rel="stylesheet" href="assets/css/app.css">
 
+    <link rel="stylesheet" href="assets/css/jquery.dataTables.min.css">
     <!-- Bootstrap core CSS -->
     <!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet"> -->
 
@@ -41,10 +43,15 @@ requireFiles("src/contents");
 
     <script src="assets/js/jquery-3.2.1.min.js" type="text/javascript"></script> <!--1.12.4 -->
 
-    <link rel="stylesheet" href="assets/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="assets/css/rass.css">
+
 
     <style>
+
+        .rass_logo{
+            height: 35px;
+            margin-top: -50px;
+        }
+
         .arrow-img {
             width: 16px;
             height: 14px;
@@ -135,14 +142,9 @@ requireFiles("src/contents");
 
                 //$('.wk').html(wk);
                 //$('.org').html(org);
-if ($('#ounit option:selected').val() != 0 || $('#operiod option:selected').val() != 0)
-                window.location.href = "?o=" + org + "&w=" + wk + "&wn=" + wkno;
+                if ($('#ounit option:selected').val() != 0 || $('#operiod option:selected').val() != 0)
+                    window.location.href = "?o=" + org + "&w=" + wk + "&wn=" + wkno;
 
-            });
-
-            $('#ounit').change(function () {
-                //$('.wk').html($('#operiod option:selected').text());
-                //$('.org').html($('#ounit option:selected').text());
             });
 
             $('#stock').DataTable( {
@@ -449,12 +451,10 @@ if ($('#ounit option:selected').val() != 0 || $('#operiod option:selected').val(
 </div>
 
 
-
-<script src="assets/js/app.js"></script>
 <script src="assets/js/vendor.js"></script>
+<script src="assets/js/app.js"></script>
 
 <script src="assets/js/jquery.dataTables.min.js" type="text/javascript"></script>
-
 
 <!-- Highcharts JS -->
 <script src="assets/js/highcharts.js" type="text/javascript"></script>
@@ -470,7 +470,6 @@ if ($('#ounit option:selected').val() != 0 || $('#operiod option:selected').val(
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- <script src="assets/js/bootstrap.min.js" type="text/javascript"></script> -->
-<script src="assets/js/bootstrap.min.js" type="text/javascript">
 </body>
 
 </html>
