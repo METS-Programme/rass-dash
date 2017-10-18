@@ -43,8 +43,6 @@ requireFiles("src/contents");
 
     <script src="assets/js/jquery-3.2.1.min.js" type="text/javascript"></script> <!--1.12.4 -->
 
-
-
     <style>
 
         .rass_logo{
@@ -65,7 +63,7 @@ requireFiles("src/contents");
         $(document).ready(function(){
             //alert("Hello");
             //$('#btns-sum').attr('hidden', false);
-            //$('.arrow-img').tooltip();
+            $('.arrow-img').tooltip();
             /*
             var jtext = $('#jtext').val();
 
@@ -148,10 +146,7 @@ requireFiles("src/contents");
             });
 
             $('#stock').DataTable( {
-                columnDefs: [ {
-                    targets: [ 1 ],
-                    orderData: [ 1, 0 ]
-                } ]
+                "order": [[ 5, "desc" ]]
             } );
 
         });

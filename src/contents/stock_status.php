@@ -136,7 +136,10 @@ function stock_status(){
             var obj1 = JSON.parse(reg);
             var obj2 = JSON.parse(dis);
 
-           // alert (obj2['Kabarole District'][0][0]);
+            //alert(obj2["Ntoroko District"][0][0]);
+
+            //alert (reg);
+           //alert (obj2['Kabarole District'][0][0]);
 
             Highcharts.chart('sadults', {
 
@@ -185,427 +188,301 @@ function stock_status(){
                     name: 'Regions',
                     colorByPoint: true,
                     data: [{
-                        name: 'Rwenzori Region',
-                        y: obj1["Western Region"],
-                        drilldown: 'Rwenzori'
-                    }, {
-                        name: 'West Nile Region',
-                        y: obj1["Northern Region"],
-                        drilldown: 'West Nile'
-                    }]
+                     name: 'Rwenzori Region',
+                     y: (typeof obj1["Western Region"] === 'undefined') ? 0:obj1["Western Region"],
+                     drilldown: 'Rwenzori'
+                     }, {
+                     name: 'West Nile Region',
+                     y: (typeof obj1["Northern Region"] === 'undefined') ? 0:obj1["Northern Region"],
+                     drilldown: 'West Nile'
+                     }]
                 }],
                 drilldown: {
                     series: [{
                         name: 'Districts',
                         id: 'Rwenzori',
                         data: [
-                            {name:'Kabarole', y: obj2['Kabarole District'][0][0], drilldown: 'kab'},
-                            {name:'Kasese', y:obj2["Kasese District"][0][0], drilldown: 'kas'},
-                            {name:'Kamwenge', y:obj2['Kamwenge District'][0][0], drilldown: 'kam'},
-                            {name:'Kyenjojo', y:obj2["Kyenjojo District"][0][0], drilldown: 'kyen'},
-                            {name:'Kyegegwa', y: obj2['Kyegegwa District'][0][0], drilldown: 'kyeg'},
-                            {name:'Bundibugyo', y:obj2["Bundibugyo District"][0][0], drilldown: 'bun'},
-                            {name:'Ntoroko', y:obj2["Ntoroko District"][0][0], drilldown: 'nto'}
+                            {name:'Kabarole', y:(typeof obj2["Kabarole District"] === 'undefined') ? 0:obj2['Kabarole District'][0][0], drilldown: 'kab'},
+                            {name:'Kasese', y:(typeof obj2["Kasese District"] === 'undefined') ? 0:obj2["Kasese District"][0][0], drilldown: 'kas'},
+                            {name:'Kamwenge', y:(typeof obj2["Kamwenge District"] === 'undefined') ? 0:obj2['Kamwenge District'][0][0], drilldown: 'kam'},
+                            {name:'Kyenjojo', y:(typeof obj2["Kyenjojo District"] === 'undefined') ? 0:obj2["Kyenjojo District"][0][0], drilldown: 'kyen'},
+                            {name:'Kyegegwa', y:(typeof obj2["Kyegegwa District"] === 'undefined') ? 0:obj2['Kyegegwa District'][0][0], drilldown: 'kyeg'},
+                            {name:'Bundibugyo', y:(typeof obj2["Bundibugyo District"] === 'undefined') ? 0:obj2["Bundibugyo District"][0][0], drilldown: 'bun'},
+                            {name:'Ntoroko', y:(typeof obj2["Ntoroko District"] === 'undefined') ? 0:obj2["Ntoroko District"][0][0], drilldown: 'nto'}
                         ]
                     },
                         {
                             id: 'kab',
                             name: 'Kabarole',
-                            data: [
-                                [obj2['Kabarole District'][1][0], obj2['Kabarole District'][1][1]],
-                                [obj2['Kabarole District'][2][0], obj2['Kabarole District'][2][1]],
-                                [obj2['Kabarole District'][3][0], obj2['Kabarole District'][3][1]],
-                                [obj2['Kabarole District'][4][0], obj2['Kabarole District'][4][1]],
-                                [obj2['Kabarole District'][5][0], obj2['Kabarole District'][5][1]],
-                                [obj2['Kabarole District'][6][0], obj2['Kabarole District'][6][1]],
-                                [obj2['Kabarole District'][7][0], obj2['Kabarole District'][7][1]],
-                                [obj2['Kabarole District'][8][0], obj2['Kabarole District'][8][1]],
-                                [obj2['Kabarole District'][9][0], obj2['Kabarole District'][9][1]],
-                                [obj2['Kabarole District'][10][0], obj2['Kabarole District'][10][1]],
-                                [obj2['Kabarole District'][11][0], obj2['Kabarole District'][11][1]],
-                                [obj2['Kabarole District'][12][0], obj2['Kabarole District'][12][1]],
-                                [obj2['Kabarole District'][13][0], obj2['Kabarole District'][13][1]],
-                                [obj2['Kabarole District'][14][0], obj2['Kabarole District'][14][1]],
-                                [obj2['Kabarole District'][15][0], obj2['Kabarole District'][15][1]],
-                                [obj2['Kabarole District'][16][0], obj2['Kabarole District'][16][1]],
-                                [obj2['Kabarole District'][17][0], obj2['Kabarole District'][17][1]],
-                                [obj2['Kabarole District'][18][0], obj2['Kabarole District'][18][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 18; i += 1) {
+                                    data.push([
+                                        (typeof obj2["Kabarole District"] === 'undefined') ? 0:obj2['Kabarole District'][i][0],
+                                        (typeof obj2["Kabarole District"] === 'undefined') ? 0:obj2['Kabarole District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'kas',
                             name: 'Kasese',
-                            data: [
-                                [obj2['Kasese District'][1][0], obj2['Kasese District'][1][1]],
-                                [obj2['Kasese District'][2][0], obj2['Kasese District'][2][1]],
-                                [obj2['Kasese District'][3][0], obj2['Kasese District'][3][1]],
-                                [obj2['Kasese District'][4][0], obj2['Kasese District'][4][1]],
-                                [obj2['Kasese District'][5][0], obj2['Kasese District'][5][1]],
-                                [obj2['Kasese District'][6][0], obj2['Kasese District'][6][1]],
-                                [obj2['Kasese District'][7][0], obj2['Kasese District'][7][1]],
-                                [obj2['Kasese District'][8][0], obj2['Kasese District'][8][1]],
-                                [obj2['Kasese District'][9][0], obj2['Kasese District'][9][1]],
-                                [obj2['Kasese District'][10][0], obj2['Kasese District'][10][1]],
-                                [obj2['Kasese District'][11][0], obj2['Kasese District'][11][1]],
-                                [obj2['Kasese District'][12][0], obj2['Kasese District'][12][1]],
-                                [obj2['Kasese District'][13][0], obj2['Kasese District'][13][1]],
-                                [obj2['Kasese District'][14][0], obj2['Kasese District'][14][1]],
-                                [obj2['Kasese District'][15][0], obj2['Kasese District'][15][1]],
-                                [obj2['Kasese District'][16][0], obj2['Kasese District'][16][1]],
-                                [obj2['Kasese District'][17][0], obj2['Kasese District'][17][1]],
-                                [obj2['Kasese District'][18][0], obj2['Kasese District'][18][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 18; i += 1) {
+                                    data.push([
+                                        (typeof obj2["Kasese District"] === 'undefined') ? 0:obj2['Kasese District'][i][0],
+                                        (typeof obj2["Kasese District"] === 'undefined') ? 0:obj2['Kasese District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'kam',
                             name: 'Kamwenge',
-                            data: [
-                                [obj2['Kamwenge District'][1][0], obj2['Kamwenge District'][1][1]],
-                                [obj2['Kamwenge District'][2][0], obj2['Kamwenge District'][2][1]],
-                                [obj2['Kamwenge District'][3][0], obj2['Kamwenge District'][3][1]],
-                                [obj2['Kamwenge District'][4][0], obj2['Kamwenge District'][4][1]],
-                                [obj2['Kamwenge District'][5][0], obj2['Kamwenge District'][5][1]],
-                                [obj2['Kamwenge District'][6][0], obj2['Kamwenge District'][6][1]],
-                                [obj2['Kamwenge District'][7][0], obj2['Kamwenge District'][7][1]],
-                                [obj2['Kamwenge District'][8][0], obj2['Kamwenge District'][8][1]],
-                                [obj2['Kamwenge District'][9][0], obj2['Kamwenge District'][9][1]],
-                                [obj2['Kamwenge District'][10][0], obj2['Kamwenge District'][10][1]],
-                                [obj2['Kamwenge District'][11][0], obj2['Kamwenge District'][11][1]],
-                                [obj2['Kamwenge District'][12][0], obj2['Kamwenge District'][12][1]],
-                                [obj2['Kamwenge District'][13][0], obj2['Kamwenge District'][13][1]],
-                                [obj2['Kamwenge District'][14][0], obj2['Kamwenge District'][14][1]],
-                                [obj2['Kamwenge District'][15][0], obj2['Kamwenge District'][15][1]],
-                                [obj2['Kamwenge District'][16][0], obj2['Kamwenge District'][16][1]],
-                                [obj2['Kamwenge District'][17][0], obj2['Kamwenge District'][17][1]],
-                                [obj2['Kamwenge District'][18][0], obj2['Kamwenge District'][18][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 18; i += 1) {
+                                    data.push([
+                                        (typeof obj2["Kamwenge District"] === 'undefined') ? 0:obj2['Kamwenge District'][i][0],
+                                        (typeof obj2["Kamwenge District"] === 'undefined') ? 0:obj2['Kamwenge District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'kyen',
                             name: 'Kyenjojo',
-                            data: [
-                                [obj2['Kyenjojo District'][1][0], obj2['Kyenjojo District'][1][1]],
-                                [obj2['Kyenjojo District'][2][0], obj2['Kyenjojo District'][2][1]],
-                                [obj2['Kyenjojo District'][3][0], obj2['Kyenjojo District'][3][1]],
-                                [obj2['Kyenjojo District'][4][0], obj2['Kyenjojo District'][4][1]],
-                                [obj2['Kyenjojo District'][5][0], obj2['Kyenjojo District'][5][1]],
-                                [obj2['Kyenjojo District'][6][0], obj2['Kyenjojo District'][6][1]],
-                                [obj2['Kyenjojo District'][7][0], obj2['Kyenjojo District'][7][1]],
-                                [obj2['Kyenjojo District'][8][0], obj2['Kyenjojo District'][8][1]],
-                                [obj2['Kyenjojo District'][9][0], obj2['Kyenjojo District'][9][1]],
-                                [obj2['Kyenjojo District'][10][0], obj2['Kyenjojo District'][10][1]],
-                                [obj2['Kyenjojo District'][11][0], obj2['Kyenjojo District'][11][1]],
-                                [obj2['Kyenjojo District'][12][0], obj2['Kyenjojo District'][12][1]],
-                                [obj2['Kyenjojo District'][13][0], obj2['Kyenjojo District'][13][1]],
-                                [obj2['Kyenjojo District'][14][0], obj2['Kyenjojo District'][14][1]],
-                                [obj2['Kyenjojo District'][15][0], obj2['Kyenjojo District'][15][1]],
-                                [obj2['Kyenjojo District'][16][0], obj2['Kyenjojo District'][16][1]],
-                                [obj2['Kyenjojo District'][17][0], obj2['Kyenjojo District'][17][1]],
-                                [obj2['Kyenjojo District'][18][0], obj2['Kyenjojo District'][18][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 18; i += 1) {
+                                    data.push([
+                                        (typeof obj2["Kyenjojo District"] === 'undefined') ? 0:obj2['Kyenjojo District'][i][0],
+                                        (typeof obj2["Kyenjojo District"] === 'undefined') ? 0:obj2['Kyenjojo District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'kyeg',
                             name: 'Kyegegwa',
-                            data: [
-                                [obj2['Kyegegwa District'][1][0], obj2['Kyegegwa District'][1][1]],
-                                [obj2['Kyegegwa District'][2][0], obj2['Kyegegwa District'][2][1]],
-                                [obj2['Kyegegwa District'][3][0], obj2['Kyegegwa District'][3][1]],
-                                [obj2['Kyegegwa District'][4][0], obj2['Kyegegwa District'][4][1]],
-                                [obj2['Kyegegwa District'][5][0], obj2['Kyegegwa District'][5][1]],
-                                [obj2['Kyegegwa District'][6][0], obj2['Kyegegwa District'][6][1]],
-                                [obj2['Kyegegwa District'][7][0], obj2['Kyegegwa District'][7][1]],
-                                [obj2['Kyegegwa District'][8][0], obj2['Kyegegwa District'][8][1]],
-                                [obj2['Kyegegwa District'][9][0], obj2['Kyegegwa District'][9][1]],
-                                [obj2['Kyegegwa District'][10][0], obj2['Kyegegwa District'][10][1]],
-                                [obj2['Kyegegwa District'][11][0], obj2['Kyegegwa District'][11][1]],
-                                [obj2['Kyegegwa District'][12][0], obj2['Kyegegwa District'][12][1]],
-                                [obj2['Kyegegwa District'][13][0], obj2['Kyegegwa District'][13][1]],
-                                [obj2['Kyegegwa District'][14][0], obj2['Kyegegwa District'][14][1]],
-                                [obj2['Kyegegwa District'][15][0], obj2['Kyegegwa District'][15][1]],
-                                [obj2['Kyegegwa District'][16][0], obj2['Kyegegwa District'][16][1]],
-                                [obj2['Kyegegwa District'][17][0], obj2['Kyegegwa District'][17][1]],
-                                [obj2['Kyegegwa District'][18][0], obj2['Kyegegwa District'][18][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 18; i += 1) {
+                                    data.push([
+                                        (typeof obj2["Kyegegwa District"] === 'undefined') ? 0:obj2['Kyegegwa District'][i][0],
+                                        (typeof obj2["Kyegegwa District"] === 'undefined') ? 0:obj2['Kyegegwa District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'bun',
                             name: 'Bundibugyo',
-                            data: [
-                                [obj2['Bundibugyo District'][1][0], obj2['Bundibugyo District'][1][1]],
-                                [obj2['Bundibugyo District'][2][0], obj2['Bundibugyo District'][2][1]],
-                                [obj2['Bundibugyo District'][3][0], obj2['Bundibugyo District'][3][1]],
-                                [obj2['Bundibugyo District'][4][0], obj2['Bundibugyo District'][4][1]],
-                                [obj2['Bundibugyo District'][5][0], obj2['Bundibugyo District'][5][1]],
-                                [obj2['Bundibugyo District'][6][0], obj2['Bundibugyo District'][6][1]],
-                                [obj2['Bundibugyo District'][7][0], obj2['Bundibugyo District'][7][1]],
-                                [obj2['Bundibugyo District'][8][0], obj2['Bundibugyo District'][8][1]],
-                                [obj2['Bundibugyo District'][9][0], obj2['Bundibugyo District'][9][1]],
-                                [obj2['Bundibugyo District'][10][0], obj2['Bundibugyo District'][10][1]],
-                                [obj2['Bundibugyo District'][11][0], obj2['Bundibugyo District'][11][1]],
-                                [obj2['Bundibugyo District'][12][0], obj2['Bundibugyo District'][12][1]],
-                                [obj2['Bundibugyo District'][13][0], obj2['Bundibugyo District'][13][1]],
-                                [obj2['Bundibugyo District'][14][0], obj2['Bundibugyo District'][14][1]],
-                                [obj2['Bundibugyo District'][15][0], obj2['Bundibugyo District'][15][1]],
-                                [obj2['Bundibugyo District'][16][0], obj2['Bundibugyo District'][16][1]],
-                                [obj2['Bundibugyo District'][17][0], obj2['Bundibugyo District'][17][1]],
-                                [obj2['Bundibugyo District'][18][0], obj2['Bundibugyo District'][18][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 18; i += 1) {
+                                    data.push([
+                                        (typeof obj2["Bundibugyo District"] === 'undefined') ? 0:obj2['Bundibugyo District'][i][0],
+                                        (typeof obj2["Bundibugyo District"] === 'undefined') ? 0:obj2['Bundibugyo District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
+
                         {
                             id: 'nto',
                             name: 'Ntoroko',
-                            data: [
-                                [obj2['Ntoroko District'][1][0], obj2['Ntoroko District'][1][1]],
-                                [obj2['Ntoroko District'][2][0], obj2['Ntoroko District'][2][1]],
-                                [obj2['Ntoroko District'][3][0], obj2['Ntoroko District'][3][1]],
-                                [obj2['Ntoroko District'][4][0], obj2['Ntoroko District'][4][1]],
-                                [obj2['Ntoroko District'][5][0], obj2['Ntoroko District'][5][1]],
-                                [obj2['Ntoroko District'][6][0], obj2['Ntoroko District'][6][1]],
-                                [obj2['Ntoroko District'][7][0], obj2['Ntoroko District'][7][1]],
-                                [obj2['Ntoroko District'][8][0], obj2['Ntoroko District'][8][1]],
-                                [obj2['Ntoroko District'][9][0], obj2['Ntoroko District'][9][1]],
-                                [obj2['Ntoroko District'][10][0], obj2['Ntoroko District'][10][1]],
-                                [obj2['Ntoroko District'][11][0], obj2['Ntoroko District'][11][1]],
-                                [obj2['Ntoroko District'][12][0], obj2['Ntoroko District'][12][1]],
-                                [obj2['Ntoroko District'][13][0], obj2['Ntoroko District'][13][1]],
-                                [obj2['Ntoroko District'][14][0], obj2['Ntoroko District'][14][1]],
-                                [obj2['Ntoroko District'][15][0], obj2['Ntoroko District'][15][1]],
-                                [obj2['Ntoroko District'][16][0], obj2['Ntoroko District'][16][1]],
-                                [obj2['Ntoroko District'][17][0], obj2['Ntoroko District'][17][1]],
-                                [obj2['Ntoroko District'][18][0], obj2['Ntoroko District'][18][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 18; i += 1) {
+                                    data.push([
+                                        (typeof obj2["Ntoroko District"] === 'undefined') ? 0:obj2['Ntoroko District'][i][0],
+                                        (typeof obj2["Ntoroko District"] === 'undefined') ? 0:obj2['Ntoroko District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
+
                         {
                         name: 'Districts',
                         id: 'West Nile',
                         data: [
-                            {name:'Adjumani', y: obj2['Adjumani District'][0][0], drilldown: 'adj'},
-                            {name:'Arua', y:obj2['Arua District'][0][0], drilldown: 'aru'},
-                            {name:'Koboko', y:obj2['Koboko District'][0][0], drilldown: 'kob'},
-                            {name:'Maracha', y:obj2['Maracha District'][0][0], drilldown: 'mar'},
-                            {name:'Moyo', y:obj2['Moyo District'][0][0], drilldown: 'moy'},
-                            {name:'Nebbi', y:obj2['Nebbi District'][0][0], drilldown: 'neb'},
-                            {name:'Pakwach', y:obj2['Pakwach District'][0][0], drilldown: 'pak'},
-                            {name:'Yumbe', y:obj2['Yumbe District'][0][0], drilldown: 'yum'},
-                            {name:'Zombo', y:obj2['Zombo District'][0][0], drilldown: 'zom'}
+                            {name:'Adjumani', y:(typeof obj2["Adjumani District"] === 'undefined') ? 0:obj2['Adjumani District'][0][0], drilldown: 'adj'},
+                            {name:'Arua', y:(typeof obj2["Arua District"] === 'undefined') ? 0:obj2['Arua District'][0][0], drilldown: 'aru'},
+                            {name:'Koboko', y:(typeof obj2["Koboko District"] === 'undefined') ? 0:obj2['Koboko District'][0][0], drilldown: 'kob'},
+                            {name:'Maracha', y:(typeof obj2["Maracha District"] === 'undefined') ? 0:obj2['Maracha District'][0][0], drilldown: 'mar'},
+                            {name:'Moyo', y:(typeof obj2["Moyo District"] === 'undefined') ? 0:obj2['Moyo District'][0][0], drilldown: 'moy'},
+                            {name:'Nebbi', y:(typeof obj2["Nebbi District"] === 'undefined') ? 0:obj2['Nebbi District'][0][0], drilldown: 'neb'},
+                            {name:'Pakwach', y:(typeof obj2["Pakwach District"] === 'undefined') ? 0:obj2['Pakwach District'][0][0], drilldown: 'pak'},
+                            {name:'Yumbe', y:(typeof obj2["Yumbe District"] === 'undefined') ? 0:obj2['Yumbe District'][0][0], drilldown: 'yum'},
+                            {name:'Zombo', y:(typeof obj2["Zombo District"] === 'undefined') ? 0:obj2['Zombo District'][0][0], drilldown: 'zom'}
                         ]
                         },
                         {
                             id: 'adj',
                             name: 'Regimens',
-                            data: [
-                                [obj2['Adjumani District'][1][0], obj2['Adjumani District'][1][1]],
-                                [obj2['Adjumani District'][2][0], obj2['Adjumani District'][2][1]],
-                                [obj2['Adjumani District'][3][0], obj2['Adjumani District'][3][1]],
-                                [obj2['Adjumani District'][4][0], obj2['Adjumani District'][4][1]],
-                                [obj2['Adjumani District'][5][0], obj2['Adjumani District'][5][1]],
-                                [obj2['Adjumani District'][6][0], obj2['Adjumani District'][6][1]],
-                                [obj2['Adjumani District'][7][0], obj2['Adjumani District'][7][1]],
-                                [obj2['Adjumani District'][8][0], obj2['Adjumani District'][8][1]],
-                                [obj2['Adjumani District'][9][0], obj2['Adjumani District'][9][1]],
-                                [obj2['Adjumani District'][10][0], obj2['Adjumani District'][10][1]],
-                                [obj2['Adjumani District'][11][0], obj2['Adjumani District'][11][1]],
-                                [obj2['Adjumani District'][12][0], obj2['Adjumani District'][12][1]],
-                                [obj2['Adjumani District'][13][0], obj2['Adjumani District'][13][1]],
-                                [obj2['Adjumani District'][14][0], obj2['Adjumani District'][14][1]],
-                                [obj2['Adjumani District'][15][0], obj2['Adjumani District'][15][1]],
-                                [obj2['Adjumani District'][16][0], obj2['Adjumani District'][16][1]],
-                                [obj2['Adjumani District'][17][0], obj2['Adjumani District'][17][1]],
-                                [obj2['Adjumani District'][18][0], obj2['Adjumani District'][18][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 18; i += 1) {
+                                    data.push([
+                                        (typeof obj2["Adjumani District"] === 'undefined') ? 0:obj2['Adjumani District'][i][0],
+                                        (typeof obj2["Adjumani District"] === 'undefined') ? 0:obj2['Adjumani District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'aru',
                             name: 'Regimens',
-                            data: [
-                                [obj2['Arua District'][1][0], obj2['Arua District'][1][1]],
-                                [obj2['Arua District'][2][0], obj2['Arua District'][2][1]],
-                                [obj2['Arua District'][3][0], obj2['Arua District'][3][1]],
-                                [obj2['Arua District'][4][0], obj2['Arua District'][4][1]],
-                                [obj2['Arua District'][5][0], obj2['Arua District'][5][1]],
-                                [obj2['Arua District'][6][0], obj2['Arua District'][6][1]],
-                                [obj2['Arua District'][7][0], obj2['Arua District'][7][1]],
-                                [obj2['Arua District'][8][0], obj2['Arua District'][8][1]],
-                                [obj2['Arua District'][9][0], obj2['Arua District'][9][1]],
-                                [obj2['Arua District'][10][0], obj2['Arua District'][10][1]],
-                                [obj2['Arua District'][11][0], obj2['Arua District'][11][1]],
-                                [obj2['Arua District'][12][0], obj2['Arua District'][12][1]],
-                                [obj2['Arua District'][13][0], obj2['Arua District'][13][1]],
-                                [obj2['Arua District'][14][0], obj2['Arua District'][14][1]],
-                                [obj2['Arua District'][15][0], obj2['Arua District'][15][1]],
-                                [obj2['Arua District'][16][0], obj2['Arua District'][16][1]],
-                                [obj2['Arua District'][17][0], obj2['Arua District'][17][1]],
-                                [obj2['Arua District'][18][0], obj2['Arua District'][18][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 18; i += 1) {
+                                    data.push([
+                                        (typeof obj2["Arua District"] === 'undefined') ? 0:obj2['Arua District'][i][0],
+                                        (typeof obj2["Arua District"] === 'undefined') ? 0:obj2['Arua District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'kob',
                             name: 'Regimens',
-                            data: [
-                                [obj2['Koboko District'][1][0], obj2['Koboko District'][1][1]],
-                                [obj2['Koboko District'][2][0], obj2['Koboko District'][2][1]],
-                                [obj2['Koboko District'][3][0], obj2['Koboko District'][3][1]],
-                                [obj2['Koboko District'][4][0], obj2['Koboko District'][4][1]],
-                                [obj2['Koboko District'][5][0], obj2['Koboko District'][5][1]],
-                                [obj2['Koboko District'][6][0], obj2['Koboko District'][6][1]],
-                                [obj2['Koboko District'][7][0], obj2['Koboko District'][7][1]],
-                                [obj2['Koboko District'][8][0], obj2['Koboko District'][8][1]],
-                                [obj2['Koboko District'][9][0], obj2['Koboko District'][9][1]],
-                                [obj2['Koboko District'][10][0], obj2['Koboko District'][10][1]],
-                                [obj2['Koboko District'][11][0], obj2['Koboko District'][11][1]],
-                                [obj2['Koboko District'][12][0], obj2['Koboko District'][12][1]],
-                                [obj2['Koboko District'][13][0], obj2['Koboko District'][13][1]],
-                                [obj2['Koboko District'][14][0], obj2['Koboko District'][14][1]],
-                                [obj2['Koboko District'][15][0], obj2['Koboko District'][15][1]],
-                                [obj2['Koboko District'][16][0], obj2['Koboko District'][16][1]],
-                                [obj2['Koboko District'][17][0], obj2['Koboko District'][17][1]],
-                                [obj2['Koboko District'][18][0], obj2['Koboko District'][18][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 18; i += 1) {
+                                    data.push([
+                                        (typeof obj2["Koboko District"] === 'undefined') ? 0:obj2['Koboko District'][i][0],
+                                        (typeof obj2["Koboko District"] === 'undefined') ? 0:obj2['Koboko District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'mar',
                             name: 'Regimens',
-                            data: [
-                                [obj2['Maracha District'][1][0], obj2['Maracha District'][1][1]],
-                                [obj2['Maracha District'][2][0], obj2['Maracha District'][2][1]],
-                                [obj2['Maracha District'][3][0], obj2['Maracha District'][3][1]],
-                                [obj2['Maracha District'][4][0], obj2['Maracha District'][4][1]],
-                                [obj2['Maracha District'][5][0], obj2['Maracha District'][5][1]],
-                                [obj2['Maracha District'][6][0], obj2['Maracha District'][6][1]],
-                                [obj2['Maracha District'][7][0], obj2['Maracha District'][7][1]],
-                                [obj2['Maracha District'][8][0], obj2['Maracha District'][8][1]],
-                                [obj2['Maracha District'][9][0], obj2['Maracha District'][9][1]],
-                                [obj2['Maracha District'][10][0], obj2['Maracha District'][10][1]],
-                                [obj2['Maracha District'][11][0], obj2['Maracha District'][11][1]],
-                                [obj2['Maracha District'][12][0], obj2['Maracha District'][12][1]],
-                                [obj2['Maracha District'][13][0], obj2['Maracha District'][13][1]],
-                                [obj2['Maracha District'][14][0], obj2['Maracha District'][14][1]],
-                                [obj2['Maracha District'][15][0], obj2['Maracha District'][15][1]],
-                                [obj2['Maracha District'][16][0], obj2['Maracha District'][16][1]],
-                                [obj2['Maracha District'][17][0], obj2['Maracha District'][17][1]],
-                                [obj2['Maracha District'][18][0], obj2['Maracha District'][18][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 18; i += 1) {
+                                    data.push([
+                                        (typeof obj2["Maracha District"] === 'undefined') ? 0:obj2['Maracha District'][i][0],
+                                        (typeof obj2["Maracha District"] === 'undefined') ? 0:obj2['Maracha District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'moy',
                             name: 'Regimens',
-                            data: [
-                                [obj2['Moyo District'][1][0], obj2['Moyo District'][1][1]],
-                                [obj2['Moyo District'][2][0], obj2['Moyo District'][2][1]],
-                                [obj2['Moyo District'][3][0], obj2['Moyo District'][3][1]],
-                                [obj2['Moyo District'][4][0], obj2['Moyo District'][4][1]],
-                                [obj2['Moyo District'][5][0], obj2['Moyo District'][5][1]],
-                                [obj2['Moyo District'][6][0], obj2['Moyo District'][6][1]],
-                                [obj2['Moyo District'][7][0], obj2['Moyo District'][7][1]],
-                                [obj2['Moyo District'][8][0], obj2['Moyo District'][8][1]],
-                                [obj2['Moyo District'][9][0], obj2['Moyo District'][9][1]],
-                                [obj2['Moyo District'][10][0], obj2['Moyo District'][10][1]],
-                                [obj2['Moyo District'][11][0], obj2['Moyo District'][11][1]],
-                                [obj2['Moyo District'][12][0], obj2['Moyo District'][12][1]],
-                                [obj2['Moyo District'][13][0], obj2['Moyo District'][13][1]],
-                                [obj2['Moyo District'][14][0], obj2['Moyo District'][14][1]],
-                                [obj2['Moyo District'][15][0], obj2['Moyo District'][15][1]],
-                                [obj2['Moyo District'][16][0], obj2['Moyo District'][16][1]],
-                                [obj2['Moyo District'][17][0], obj2['Moyo District'][17][1]],
-                                [obj2['Moyo District'][18][0], obj2['Moyo District'][18][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 18; i += 1) {
+                                    data.push([
+                                        (typeof obj2["Moyo District"] === 'undefined') ? 0:obj2['Moyo District'][i][0],
+                                        (typeof obj2["Moyo District"] === 'undefined') ? 0:obj2['Moyo District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'neb',
                             name: 'Regimens',
-                            data: [
-                                [obj2['Nebbi District'][1][0], obj2['Nebbi District'][1][1]],
-                                [obj2['Nebbi District'][2][0], obj2['Nebbi District'][2][1]],
-                                [obj2['Nebbi District'][3][0], obj2['Nebbi District'][3][1]],
-                                [obj2['Nebbi District'][4][0], obj2['Nebbi District'][4][1]],
-                                [obj2['Nebbi District'][5][0], obj2['Nebbi District'][5][1]],
-                                [obj2['Nebbi District'][6][0], obj2['Nebbi District'][6][1]],
-                                [obj2['Nebbi District'][7][0], obj2['Nebbi District'][7][1]],
-                                [obj2['Nebbi District'][8][0], obj2['Nebbi District'][8][1]],
-                                [obj2['Nebbi District'][9][0], obj2['Nebbi District'][9][1]],
-                                [obj2['Nebbi District'][10][0], obj2['Nebbi District'][10][1]],
-                                [obj2['Nebbi District'][11][0], obj2['Nebbi District'][11][1]],
-                                [obj2['Nebbi District'][12][0], obj2['Nebbi District'][12][1]],
-                                [obj2['Nebbi District'][13][0], obj2['Nebbi District'][13][1]],
-                                [obj2['Nebbi District'][14][0], obj2['Nebbi District'][14][1]],
-                                [obj2['Nebbi District'][15][0], obj2['Nebbi District'][15][1]],
-                                [obj2['Nebbi District'][16][0], obj2['Nebbi District'][16][1]],
-                                [obj2['Nebbi District'][17][0], obj2['Nebbi District'][17][1]],
-                                [obj2['Nebbi District'][18][0], obj2['Nebbi District'][18][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 18; i += 1) {
+                                    data.push([
+                                        (typeof obj2["Nebbi District"] === 'undefined') ? 0:obj2['Nebbi District'][i][0],
+                                        (typeof obj2["Nebbi District"] === 'undefined') ? 0:obj2['Nebbi District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'pak',
                             name: 'Regimens',
-                            data: [
-                                [obj2['Pakwach District'][1][0], obj2['Pakwach District'][1][1]],
-                                [obj2['Pakwach District'][2][0], obj2['Pakwach District'][2][1]],
-                                [obj2['Pakwach District'][3][0], obj2['Pakwach District'][3][1]],
-                                [obj2['Pakwach District'][4][0], obj2['Pakwach District'][4][1]],
-                                [obj2['Pakwach District'][5][0], obj2['Pakwach District'][5][1]],
-                                [obj2['Pakwach District'][6][0], obj2['Pakwach District'][6][1]],
-                                [obj2['Pakwach District'][7][0], obj2['Pakwach District'][7][1]],
-                                [obj2['Pakwach District'][8][0], obj2['Pakwach District'][8][1]],
-                                [obj2['Pakwach District'][9][0], obj2['Pakwach District'][9][1]],
-                                [obj2['Pakwach District'][10][0], obj2['Pakwach District'][10][1]],
-                                [obj2['Pakwach District'][11][0], obj2['Pakwach District'][11][1]],
-                                [obj2['Pakwach District'][12][0], obj2['Pakwach District'][12][1]],
-                                [obj2['Pakwach District'][13][0], obj2['Pakwach District'][13][1]],
-                                [obj2['Pakwach District'][14][0], obj2['Pakwach District'][14][1]],
-                                [obj2['Pakwach District'][15][0], obj2['Pakwach District'][15][1]],
-                                [obj2['Pakwach District'][16][0], obj2['Pakwach District'][16][1]],
-                                [obj2['Pakwach District'][17][0], obj2['Pakwach District'][17][1]],
-                                [obj2['Pakwach District'][18][0], obj2['Pakwach District'][18][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 18; i += 1) {
+                                    data.push([
+                                        (typeof obj2["Pakwach District"] === 'undefined') ? 0:obj2['Pakwach District'][i][0],
+                                        (typeof obj2["Pakwach District"] === 'undefined') ? 0:obj2['Pakwach District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'yum',
                             name: 'Regimens',
-                            data: [
-                                [obj2['Yumbe District'][1][0], obj2['Yumbe District'][1][1]],
-                                [obj2['Yumbe District'][2][0], obj2['Yumbe District'][2][1]],
-                                [obj2['Yumbe District'][3][0], obj2['Yumbe District'][3][1]],
-                                [obj2['Yumbe District'][4][0], obj2['Yumbe District'][4][1]],
-                                [obj2['Yumbe District'][5][0], obj2['Yumbe District'][5][1]],
-                                [obj2['Yumbe District'][6][0], obj2['Yumbe District'][6][1]],
-                                [obj2['Yumbe District'][7][0], obj2['Yumbe District'][7][1]],
-                                [obj2['Yumbe District'][8][0], obj2['Yumbe District'][8][1]],
-                                [obj2['Yumbe District'][9][0], obj2['Yumbe District'][9][1]],
-                                [obj2['Yumbe District'][10][0], obj2['Yumbe District'][10][1]],
-                                [obj2['Yumbe District'][11][0], obj2['Yumbe District'][11][1]],
-                                [obj2['Yumbe District'][12][0], obj2['Yumbe District'][12][1]],
-                                [obj2['Yumbe District'][13][0], obj2['Yumbe District'][13][1]],
-                                [obj2['Yumbe District'][14][0], obj2['Yumbe District'][14][1]],
-                                [obj2['Yumbe District'][15][0], obj2['Yumbe District'][15][1]],
-                                [obj2['Yumbe District'][16][0], obj2['Yumbe District'][16][1]],
-                                [obj2['Yumbe District'][17][0], obj2['Yumbe District'][17][1]],
-                                [obj2['Yumbe District'][18][0], obj2['Yumbe District'][18][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 18; i += 1) {
+                                    data.push([
+                                        (typeof obj2["Yumbe District"] === 'undefined') ? 0:obj2['Yumbe District'][i][0],
+                                        (typeof obj2["Yumbe District"] === 'undefined') ? 0:obj2['Yumbe District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'zom',
                             name: 'Regimens',
-                            data: [
-                                [obj2['Zombo District'][1][0], obj2['Zombo District'][1][1]],
-                                [obj2['Zombo District'][2][0], obj2['Zombo District'][2][1]],
-                                [obj2['Zombo District'][3][0], obj2['Zombo District'][3][1]],
-                                [obj2['Zombo District'][4][0], obj2['Zombo District'][4][1]],
-                                [obj2['Zombo District'][5][0], obj2['Zombo District'][5][1]],
-                                [obj2['Zombo District'][6][0], obj2['Zombo District'][6][1]],
-                                [obj2['Zombo District'][7][0], obj2['Zombo District'][7][1]],
-                                [obj2['Zombo District'][8][0], obj2['Zombo District'][8][1]],
-                                [obj2['Zombo District'][9][0], obj2['Zombo District'][9][1]],
-                                [obj2['Zombo District'][10][0], obj2['Zombo District'][10][1]],
-                                [obj2['Zombo District'][11][0], obj2['Zombo District'][11][1]],
-                                [obj2['Zombo District'][12][0], obj2['Zombo District'][12][1]],
-                                [obj2['Zombo District'][13][0], obj2['Zombo District'][13][1]],
-                                [obj2['Zombo District'][14][0], obj2['Zombo District'][14][1]],
-                                [obj2['Zombo District'][15][0], obj2['Zombo District'][15][1]],
-                                [obj2['Zombo District'][16][0], obj2['Zombo District'][16][1]],
-                                [obj2['Zombo District'][17][0], obj2['Zombo District'][17][1]],
-                                [obj2['Zombo District'][18][0], obj2['Zombo District'][18][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 18; i += 1) {
+                                    data.push([
+                                        (typeof obj2["Zombo District"] === 'undefined') ? 0:obj2['Zombo District'][i][0],
+                                        (typeof obj2["Zombo District"] === 'undefined') ? 0:obj2['Zombo District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         }
                     ]
                 }
@@ -619,6 +496,8 @@ function stock_status(){
             var cobj2 = JSON.parse(cdis);
 
             //alert (obj2['Adjumani District'][0][0]);
+
+            //var $json_1 = ;
 
             Highcharts.chart('spaeds', {
 
@@ -668,11 +547,11 @@ function stock_status(){
                     colorByPoint: true,
                     data: [{
                         name: 'Rwenzori Region',
-                        y: cobj1["Western Region"],
+                        y: (typeof cobj1["Western Region"] === 'undefined') ? 0:cobj1["Western Region"],
                         drilldown: 'Rwenzori'
                     }, {
                         name: 'West Nile Region',
-                        y: cobj1["Northern Region"],
+                        y: (typeof cobj1["Northern Region"] === 'undefined') ? 0:cobj1["Northern Region"],
                         drilldown: 'West Nile'
                     }]
                 }],
@@ -681,391 +560,300 @@ function stock_status(){
                         name: 'Districts',
                         id: 'Rwenzori',
                         data: [
-                            {name:'Kabarole', y: cobj2['Kabarole District'][0][0], drilldown: 'kab'},
-                            {name:'Kasese', y:cobj2["Kasese District"][0][0], drilldown: 'kas'},
-                            {name:'Kamwenge', y:cobj2['Kamwenge District'][0][0], drilldown: 'kam'},
-                            {name:'Kyenjojo', y:cobj2["Kyenjojo District"][0][0], drilldown: 'kyen'},
-                            {name:'Kyegegwa', y: cobj2['Kyegegwa District'][0][0], drilldown: 'kyeg'},
-                            {name:'Bundibugyo', y:cobj2["Bundibugyo District"][0][0], drilldown: 'bun'},
-                            {name:'Ntoroko', y:cobj2["Ntoroko District"][0][0], drilldown: 'nto'}
+                            {name:'Kabarole', y: (typeof cobj2["Kabarole District"] === 'undefined') ? 0:cobj2['Kabarole District'][0][0], drilldown: 'kab'},
+                            {name:'Kasese', y:(typeof cobj2["Kasese District"] === 'undefined') ? 0:cobj2['Kasese District'][0][0], drilldown: 'kas'},
+                            {name:'Kamwenge', y:(typeof cobj2["Kamwenge District"] === 'undefined') ? 0:cobj2['Kamwenge District'][0][0], drilldown: 'kam'},
+                            {name:'Kyenjojo', y:(typeof cobj2["Kyenjojo District"] === 'undefined') ? 0:cobj2['Kyenjojo District'][0][0], drilldown: 'kyen'},
+                            {name:'Kyegegwa', y:(typeof cobj2["Kyegegwa District"] === 'undefined') ? 0:cobj2['Kyegegwa District'][0][0], drilldown: 'kyeg'},
+                            {name:'Bundibugyo', y:(typeof cobj2["Bundibugyo District"] === 'undefined') ? 0:cobj2['Bundibugyo District'][0][0], drilldown: 'bun'},
+                            {name:'Ntoroko', y:(typeof cobj2["Ntoroko District"] === 'undefined') ? 0:cobj2['Ntoroko District'][0][0], drilldown: 'nto'}
                         ]
+                        /*
+                        (function () {
+                            // generate an array of random data
+                            var data = [], i;
+
+                            for (i = 1; i <= 1; i += 1) {
+                                data.push([
+                                    //obj2['Kabarole District'][i][0],
+                                    //obj2['Kabarole District'][i][1]
+                                    {name:'Kabarole', y: i, drilldown: 'kab'}
+                                ]);
+                            }
+                            return data;
+                        }())
+                        */
                     },
                         {
                             id: 'kab',
                             name: 'Kabarole',
-                            data: [
-                                [cobj2['Kabarole District'][1][0], cobj2['Kabarole District'][1][1]],
-                                [cobj2['Kabarole District'][2][0], cobj2['Kabarole District'][2][1]],
-                                [cobj2['Kabarole District'][3][0], cobj2['Kabarole District'][3][1]],
-                                [cobj2['Kabarole District'][4][0], cobj2['Kabarole District'][4][1]],
-                                [cobj2['Kabarole District'][5][0], cobj2['Kabarole District'][5][1]],
-                                [cobj2['Kabarole District'][6][0], cobj2['Kabarole District'][6][1]],
-                                [cobj2['Kabarole District'][7][0], cobj2['Kabarole District'][7][1]],
-                                [cobj2['Kabarole District'][8][0], cobj2['Kabarole District'][8][1]],
-                                [cobj2['Kabarole District'][9][0], cobj2['Kabarole District'][9][1]],
-                                [cobj2['Kabarole District'][10][0], cobj2['Kabarole District'][10][1]],
-                                [cobj2['Kabarole District'][11][0], cobj2['Kabarole District'][11][1]],
-                                [cobj2['Kabarole District'][12][0], cobj2['Kabarole District'][12][1]],
-                                [cobj2['Kabarole District'][13][0], cobj2['Kabarole District'][13][1]],
-                                [cobj2['Kabarole District'][14][0], cobj2['Kabarole District'][14][1]],
-                                [cobj2['Kabarole District'][15][0], cobj2['Kabarole District'][15][1]],
-                                [cobj2['Kabarole District'][16][0], cobj2['Kabarole District'][16][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 16; i += 1) {
+                                    data.push([
+                                        (typeof cobj2["Kabarole District"] === 'undefined') ? 0:cobj2['Kabarole District'][i][0],
+                                        (typeof cobj2["Kabarole District"] === 'undefined') ? 0:cobj2['Kabarole District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'kas',
                             name: 'Kasese',
-                            data: [
-                                [cobj2['Kasese District'][1][0], cobj2['Kasese District'][1][1]],
-                                [cobj2['Kasese District'][2][0], cobj2['Kasese District'][2][1]],
-                                [cobj2['Kasese District'][3][0], cobj2['Kasese District'][3][1]],
-                                [cobj2['Kasese District'][4][0], cobj2['Kasese District'][4][1]],
-                                [cobj2['Kasese District'][5][0], cobj2['Kasese District'][5][1]],
-                                [cobj2['Kasese District'][6][0], cobj2['Kasese District'][6][1]],
-                                [cobj2['Kasese District'][7][0], cobj2['Kasese District'][7][1]],
-                                [cobj2['Kasese District'][8][0], cobj2['Kasese District'][8][1]],
-                                [cobj2['Kasese District'][9][0], cobj2['Kasese District'][9][1]],
-                                [cobj2['Kasese District'][10][0], cobj2['Kasese District'][10][1]],
-                                [cobj2['Kasese District'][11][0], cobj2['Kasese District'][11][1]],
-                                [cobj2['Kasese District'][12][0], cobj2['Kasese District'][12][1]],
-                                [cobj2['Kasese District'][13][0], cobj2['Kasese District'][13][1]],
-                                [cobj2['Kasese District'][14][0], cobj2['Kasese District'][14][1]],
-                                [cobj2['Kasese District'][15][0], cobj2['Kasese District'][15][1]],
-                                [cobj2['Kasese District'][16][0], cobj2['Kasese District'][16][1]]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
 
-                            ]
+                                for (i = 1; i <= 16; i += 1) {
+                                    data.push([
+                                        (typeof cobj2["Kasese District"] === 'undefined') ? 0:cobj2['Kasese District'][i][0],
+                                        (typeof cobj2["Kasese District"] === 'undefined') ? 0:cobj2['Kasese District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'kam',
                             name: 'Kamwenge',
-                            data: [
-                                [cobj2['Kamwenge District'][1][0], cobj2['Kamwenge District'][1][1]],
-                                [cobj2['Kamwenge District'][2][0], cobj2['Kamwenge District'][2][1]],
-                                [cobj2['Kamwenge District'][3][0], cobj2['Kamwenge District'][3][1]],
-                                [cobj2['Kamwenge District'][4][0], cobj2['Kamwenge District'][4][1]],
-                                [cobj2['Kamwenge District'][5][0], cobj2['Kamwenge District'][5][1]],
-                                [cobj2['Kamwenge District'][6][0], cobj2['Kamwenge District'][6][1]],
-                                [cobj2['Kamwenge District'][7][0], cobj2['Kamwenge District'][7][1]],
-                                [cobj2['Kamwenge District'][8][0], cobj2['Kamwenge District'][8][1]],
-                                [cobj2['Kamwenge District'][9][0], cobj2['Kamwenge District'][9][1]],
-                                [cobj2['Kamwenge District'][10][0], cobj2['Kamwenge District'][10][1]],
-                                [cobj2['Kamwenge District'][11][0], cobj2['Kamwenge District'][11][1]],
-                                [cobj2['Kamwenge District'][12][0], cobj2['Kamwenge District'][12][1]],
-                                [cobj2['Kamwenge District'][13][0], cobj2['Kamwenge District'][13][1]],
-                                [cobj2['Kamwenge District'][14][0], cobj2['Kamwenge District'][14][1]],
-                                [cobj2['Kamwenge District'][15][0], cobj2['Kamwenge District'][15][1]],
-                                [cobj2['Kamwenge District'][16][0], cobj2['Kamwenge District'][16][1]]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
 
-                            ]
+                                for (i = 1; i <= 16; i += 1) {
+                                    data.push([
+                                        (typeof cobj2["Kamwenge District"] === 'undefined') ? 0:cobj2['Kamwenge District'][i][0],
+                                        (typeof cobj2["Kamwenge District"] === 'undefined') ? 0:cobj2['Kamwenge District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'kyen',
                             name: 'Kyenjojo',
-                            data: [
-                                [cobj2['Kyenjojo District'][1][0], cobj2['Kyenjojo District'][1][1]],
-                                [cobj2['Kyenjojo District'][2][0], cobj2['Kyenjojo District'][2][1]],
-                                [cobj2['Kyenjojo District'][3][0], cobj2['Kyenjojo District'][3][1]],
-                                [cobj2['Kyenjojo District'][4][0], cobj2['Kyenjojo District'][4][1]],
-                                [cobj2['Kyenjojo District'][5][0], cobj2['Kyenjojo District'][5][1]],
-                                [cobj2['Kyenjojo District'][6][0], cobj2['Kyenjojo District'][6][1]],
-                                [cobj2['Kyenjojo District'][7][0], cobj2['Kyenjojo District'][7][1]],
-                                [cobj2['Kyenjojo District'][8][0], cobj2['Kyenjojo District'][8][1]],
-                                [cobj2['Kyenjojo District'][9][0], cobj2['Kyenjojo District'][9][1]],
-                                [cobj2['Kyenjojo District'][10][0], cobj2['Kyenjojo District'][10][1]],
-                                [cobj2['Kyenjojo District'][11][0], cobj2['Kyenjojo District'][11][1]],
-                                [cobj2['Kyenjojo District'][12][0], cobj2['Kyenjojo District'][12][1]],
-                                [cobj2['Kyenjojo District'][13][0], cobj2['Kyenjojo District'][13][1]],
-                                [cobj2['Kyenjojo District'][14][0], cobj2['Kyenjojo District'][14][1]],
-                                [cobj2['Kyenjojo District'][15][0], cobj2['Kyenjojo District'][15][1]],
-                                [cobj2['Kyenjojo District'][16][0], cobj2['Kyenjojo District'][16][1]]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
 
-                            ]
+                                for (i = 1; i <= 16; i += 1) {
+                                    data.push([
+                                        (typeof cobj2["Kyenjojo District"] === 'undefined') ? 0:cobj2['Kyenjojo District'][i][0],
+                                        (typeof cobj2["Kyenjojo District"] === 'undefined') ? 0:cobj2['Kyenjojo District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'kyeg',
                             name: 'Kyegegwa',
-                            data: [
-                                [cobj2['Kyegegwa District'][1][0], cobj2['Kyegegwa District'][1][1]],
-                                [cobj2['Kyegegwa District'][2][0], cobj2['Kyegegwa District'][2][1]],
-                                [cobj2['Kyegegwa District'][3][0], cobj2['Kyegegwa District'][3][1]],
-                                [cobj2['Kyegegwa District'][4][0], cobj2['Kyegegwa District'][4][1]],
-                                [cobj2['Kyegegwa District'][5][0], cobj2['Kyegegwa District'][5][1]],
-                                [cobj2['Kyegegwa District'][6][0], cobj2['Kyegegwa District'][6][1]],
-                                [cobj2['Kyegegwa District'][7][0], cobj2['Kyegegwa District'][7][1]],
-                                [cobj2['Kyegegwa District'][8][0], cobj2['Kyegegwa District'][8][1]],
-                                [cobj2['Kyegegwa District'][9][0], cobj2['Kyegegwa District'][9][1]],
-                                [cobj2['Kyegegwa District'][10][0], cobj2['Kyegegwa District'][10][1]],
-                                [cobj2['Kyegegwa District'][11][0], cobj2['Kyegegwa District'][11][1]],
-                                [cobj2['Kyegegwa District'][12][0], cobj2['Kyegegwa District'][12][1]],
-                                [cobj2['Kyegegwa District'][13][0], cobj2['Kyegegwa District'][13][1]],
-                                [cobj2['Kyegegwa District'][14][0], cobj2['Kyegegwa District'][14][1]],
-                                [cobj2['Kyegegwa District'][15][0], cobj2['Kyegegwa District'][15][1]],
-                                [cobj2['Kyegegwa District'][16][0], cobj2['Kyegegwa District'][16][1]]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
 
-                            ]
+                                for (i = 1; i <= 16; i += 1) {
+                                    data.push([
+                                        (typeof cobj2["Kyegegwa District"] === 'undefined') ? 0:cobj2['Kyegegwa District'][i][0],
+                                        (typeof cobj2["Kyegegwa District"] === 'undefined') ? 0:cobj2['Kyegegwa District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'bun',
                             name: 'Bundibugyo',
-                            data: [
-                                [cobj2['Bundibugyo District'][1][0], cobj2['Bundibugyo District'][1][1]],
-                                [cobj2['Bundibugyo District'][2][0], cobj2['Bundibugyo District'][2][1]],
-                                [cobj2['Bundibugyo District'][3][0], cobj2['Bundibugyo District'][3][1]],
-                                [cobj2['Bundibugyo District'][4][0], cobj2['Bundibugyo District'][4][1]],
-                                [cobj2['Bundibugyo District'][5][0], cobj2['Bundibugyo District'][5][1]],
-                                [cobj2['Bundibugyo District'][6][0], cobj2['Bundibugyo District'][6][1]],
-                                [cobj2['Bundibugyo District'][7][0], cobj2['Bundibugyo District'][7][1]],
-                                [cobj2['Bundibugyo District'][8][0], cobj2['Bundibugyo District'][8][1]],
-                                [cobj2['Bundibugyo District'][9][0], cobj2['Bundibugyo District'][9][1]],
-                                [cobj2['Bundibugyo District'][10][0], cobj2['Bundibugyo District'][10][1]],
-                                [cobj2['Bundibugyo District'][11][0], cobj2['Bundibugyo District'][11][1]],
-                                [cobj2['Bundibugyo District'][12][0], cobj2['Bundibugyo District'][12][1]],
-                                [cobj2['Bundibugyo District'][13][0], cobj2['Bundibugyo District'][13][1]],
-                                [cobj2['Bundibugyo District'][14][0], cobj2['Bundibugyo District'][14][1]],
-                                [cobj2['Bundibugyo District'][15][0], cobj2['Bundibugyo District'][15][1]],
-                                [cobj2['Bundibugyo District'][16][0], cobj2['Bundibugyo District'][16][1]]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
 
-                            ]
+                                for (i = 1; i <= 16; i += 1) {
+                                    data.push([
+                                        (typeof cobj2["Bundibugyo District"] === 'undefined') ? 0:cobj2['Bundibugyo District'][i][0],
+                                        (typeof cobj2["Bundibugyo District"] === 'undefined') ? 0:cobj2['Bundibugyo District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'nto',
                             name: 'Ntoroko',
-                            data: [
-                                [cobj2['Ntoroko District'][1][0], cobj2['Ntoroko District'][1][1]],
-                                [cobj2['Ntoroko District'][2][0], cobj2['Ntoroko District'][2][1]],
-                                [cobj2['Ntoroko District'][3][0], cobj2['Ntoroko District'][3][1]],
-                                [cobj2['Ntoroko District'][4][0], cobj2['Ntoroko District'][4][1]],
-                                [cobj2['Ntoroko District'][5][0], cobj2['Ntoroko District'][5][1]],
-                                [cobj2['Ntoroko District'][6][0], cobj2['Ntoroko District'][6][1]],
-                                [cobj2['Ntoroko District'][7][0], cobj2['Ntoroko District'][7][1]],
-                                [cobj2['Ntoroko District'][8][0], cobj2['Ntoroko District'][8][1]],
-                                [cobj2['Ntoroko District'][9][0], cobj2['Ntoroko District'][9][1]],
-                                [cobj2['Ntoroko District'][10][0], cobj2['Ntoroko District'][10][1]],
-                                [cobj2['Ntoroko District'][11][0], cobj2['Ntoroko District'][11][1]],
-                                [cobj2['Ntoroko District'][12][0], cobj2['Ntoroko District'][12][1]],
-                                [cobj2['Ntoroko District'][13][0], cobj2['Ntoroko District'][13][1]],
-                                [cobj2['Ntoroko District'][14][0], cobj2['Ntoroko District'][14][1]],
-                                [cobj2['Ntoroko District'][15][0], cobj2['Ntoroko District'][15][1]],
-                                [cobj2['Ntoroko District'][16][0], cobj2['Ntoroko District'][16][1]]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
 
-                            ]
+                                for (i = 1; i <= 16; i += 1) {
+                                    data.push([
+                                        (typeof cobj2["Ntoroko District"] === 'undefined') ? 0:cobj2['Ntoroko District'][i][0],
+                                        (typeof cobj2["Ntoroko District"] === 'undefined') ? 0:cobj2['Ntoroko District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             name: 'Districts',
                             id: 'West Nile',
                             data: [
-                                {name:'Adjumani', y: cobj2['Adjumani District'][0][0], drilldown: 'adj'},
-                                {name:'Arua', y:cobj2['Arua District'][0][0], drilldown: 'aru'},
-                                {name:'Koboko', y:cobj2['Koboko District'][0][0], drilldown: 'kob'},
-                                {name:'Maracha', y:cobj2['Maracha District'][0][0], drilldown: 'mar'},
-                                {name:'Moyo', y:cobj2['Moyo District'][0][0], drilldown: 'moy'},
-                                {name:'Nebbi', y:cobj2['Nebbi District'][0][0], drilldown: 'neb'},
-                                {name:'Pakwach', y:cobj2['Pakwach District'][0][0], drilldown: 'pak'},
-                                {name:'Yumbe', y:cobj2['Yumbe District'][0][0], drilldown: 'yum'},
-                                {name:'Zombo', y:cobj2['Zombo District'][0][0], drilldown: 'zom'}
+                                {name:'Adjumani', y: (typeof cobj2["Adjumani District"] === 'undefined') ? 0:cobj2['Adjumani District'][0][0], drilldown: 'adj'},
+                                {name:'Arua', y:(typeof cobj2["Arua District"] === 'undefined') ? 0:cobj2['Arua District'][0][0], drilldown: 'aru'},
+                                {name:'Koboko', y:(typeof cobj2["Koboko District"] === 'undefined') ? 0:cobj2['Koboko District'][0][0], drilldown: 'kob'},
+                                {name:'Maracha', y:(typeof cobj2["Maracha District"] === 'undefined') ? 0:cobj2['Maracha District'][0][0], drilldown: 'mar'},
+                                {name:'Moyo', y:(typeof cobj2["Moyo District"] === 'undefined') ? 0:cobj2['Moyo District'][0][0], drilldown: 'moy'},
+                                {name:'Nebbi', y:(typeof cobj2["Nebbi District"] === 'undefined') ? 0:cobj2['Nebbi District'][0][0], drilldown: 'neb'},
+                                {name:'Pakwach', y:(typeof cobj2["Pakwach District"] === 'undefined') ? 0:cobj2['Pakwach District'][0][0], drilldown: 'pak'},
+                                {name:'Yumbe', y:(typeof cobj2["Yumbe District"] === 'undefined') ? 0:cobj2['Yumbe District'][0][0], drilldown: 'yum'},
+                                {name:'Zombo', y:(typeof cobj2["Zombo District"] === 'undefined') ? 0:cobj2['Zombo District'][0][0], drilldown: 'zom'}
                             ]
                         },
                         {
                             id: 'adj',
                             name: 'Regimens',
-                            data: [
-                                [cobj2['Adjumani District'][1][0], cobj2['Adjumani District'][1][1]],
-                                [cobj2['Adjumani District'][2][0], cobj2['Adjumani District'][2][1]],
-                                [cobj2['Adjumani District'][3][0], cobj2['Adjumani District'][3][1]],
-                                [cobj2['Adjumani District'][4][0], cobj2['Adjumani District'][4][1]],
-                                [cobj2['Adjumani District'][5][0], cobj2['Adjumani District'][5][1]],
-                                [cobj2['Adjumani District'][6][0], cobj2['Adjumani District'][6][1]],
-                                [cobj2['Adjumani District'][7][0], cobj2['Adjumani District'][7][1]],
-                                [cobj2['Adjumani District'][8][0], cobj2['Adjumani District'][8][1]],
-                                [cobj2['Adjumani District'][9][0], cobj2['Adjumani District'][9][1]],
-                                [cobj2['Adjumani District'][10][0], cobj2['Adjumani District'][10][1]],
-                                [cobj2['Adjumani District'][11][0], cobj2['Adjumani District'][11][1]],
-                                [cobj2['Adjumani District'][12][0], cobj2['Adjumani District'][12][1]],
-                                [cobj2['Adjumani District'][13][0], cobj2['Adjumani District'][13][1]],
-                                [cobj2['Adjumani District'][14][0], cobj2['Adjumani District'][14][1]],
-                                [cobj2['Adjumani District'][15][0], cobj2['Adjumani District'][15][1]],
-                                [cobj2['Adjumani District'][16][0], cobj2['Adjumani District'][16][1]]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
 
-                            ]
+                                for (i = 1; i <= 16; i += 1) {
+                                    data.push([
+                                        (typeof cobj2["Adjumani District"] === 'undefined') ? 0:cobj2['Adjumani District'][i][0],
+                                        (typeof cobj2["Adjumani District"] === 'undefined') ? 0:cobj2['Adjumani District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'aru',
                             name: 'Regimens',
-                            data: [
-                                [cobj2['Arua District'][1][0], cobj2['Arua District'][1][1]],
-                                [cobj2['Arua District'][2][0], cobj2['Arua District'][2][1]],
-                                [cobj2['Arua District'][3][0], cobj2['Arua District'][3][1]],
-                                [cobj2['Arua District'][4][0], cobj2['Arua District'][4][1]],
-                                [cobj2['Arua District'][5][0], cobj2['Arua District'][5][1]],
-                                [cobj2['Arua District'][6][0], cobj2['Arua District'][6][1]],
-                                [cobj2['Arua District'][7][0], cobj2['Arua District'][7][1]],
-                                [cobj2['Arua District'][8][0], cobj2['Arua District'][8][1]],
-                                [cobj2['Arua District'][9][0], cobj2['Arua District'][9][1]],
-                                [cobj2['Arua District'][10][0], cobj2['Arua District'][10][1]],
-                                [cobj2['Arua District'][11][0], cobj2['Arua District'][11][1]],
-                                [cobj2['Arua District'][12][0], cobj2['Arua District'][12][1]],
-                                [cobj2['Arua District'][13][0], cobj2['Arua District'][13][1]],
-                                [cobj2['Arua District'][14][0], cobj2['Arua District'][14][1]],
-                                [cobj2['Arua District'][15][0], cobj2['Arua District'][15][1]],
-                                [cobj2['Arua District'][16][0], cobj2['Arua District'][16][1]]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
 
-                            ]
+                                for (i = 1; i <= 16; i += 1) {
+                                    data.push([
+                                        (typeof cobj2["Arua District"] === 'undefined') ? 0:cobj2['Arua District'][i][0],
+                                        (typeof cobj2["Arua District"] === 'undefined') ? 0:cobj2['Arua District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'kob',
                             name: 'Regimens',
-                            data: [
-                                [cobj2['Koboko District'][1][0], cobj2['Koboko District'][1][1]],
-                                [cobj2['Koboko District'][2][0], cobj2['Koboko District'][2][1]],
-                                [cobj2['Koboko District'][3][0], cobj2['Koboko District'][3][1]],
-                                [cobj2['Koboko District'][4][0], cobj2['Koboko District'][4][1]],
-                                [cobj2['Koboko District'][5][0], cobj2['Koboko District'][5][1]],
-                                [cobj2['Koboko District'][6][0], cobj2['Koboko District'][6][1]],
-                                [cobj2['Koboko District'][7][0], cobj2['Koboko District'][7][1]],
-                                [cobj2['Koboko District'][8][0], cobj2['Koboko District'][8][1]],
-                                [cobj2['Koboko District'][9][0], cobj2['Koboko District'][9][1]],
-                                [cobj2['Koboko District'][10][0], cobj2['Koboko District'][10][1]],
-                                [cobj2['Koboko District'][11][0], cobj2['Koboko District'][11][1]],
-                                [cobj2['Koboko District'][12][0], cobj2['Koboko District'][12][1]],
-                                [cobj2['Koboko District'][13][0], cobj2['Koboko District'][13][1]],
-                                [cobj2['Koboko District'][14][0], cobj2['Koboko District'][14][1]],
-                                [cobj2['Koboko District'][15][0], cobj2['Koboko District'][15][1]],
-                                [cobj2['Koboko District'][16][0], cobj2['Koboko District'][16][1]]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
 
-                            ]
+                                for (i = 1; i <= 16; i += 1) {
+                                    data.push([
+                                        (typeof cobj2["Koboko District"] === 'undefined') ? 0:cobj2['Koboko District'][i][0],
+                                        (typeof cobj2["Koboko District"] === 'undefined') ? 0:cobj2['Koboko District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'mar',
                             name: 'Regimens',
-                            data: [
-                                [cobj2['Maracha District'][1][0], cobj2['Maracha District'][1][1]],
-                                [cobj2['Maracha District'][2][0], cobj2['Maracha District'][2][1]],
-                                [cobj2['Maracha District'][3][0], cobj2['Maracha District'][3][1]],
-                                [cobj2['Maracha District'][4][0], cobj2['Maracha District'][4][1]],
-                                [cobj2['Maracha District'][5][0], cobj2['Maracha District'][5][1]],
-                                [cobj2['Maracha District'][6][0], cobj2['Maracha District'][6][1]],
-                                [cobj2['Maracha District'][7][0], cobj2['Maracha District'][7][1]],
-                                [cobj2['Maracha District'][8][0], cobj2['Maracha District'][8][1]],
-                                [cobj2['Maracha District'][9][0], cobj2['Maracha District'][9][1]],
-                                [cobj2['Maracha District'][10][0], cobj2['Maracha District'][10][1]],
-                                [cobj2['Maracha District'][11][0], cobj2['Maracha District'][11][1]],
-                                [cobj2['Maracha District'][12][0], cobj2['Maracha District'][12][1]],
-                                [cobj2['Maracha District'][13][0], cobj2['Maracha District'][13][1]],
-                                [cobj2['Maracha District'][14][0], cobj2['Maracha District'][14][1]],
-                                [cobj2['Maracha District'][15][0], cobj2['Maracha District'][15][1]],
-                                [cobj2['Maracha District'][16][0], cobj2['Maracha District'][16][1]]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
 
-                            ]
+                                for (i = 1; i <= 16; i += 1) {
+                                    data.push([
+                                        (typeof cobj2["Maracha District"] === 'undefined') ? 0:cobj2['Maracha District'][i][0],
+                                        (typeof cobj2["Maracha District"] === 'undefined') ? 0:cobj2['Maracha District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'moy',
                             name: 'Regimens',
-                            data: [
-                                [cobj2['Moyo District'][1][0], cobj2['Moyo District'][1][1]],
-                                [cobj2['Moyo District'][2][0], cobj2['Moyo District'][2][1]],
-                                [cobj2['Moyo District'][3][0], cobj2['Moyo District'][3][1]],
-                                [cobj2['Moyo District'][4][0], cobj2['Moyo District'][4][1]],
-                                [cobj2['Moyo District'][5][0], cobj2['Moyo District'][5][1]],
-                                [cobj2['Moyo District'][6][0], cobj2['Moyo District'][6][1]],
-                                [cobj2['Moyo District'][7][0], cobj2['Moyo District'][7][1]],
-                                [cobj2['Moyo District'][8][0], cobj2['Moyo District'][8][1]],
-                                [cobj2['Moyo District'][9][0], cobj2['Moyo District'][9][1]],
-                                [cobj2['Moyo District'][10][0], cobj2['Moyo District'][10][1]],
-                                [cobj2['Moyo District'][11][0], cobj2['Moyo District'][11][1]],
-                                [cobj2['Moyo District'][12][0], cobj2['Moyo District'][12][1]],
-                                [cobj2['Moyo District'][13][0], cobj2['Moyo District'][13][1]],
-                                [cobj2['Moyo District'][14][0], cobj2['Moyo District'][14][1]],
-                                [cobj2['Moyo District'][15][0], cobj2['Moyo District'][15][1]],
-                                [cobj2['Moyo District'][16][0], cobj2['Moyo District'][16][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 16; i += 1) {
+                                    data.push([
+                                        (typeof cobj2["Moyo District"] === 'undefined') ? 0:cobj2['Moyo District'][i][0],
+                                        (typeof cobj2["Moyo District"] === 'undefined') ? 0:cobj2['Moyo District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'neb',
                             name: 'Regimens',
-                            data: [
-                                [cobj2['Nebbi District'][1][0], cobj2['Nebbi District'][1][1]],
-                                [cobj2['Nebbi District'][2][0], cobj2['Nebbi District'][2][1]],
-                                [cobj2['Nebbi District'][3][0], cobj2['Nebbi District'][3][1]],
-                                [cobj2['Nebbi District'][4][0], cobj2['Nebbi District'][4][1]],
-                                [cobj2['Nebbi District'][5][0], cobj2['Nebbi District'][5][1]],
-                                [cobj2['Nebbi District'][6][0], cobj2['Nebbi District'][6][1]],
-                                [cobj2['Nebbi District'][7][0], cobj2['Nebbi District'][7][1]],
-                                [cobj2['Nebbi District'][8][0], cobj2['Nebbi District'][8][1]],
-                                [cobj2['Nebbi District'][9][0], cobj2['Nebbi District'][9][1]],
-                                [cobj2['Nebbi District'][10][0], cobj2['Nebbi District'][10][1]],
-                                [cobj2['Nebbi District'][11][0], cobj2['Nebbi District'][11][1]],
-                                [cobj2['Nebbi District'][12][0], cobj2['Nebbi District'][12][1]],
-                                [cobj2['Nebbi District'][13][0], cobj2['Nebbi District'][13][1]],
-                                [cobj2['Nebbi District'][14][0], cobj2['Nebbi District'][14][1]],
-                                [cobj2['Nebbi District'][15][0], cobj2['Nebbi District'][15][1]],
-                                [cobj2['Nebbi District'][16][0], cobj2['Nebbi District'][16][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 16; i += 1) {
+                                    data.push([
+                                        (typeof cobj2["Nebbi District"] === 'undefined') ? 0:cobj2['Nebbi District'][i][0],
+                                        (typeof cobj2["Nebbi District"] === 'undefined') ? 0:cobj2['Nebbi District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'pak',
                             name: 'Regimens',
-                            data: [
-                                [cobj2['Pakwach District'][1][0], cobj2['Pakwach District'][1][1]],
-                                [cobj2['Pakwach District'][2][0], cobj2['Pakwach District'][2][1]],
-                                [cobj2['Pakwach District'][3][0], cobj2['Pakwach District'][3][1]],
-                                [cobj2['Pakwach District'][4][0], cobj2['Pakwach District'][4][1]],
-                                [cobj2['Pakwach District'][5][0], cobj2['Pakwach District'][5][1]],
-                                [cobj2['Pakwach District'][6][0], cobj2['Pakwach District'][6][1]],
-                                [cobj2['Pakwach District'][7][0], cobj2['Pakwach District'][7][1]],
-                                [cobj2['Pakwach District'][8][0], cobj2['Pakwach District'][8][1]],
-                                [cobj2['Pakwach District'][9][0], cobj2['Pakwach District'][9][1]],
-                                [cobj2['Pakwach District'][10][0], cobj2['Pakwach District'][10][1]],
-                                [cobj2['Pakwach District'][11][0], cobj2['Pakwach District'][11][1]],
-                                [cobj2['Pakwach District'][12][0], cobj2['Pakwach District'][12][1]],
-                                [cobj2['Pakwach District'][13][0], cobj2['Pakwach District'][13][1]],
-                                [cobj2['Pakwach District'][14][0], cobj2['Pakwach District'][14][1]],
-                                [cobj2['Pakwach District'][15][0], cobj2['Pakwach District'][15][1]],
-                                [cobj2['Pakwach District'][16][0], cobj2['Pakwach District'][16][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 16; i += 1) {
+                                    data.push([
+                                        (typeof cobj2["Pakwach District"] === 'undefined') ? 0:cobj2['Pakwach District'][i][0],
+                                        (typeof cobj2["Pakwach District"] === 'undefined') ? 0:cobj2['Pakwach District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'yum',
                             name: 'Regimens',
-                            data: [
-                                [cobj2['Yumbe District'][1][0], cobj2['Yumbe District'][1][1]],
-                                [cobj2['Yumbe District'][2][0], cobj2['Yumbe District'][2][1]],
-                                [cobj2['Yumbe District'][3][0], cobj2['Yumbe District'][3][1]],
-                                [cobj2['Yumbe District'][4][0], cobj2['Yumbe District'][4][1]],
-                                [cobj2['Yumbe District'][5][0], cobj2['Yumbe District'][5][1]],
-                                [cobj2['Yumbe District'][6][0], cobj2['Yumbe District'][6][1]],
-                                [cobj2['Yumbe District'][7][0], cobj2['Yumbe District'][7][1]],
-                                [cobj2['Yumbe District'][8][0], cobj2['Yumbe District'][8][1]],
-                                [cobj2['Yumbe District'][9][0], cobj2['Yumbe District'][9][1]],
-                                [cobj2['Yumbe District'][10][0], cobj2['Yumbe District'][10][1]],
-                                [cobj2['Yumbe District'][11][0], cobj2['Yumbe District'][11][1]],
-                                [cobj2['Yumbe District'][12][0], cobj2['Yumbe District'][12][1]],
-                                [cobj2['Yumbe District'][13][0], cobj2['Yumbe District'][13][1]],
-                                [cobj2['Yumbe District'][14][0], cobj2['Yumbe District'][14][1]],
-                                [cobj2['Yumbe District'][15][0], cobj2['Yumbe District'][15][1]],
-                                [cobj2['Yumbe District'][16][0], cobj2['Yumbe District'][16][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 16; i += 1) {
+                                    data.push([
+                                        (typeof cobj2["Yumbe District"] === 'undefined') ? 0:cobj2['Yumbe District'][i][0],
+                                        (typeof cobj2["Yumbe District"] === 'undefined') ? 0:cobj2['Yumbe District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         },
                         {
                             id: 'zom',
                             name: 'Regimens',
-                            data: [
-                                [cobj2['Zombo District'][1][0], cobj2['Zombo District'][1][1]],
-                                [cobj2['Zombo District'][2][0], cobj2['Zombo District'][2][1]],
-                                [cobj2['Zombo District'][3][0], cobj2['Zombo District'][3][1]],
-                                [cobj2['Zombo District'][4][0], cobj2['Zombo District'][4][1]],
-                                [cobj2['Zombo District'][5][0], cobj2['Zombo District'][5][1]],
-                                [cobj2['Zombo District'][6][0], cobj2['Zombo District'][6][1]],
-                                [cobj2['Zombo District'][7][0], cobj2['Zombo District'][7][1]],
-                                [cobj2['Zombo District'][8][0], cobj2['Zombo District'][8][1]],
-                                [cobj2['Zombo District'][9][0], cobj2['Zombo District'][9][1]],
-                                [cobj2['Zombo District'][10][0], cobj2['Zombo District'][10][1]],
-                                [cobj2['Zombo District'][11][0], cobj2['Zombo District'][11][1]],
-                                [cobj2['Zombo District'][12][0], cobj2['Zombo District'][12][1]],
-                                [cobj2['Zombo District'][13][0], cobj2['Zombo District'][13][1]],
-                                [cobj2['Zombo District'][14][0], cobj2['Zombo District'][14][1]],
-                                [cobj2['Zombo District'][15][0], cobj2['Zombo District'][15][1]],
-                                [cobj2['Zombo District'][16][0], cobj2['Zombo District'][16][1]]
-                            ]
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [], i;
+
+                                for (i = 1; i <= 16; i += 1) {
+                                    data.push([
+                                        (typeof cobj2["Zombo District"] === 'undefined') ? 0:cobj2['Zombo District'][i][0],
+                                        (typeof cobj2["Zombo District"] === 'undefined') ? 0:cobj2['Zombo District'][i][1]
+                                    ]);
+                                }
+                                return data;
+                            }())
                         }
                     ]
                 }
@@ -1091,7 +879,7 @@ function stock_status(){
 
         }else{
 
-            $cur = "SELECT EXTRACT(YEAR FROM NOW()) AS yr, (EXTRACT(WEEK FROM NOW()) - 2) AS weekno;";
+            $cur = "SELECT EXTRACT(YEAR FROM NOW()) AS yr, (EXTRACT(WEEK FROM NOW()) - 1) AS weekno;";
             $onerow = pg_fetch_array(pg_query($db, $cur));
 
             $org = 'Uganda';
@@ -1221,12 +1009,13 @@ function stock_status(){
 
         ///print_r($wdata);
 
-        //STKA Data
+        //STKA Data --bar graph
 
         while($row1 = pg_fetch_array($res1)){
 
             $stkouts = $row1['rso'];
             $reg["$row1[entity]"] = (int)$stkouts;
+            //$reg[] = array($row1['entity'], (int)$stkouts);
         }
 
         while($row2 = pg_fetch_array($res2)){
