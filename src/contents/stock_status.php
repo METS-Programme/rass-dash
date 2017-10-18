@@ -22,7 +22,7 @@ function stock_status(){
 
             Highcharts.chart('trends', {
                 chart: {
-                    zoomType: 'xy',
+                    zoomType: 'xy'
                 },
                 title: {
                     text: 'ARV Stockout rates - Last 12 Weeks (' + $('#o').html() + ')'
@@ -123,7 +123,7 @@ function stock_status(){
                         aobj[9][1], aobj[10][1], aobj[11][1]],
                     tooltip: {
                         valueSuffix: '%'
-                    },
+                    }
                 }]
             });
 
@@ -1109,7 +1109,7 @@ function stock_status(){
         if ($atrends[11][1] > $atrends[10][1])
             $simg = '<img class = "arrow-img" title = "' . round(($csrate - $psrate), 1) . '%" src="assets/images/up_arrow_red.png" />';
         else
-            $simg = '<img class = "arrow-img" title = "' . roudn(($csrate - $psrate)) . '%" src="assets/images/down_arrow_green.png" />';
+            $simg = '<img class = "arrow-img" title = "' . round(($csrate - $psrate)) . '%" src="assets/images/down_arrow_green.png" />';
 
         $rimg = "";
         if ($atrends[11][3] > $atrends[10][3])
