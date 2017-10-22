@@ -12,7 +12,7 @@
 
       $timestamp = date("Y-m-d H:i:s");
 
-      $connection = mysql_connect("127.0.0.1", "root", "");
+      $connection = mysql_connect("127.0.0.1", "root", "METSUganda321");
       mysql_select_db("rass", $connection);
 
       $ip = $_SERVER['REMOTE_ADDR'];
