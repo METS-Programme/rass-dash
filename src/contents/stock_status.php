@@ -22,7 +22,9 @@ function stock_status(){
 
             Highcharts.chart('trends', {
                 chart: {
-                    zoomType: 'xy'
+                    zoomType: 'xy',
+                    borderWidth: 1,
+                    borderColor: 'grey'
                 },
                 title: {
                     text: 'ARV Stockout rates - Last 12 Weeks (' + $('#o').html() + ')'
@@ -128,738 +130,973 @@ function stock_status(){
             });
 
             // Create the chart
-            //var jtext = $('#jtext').val();
+            //Adults
             var reg = $('#reg').val();
             var dis = $('#dis').val();
-            //alert(jtext);
-            //var obj = JSON.parse(jtext);
+
             var obj1 = JSON.parse(reg);
             var obj2 = JSON.parse(dis);
 
-            //alert(obj2["Ntoroko District"][0][0]);
-
-            //alert (reg);
-           //alert (obj2['Kabarole District'][0][0]);
-
-            Highcharts.chart('sadults', {
-
-
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: 'Total Number Of Facilities Stock Out Per ARVs - Adult (' + $('#w').html() + ')'
-                },
-                subtitle: {
-                    text: 'Click the columns to Drill down to ARV Drugs.'
-                },
-                xAxis: {
-                    type: 'category'
-                },
-                yAxis: {
-                    title: {
-                        text: 'Number Of Facilities'
-                    }
-
-                },
-                legend: {
-                    enabled: false
-                },
-                plotOptions: {
-                    series: {
-                        borderWidth: 0,
-                        dataLabels: {
-                            enabled: true,
-                            format: '{point.y:.0f}' //{point.y:.1f}
-                        }
-                    }
-                },
-
-                tooltip: {
-                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b>'
-                },
-                credits: {
-                    enabled: true,
-                    text: 'Mets.or.ug',
-                    href: 'http://www.mets.or.ug'
-                },
-                series: [{
-                    name: 'Regions',
-                    colorByPoint: true,
-                    data: [{
-                     name: 'Rwenzori Region',
-                     y: (typeof obj1["Western Region"] === 'undefined') ? 0:obj1["Western Region"],
-                     drilldown: 'Rwenzori'
-                     }, {
-                     name: 'West Nile Region',
-                     y: (typeof obj1["Northern Region"] === 'undefined') ? 0:obj1["Northern Region"],
-                     drilldown: 'West Nile'
-                     }]
-                }],
-                drilldown: {
-                    series: [{
-                        name: 'Districts',
-                        id: 'Rwenzori',
-                        data: [
-                            {name:'Kabarole', y:(typeof obj2["Kabarole District"] === 'undefined') ? 0:obj2['Kabarole District'][0][0], drilldown: 'kab'},
-                            {name:'Kasese', y:(typeof obj2["Kasese District"] === 'undefined') ? 0:obj2["Kasese District"][0][0], drilldown: 'kas'},
-                            {name:'Kamwenge', y:(typeof obj2["Kamwenge District"] === 'undefined') ? 0:obj2['Kamwenge District'][0][0], drilldown: 'kam'},
-                            {name:'Kyenjojo', y:(typeof obj2["Kyenjojo District"] === 'undefined') ? 0:obj2["Kyenjojo District"][0][0], drilldown: 'kyen'},
-                            {name:'Kyegegwa', y:(typeof obj2["Kyegegwa District"] === 'undefined') ? 0:obj2['Kyegegwa District'][0][0], drilldown: 'kyeg'},
-                            {name:'Bundibugyo', y:(typeof obj2["Bundibugyo District"] === 'undefined') ? 0:obj2["Bundibugyo District"][0][0], drilldown: 'bun'},
-                            {name:'Ntoroko', y:(typeof obj2["Ntoroko District"] === 'undefined') ? 0:obj2["Ntoroko District"][0][0], drilldown: 'nto'}
-                        ]
-                    },
-                        {
-                            id: 'kab',
-                            name: 'Kabarole',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
-
-                                for (i = 1; i <= 18; i += 1) {
-                                    data.push([
-                                        (typeof obj2["Kabarole District"] === 'undefined') ? 0:obj2['Kabarole District'][i][0],
-                                        (typeof obj2["Kabarole District"] === 'undefined') ? 0:obj2['Kabarole District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'kas',
-                            name: 'Kasese',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
-
-                                for (i = 1; i <= 18; i += 1) {
-                                    data.push([
-                                        (typeof obj2["Kasese District"] === 'undefined') ? 0:obj2['Kasese District'][i][0],
-                                        (typeof obj2["Kasese District"] === 'undefined') ? 0:obj2['Kasese District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'kam',
-                            name: 'Kamwenge',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
-
-                                for (i = 1; i <= 18; i += 1) {
-                                    data.push([
-                                        (typeof obj2["Kamwenge District"] === 'undefined') ? 0:obj2['Kamwenge District'][i][0],
-                                        (typeof obj2["Kamwenge District"] === 'undefined') ? 0:obj2['Kamwenge District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'kyen',
-                            name: 'Kyenjojo',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
-
-                                for (i = 1; i <= 18; i += 1) {
-                                    data.push([
-                                        (typeof obj2["Kyenjojo District"] === 'undefined') ? 0:obj2['Kyenjojo District'][i][0],
-                                        (typeof obj2["Kyenjojo District"] === 'undefined') ? 0:obj2['Kyenjojo District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'kyeg',
-                            name: 'Kyegegwa',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
-
-                                for (i = 1; i <= 18; i += 1) {
-                                    data.push([
-                                        (typeof obj2["Kyegegwa District"] === 'undefined') ? 0:obj2['Kyegegwa District'][i][0],
-                                        (typeof obj2["Kyegegwa District"] === 'undefined') ? 0:obj2['Kyegegwa District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'bun',
-                            name: 'Bundibugyo',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
-
-                                for (i = 1; i <= 18; i += 1) {
-                                    data.push([
-                                        (typeof obj2["Bundibugyo District"] === 'undefined') ? 0:obj2['Bundibugyo District'][i][0],
-                                        (typeof obj2["Bundibugyo District"] === 'undefined') ? 0:obj2['Bundibugyo District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-
-                        {
-                            id: 'nto',
-                            name: 'Ntoroko',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
-
-                                for (i = 1; i <= 18; i += 1) {
-                                    data.push([
-                                        (typeof obj2["Ntoroko District"] === 'undefined') ? 0:obj2['Ntoroko District'][i][0],
-                                        (typeof obj2["Ntoroko District"] === 'undefined') ? 0:obj2['Ntoroko District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-
-                        {
-                        name: 'Districts',
-                        id: 'West Nile',
-                        data: [
-                            {name:'Adjumani', y:(typeof obj2["Adjumani District"] === 'undefined') ? 0:obj2['Adjumani District'][0][0], drilldown: 'adj'},
-                            {name:'Arua', y:(typeof obj2["Arua District"] === 'undefined') ? 0:obj2['Arua District'][0][0], drilldown: 'aru'},
-                            {name:'Koboko', y:(typeof obj2["Koboko District"] === 'undefined') ? 0:obj2['Koboko District'][0][0], drilldown: 'kob'},
-                            {name:'Maracha', y:(typeof obj2["Maracha District"] === 'undefined') ? 0:obj2['Maracha District'][0][0], drilldown: 'mar'},
-                            {name:'Moyo', y:(typeof obj2["Moyo District"] === 'undefined') ? 0:obj2['Moyo District'][0][0], drilldown: 'moy'},
-                            {name:'Nebbi', y:(typeof obj2["Nebbi District"] === 'undefined') ? 0:obj2['Nebbi District'][0][0], drilldown: 'neb'},
-                            {name:'Pakwach', y:(typeof obj2["Pakwach District"] === 'undefined') ? 0:obj2['Pakwach District'][0][0], drilldown: 'pak'},
-                            {name:'Yumbe', y:(typeof obj2["Yumbe District"] === 'undefined') ? 0:obj2['Yumbe District'][0][0], drilldown: 'yum'},
-                            {name:'Zombo', y:(typeof obj2["Zombo District"] === 'undefined') ? 0:obj2['Zombo District'][0][0], drilldown: 'zom'}
-                        ]
-                        },
-                        {
-                            id: 'adj',
-                            name: 'Regimens',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
-
-                                for (i = 1; i <= 18; i += 1) {
-                                    data.push([
-                                        (typeof obj2["Adjumani District"] === 'undefined') ? 0:obj2['Adjumani District'][i][0],
-                                        (typeof obj2["Adjumani District"] === 'undefined') ? 0:obj2['Adjumani District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'aru',
-                            name: 'Regimens',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
-
-                                for (i = 1; i <= 18; i += 1) {
-                                    data.push([
-                                        (typeof obj2["Arua District"] === 'undefined') ? 0:obj2['Arua District'][i][0],
-                                        (typeof obj2["Arua District"] === 'undefined') ? 0:obj2['Arua District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'kob',
-                            name: 'Regimens',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
-
-                                for (i = 1; i <= 18; i += 1) {
-                                    data.push([
-                                        (typeof obj2["Koboko District"] === 'undefined') ? 0:obj2['Koboko District'][i][0],
-                                        (typeof obj2["Koboko District"] === 'undefined') ? 0:obj2['Koboko District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'mar',
-                            name: 'Regimens',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
-
-                                for (i = 1; i <= 18; i += 1) {
-                                    data.push([
-                                        (typeof obj2["Maracha District"] === 'undefined') ? 0:obj2['Maracha District'][i][0],
-                                        (typeof obj2["Maracha District"] === 'undefined') ? 0:obj2['Maracha District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'moy',
-                            name: 'Regimens',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
-
-                                for (i = 1; i <= 18; i += 1) {
-                                    data.push([
-                                        (typeof obj2["Moyo District"] === 'undefined') ? 0:obj2['Moyo District'][i][0],
-                                        (typeof obj2["Moyo District"] === 'undefined') ? 0:obj2['Moyo District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'neb',
-                            name: 'Regimens',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
-
-                                for (i = 1; i <= 18; i += 1) {
-                                    data.push([
-                                        (typeof obj2["Nebbi District"] === 'undefined') ? 0:obj2['Nebbi District'][i][0],
-                                        (typeof obj2["Nebbi District"] === 'undefined') ? 0:obj2['Nebbi District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'pak',
-                            name: 'Regimens',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
-
-                                for (i = 1; i <= 18; i += 1) {
-                                    data.push([
-                                        (typeof obj2["Pakwach District"] === 'undefined') ? 0:obj2['Pakwach District'][i][0],
-                                        (typeof obj2["Pakwach District"] === 'undefined') ? 0:obj2['Pakwach District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'yum',
-                            name: 'Regimens',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
-
-                                for (i = 1; i <= 18; i += 1) {
-                                    data.push([
-                                        (typeof obj2["Yumbe District"] === 'undefined') ? 0:obj2['Yumbe District'][i][0],
-                                        (typeof obj2["Yumbe District"] === 'undefined') ? 0:obj2['Yumbe District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'zom',
-                            name: 'Regimens',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
-
-                                for (i = 1; i <= 18; i += 1) {
-                                    data.push([
-                                        (typeof obj2["Zombo District"] === 'undefined') ? 0:obj2['Zombo District'][i][0],
-                                        (typeof obj2["Zombo District"] === 'undefined') ? 0:obj2['Zombo District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        }
-                    ]
-                }
-            });
-
+            //Paeds
             var creg = $('#creg').val();
             var cdis = $('#cdis').val();
-            //alert(jtext);
-            //var obj = JSON.parse(jtext);
+
             var cobj1 = JSON.parse(creg);
             var cobj2 = JSON.parse(cdis);
 
-            //alert (obj2['Adjumani District'][0][0]);
+            var cat = 'Adults';
 
-            //var $json_1 = ;
+            drawBarChart(obj1, obj2, 18);
 
-            Highcharts.chart('spaeds', {
+            function drawBarChart(obj1, obj2, count) {
+                Highcharts.chart('sadults', {
 
-
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: 'Total Number Of Facilities Stock Out Per ARVs - Paediatric (' + $('#w').html() +')'
-                },
-                subtitle: {
-                    text: 'Click the columns to Drill down to ARV Drugs.'
-                },
-                xAxis: {
-                    type: 'category'
-                },
-                yAxis: {
-                    title: {
-                        text: 'Number Of Facilities'
-                    }
-
-                },
-                legend: {
-                    enabled: false
-                },
-                plotOptions: {
-                    series: {
-                        borderWidth: 0,
-                        dataLabels: {
-                            enabled: true,
-                            format: '{point.y:.0f}' //{point.y:.1f}
-                        }
-                    }
-                },
-
-                tooltip: {
-                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b>'
-                },
-                credits: {
-                    enabled: true,
-                    text: 'Mets.or.ug',
-                    href: 'http://www.mets.or.ug'
-                },
-                series: [{
-                    name: 'Regions',
-                    colorByPoint: true,
-                    data: [{
-                        name: 'Rwenzori Region',
-                        y: (typeof cobj1["Western Region"] === 'undefined') ? 0:cobj1["Western Region"],
-                        drilldown: 'Rwenzori'
-                    }, {
-                        name: 'West Nile Region',
-                        y: (typeof cobj1["Northern Region"] === 'undefined') ? 0:cobj1["Northern Region"],
-                        drilldown: 'West Nile'
-                    }]
-                }],
-                drilldown: {
-                    series: [{
-                        name: 'Districts',
-                        id: 'Rwenzori',
-                        data: [
-                            {name:'Kabarole', y: (typeof cobj2["Kabarole District"] === 'undefined') ? 0:cobj2['Kabarole District'][0][0], drilldown: 'kab'},
-                            {name:'Kasese', y:(typeof cobj2["Kasese District"] === 'undefined') ? 0:cobj2['Kasese District'][0][0], drilldown: 'kas'},
-                            {name:'Kamwenge', y:(typeof cobj2["Kamwenge District"] === 'undefined') ? 0:cobj2['Kamwenge District'][0][0], drilldown: 'kam'},
-                            {name:'Kyenjojo', y:(typeof cobj2["Kyenjojo District"] === 'undefined') ? 0:cobj2['Kyenjojo District'][0][0], drilldown: 'kyen'},
-                            {name:'Kyegegwa', y:(typeof cobj2["Kyegegwa District"] === 'undefined') ? 0:cobj2['Kyegegwa District'][0][0], drilldown: 'kyeg'},
-                            {name:'Bundibugyo', y:(typeof cobj2["Bundibugyo District"] === 'undefined') ? 0:cobj2['Bundibugyo District'][0][0], drilldown: 'bun'},
-                            {name:'Ntoroko', y:(typeof cobj2["Ntoroko District"] === 'undefined') ? 0:cobj2['Ntoroko District'][0][0], drilldown: 'nto'}
-                        ]
-                        /*
-                        (function () {
-                            // generate an array of random data
-                            var data = [], i;
-
-                            for (i = 1; i <= 1; i += 1) {
-                                data.push([
-                                    //obj2['Kabarole District'][i][0],
-                                    //obj2['Kabarole District'][i][1]
-                                    {name:'Kabarole', y: i, drilldown: 'kab'}
-                                ]);
-                            }
-                            return data;
-                        }())
-                        */
+                    chart: {
+                        type: 'column',
+                        borderWidth: 1,
+                        borderColor: 'grey'
                     },
-                        {
-                            id: 'kab',
-                            name: 'Kabarole',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
+                    title: {
+                        text: 'Number Of Facilities Stocked Out <br />' + cat + ' (' + $('#w').html() + ')'
+                    },
+                    subtitle: {
+                        text: 'Click the columns to Drill down to ARV Drugs.'
+                    },
+                    xAxis: {
 
-                                for (i = 1; i <= 16; i += 1) {
-                                    data.push([
-                                        (typeof cobj2["Kabarole District"] === 'undefined') ? 0:cobj2['Kabarole District'][i][0],
-                                        (typeof cobj2["Kabarole District"] === 'undefined') ? 0:cobj2['Kabarole District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'kas',
-                            name: 'Kasese',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
+                        type: 'category'
 
-                                for (i = 1; i <= 16; i += 1) {
-                                    data.push([
-                                        (typeof cobj2["Kasese District"] === 'undefined') ? 0:cobj2['Kasese District'][i][0],
-                                        (typeof cobj2["Kasese District"] === 'undefined') ? 0:cobj2['Kasese District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'kam',
-                            name: 'Kamwenge',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Number Of Facilities / Clients'
+                        }
 
-                                for (i = 1; i <= 16; i += 1) {
-                                    data.push([
-                                        (typeof cobj2["Kamwenge District"] === 'undefined') ? 0:cobj2['Kamwenge District'][i][0],
-                                        (typeof cobj2["Kamwenge District"] === 'undefined') ? 0:cobj2['Kamwenge District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'kyen',
-                            name: 'Kyenjojo',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
+                    },
+                    legend: {
+                        enabled: true
+                    },
+                    plotOptions: {
+                        series: {
+                            borderWidth: 0,
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.y:.0f}' //{point.y:.1f}
+                            }
+                        }
+                    },
 
-                                for (i = 1; i <= 16; i += 1) {
-                                    data.push([
-                                        (typeof cobj2["Kyenjojo District"] === 'undefined') ? 0:cobj2['Kyenjojo District'][i][0],
-                                        (typeof cobj2["Kyenjojo District"] === 'undefined') ? 0:cobj2['Kyenjojo District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b>'
+                    },
+                    credits: {
+                        enabled: true,
+                        text: 'Mets.or.ug',
+                        href: 'http://www.mets.or.ug'
+                    },
+                    series: [
                         {
-                            id: 'kyeg',
-                            name: 'Kyegegwa',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
+                            name: 'Stockouts',
+                            data: [{
+                                name: 'Rwenzori',
+                                y: (typeof obj1["Western Region"] === 'undefined') ? 0 : obj1["Western Region"][0],
+                                drilldown: 'Rwenzori'
+                            }, {
+                                name: 'West Nile',
+                                y: (typeof obj1["Northern Region"] === 'undefined') ? 0 : obj1["Northern Region"][0],
+                                drilldown: 'West Nile'
+                            }]
+                        },
 
-                                for (i = 1; i <= 16; i += 1) {
-                                    data.push([
-                                        (typeof cobj2["Kyegegwa District"] === 'undefined') ? 0:cobj2['Kyegegwa District'][i][0],
-                                        (typeof cobj2["Kyegegwa District"] === 'undefined') ? 0:cobj2['Kyegegwa District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
                         {
-                            id: 'bun',
-                            name: 'Bundibugyo',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
+                            name: 'Affected Clients (x100)',
+                            data: [{
+                                name: 'Rwenzori',
+                                y: (typeof obj1["Western Region"] === 'undefined') ? 0 : obj1["Western Region"][1],
+                                drilldown: 'aaRwenzori'
+                            }, {
+                                name: 'West Nile',
+                                y: (typeof obj1["Northern Region"] === 'undefined') ? 0 : obj1["Northern Region"][1],
+                                drilldown: 'aaWest Nile'
+                            }]
+                        }
 
-                                for (i = 1; i <= 16; i += 1) {
-                                    data.push([
-                                        (typeof cobj2["Bundibugyo District"] === 'undefined') ? 0:cobj2['Bundibugyo District'][i][0],
-                                        (typeof cobj2["Bundibugyo District"] === 'undefined') ? 0:cobj2['Bundibugyo District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'nto',
-                            name: 'Ntoroko',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
+                    ],
 
-                                for (i = 1; i <= 16; i += 1) {
-                                    data.push([
-                                        (typeof cobj2["Ntoroko District"] === 'undefined') ? 0:cobj2['Ntoroko District'][i][0],
-                                        (typeof cobj2["Ntoroko District"] === 'undefined') ? 0:cobj2['Ntoroko District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
+                    drilldown: {
+                        series: [{
                             name: 'Districts',
-                            id: 'West Nile',
+                            id: 'Rwenzori',
                             data: [
-                                {name:'Adjumani', y: (typeof cobj2["Adjumani District"] === 'undefined') ? 0:cobj2['Adjumani District'][0][0], drilldown: 'adj'},
-                                {name:'Arua', y:(typeof cobj2["Arua District"] === 'undefined') ? 0:cobj2['Arua District'][0][0], drilldown: 'aru'},
-                                {name:'Koboko', y:(typeof cobj2["Koboko District"] === 'undefined') ? 0:cobj2['Koboko District'][0][0], drilldown: 'kob'},
-                                {name:'Maracha', y:(typeof cobj2["Maracha District"] === 'undefined') ? 0:cobj2['Maracha District'][0][0], drilldown: 'mar'},
-                                {name:'Moyo', y:(typeof cobj2["Moyo District"] === 'undefined') ? 0:cobj2['Moyo District'][0][0], drilldown: 'moy'},
-                                {name:'Nebbi', y:(typeof cobj2["Nebbi District"] === 'undefined') ? 0:cobj2['Nebbi District'][0][0], drilldown: 'neb'},
-                                {name:'Pakwach', y:(typeof cobj2["Pakwach District"] === 'undefined') ? 0:cobj2['Pakwach District'][0][0], drilldown: 'pak'},
-                                {name:'Yumbe', y:(typeof cobj2["Yumbe District"] === 'undefined') ? 0:cobj2['Yumbe District'][0][0], drilldown: 'yum'},
-                                {name:'Zombo', y:(typeof cobj2["Zombo District"] === 'undefined') ? 0:cobj2['Zombo District'][0][0], drilldown: 'zom'}
+                                {
+                                    name: 'Kabarole',
+                                    y: (typeof obj2["Kabarole District"] === 'undefined') ? 0 : obj2['Kabarole District'][0][0],
+                                    drilldown: 'kab'
+                                },
+                                {
+                                    name: 'Kasese',
+                                    y: (typeof obj2["Kasese District"] === 'undefined') ? 0 : obj2["Kasese District"][0][0],
+                                    drilldown: 'kas'
+                                },
+                                {
+                                    name: 'Kamwenge',
+                                    y: (typeof obj2["Kamwenge District"] === 'undefined') ? 0 : obj2['Kamwenge District'][0][0],
+                                    drilldown: 'kam'
+                                },
+                                {
+                                    name: 'Kyenjojo',
+                                    y: (typeof obj2["Kyenjojo District"] === 'undefined') ? 0 : obj2["Kyenjojo District"][0][0],
+                                    drilldown: 'kyen'
+                                },
+                                {
+                                    name: 'Kyegegwa',
+                                    y: (typeof obj2["Kyegegwa District"] === 'undefined') ? 0 : obj2['Kyegegwa District'][0][0],
+                                    drilldown: 'kyeg'
+                                },
+                                {
+                                    name: 'Bundibugyo',
+                                    y: (typeof obj2["Bundibugyo District"] === 'undefined') ? 0 : obj2["Bundibugyo District"][0][0],
+                                    drilldown: 'bun'
+                                },
+                                {
+                                    name: 'Ntoroko',
+                                    y: (typeof obj2["Ntoroko District"] === 'undefined') ? 0 : obj2["Ntoroko District"][0][0],
+                                    drilldown: 'nto'
+                                }
                             ]
                         },
-                        {
-                            id: 'adj',
-                            name: 'Regimens',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
+                            {
+                                id: 'kab',
+                                name: 'Kabarole',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Kabarole District"] === 'undefined') ? 0 : obj2['Kabarole District'][i][0],
+                                            (typeof obj2["Kabarole District"] === 'undefined') ? 0 : obj2['Kabarole District'][i][1]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'kas',
+                                name: 'Kasese',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Kasese District"] === 'undefined') ? 0 : obj2['Kasese District'][i][0],
+                                            (typeof obj2["Kasese District"] === 'undefined') ? 0 : obj2['Kasese District'][i][1]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'kam',
+                                name: 'Kamwenge',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Kamwenge District"] === 'undefined') ? 0 : obj2['Kamwenge District'][i][0],
+                                            (typeof obj2["Kamwenge District"] === 'undefined') ? 0 : obj2['Kamwenge District'][i][1]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'kyen',
+                                name: 'Kyenjojo',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Kyenjojo District"] === 'undefined') ? 0 : obj2['Kyenjojo District'][i][0],
+                                            (typeof obj2["Kyenjojo District"] === 'undefined') ? 0 : obj2['Kyenjojo District'][i][1]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'kyeg',
+                                name: 'Kyegegwa',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Kyegegwa District"] === 'undefined') ? 0 : obj2['Kyegegwa District'][i][0],
+                                            (typeof obj2["Kyegegwa District"] === 'undefined') ? 0 : obj2['Kyegegwa District'][i][1]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'bun',
+                                name: 'Bundibugyo',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Bundibugyo District"] === 'undefined') ? 0 : obj2['Bundibugyo District'][i][0],
+                                            (typeof obj2["Bundibugyo District"] === 'undefined') ? 0 : obj2['Bundibugyo District'][i][1]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'nto',
+                                name: 'Ntoroko',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Ntoroko District"] === 'undefined') ? 0 : obj2['Ntoroko District'][i][0],
+                                            (typeof obj2["Ntoroko District"] === 'undefined') ? 0 : obj2['Ntoroko District'][i][1]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
 
-                                for (i = 1; i <= 16; i += 1) {
-                                    data.push([
-                                        (typeof cobj2["Adjumani District"] === 'undefined') ? 0:cobj2['Adjumani District'][i][0],
-                                        (typeof cobj2["Adjumani District"] === 'undefined') ? 0:cobj2['Adjumani District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'aru',
-                            name: 'Regimens',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
+                            {
+                                name: 'Districts',
+                                id: 'West Nile',
+                                data: [
+                                    {
+                                        name: 'Adjumani',
+                                        y: (typeof obj2["Adjumani District"] === 'undefined') ? 0 : obj2['Adjumani District'][0][0],
+                                        drilldown: 'adj'
+                                    },
+                                    {
+                                        name: 'Arua',
+                                        y: (typeof obj2["Arua District"] === 'undefined') ? 0 : obj2['Arua District'][0][0],
+                                        drilldown: 'aru'
+                                    },
+                                    {
+                                        name: 'Koboko',
+                                        y: (typeof obj2["Koboko District"] === 'undefined') ? 0 : obj2['Koboko District'][0][0],
+                                        drilldown: 'kob'
+                                    },
+                                    {
+                                        name: 'Maracha',
+                                        y: (typeof obj2["Maracha District"] === 'undefined') ? 0 : obj2['Maracha District'][0][0],
+                                        drilldown: 'mar'
+                                    },
+                                    {
+                                        name: 'Moyo',
+                                        y: (typeof obj2["Moyo District"] === 'undefined') ? 0 : obj2['Moyo District'][0][0],
+                                        drilldown: 'moy'
+                                    },
+                                    {
+                                        name: 'Nebbi',
+                                        y: (typeof obj2["Nebbi District"] === 'undefined') ? 0 : obj2['Nebbi District'][0][0],
+                                        drilldown: 'neb'
+                                    },
+                                    {
+                                        name: 'Pakwach',
+                                        y: (typeof obj2["Pakwach District"] === 'undefined') ? 0 : obj2['Pakwach District'][0][0],
+                                        drilldown: 'pak'
+                                    },
+                                    {
+                                        name: 'Yumbe',
+                                        y: (typeof obj2["Yumbe District"] === 'undefined') ? 0 : obj2['Yumbe District'][0][0],
+                                        drilldown: 'yum'
+                                    },
+                                    {
+                                        name: 'Zombo',
+                                        y: (typeof obj2["Zombo District"] === 'undefined') ? 0 : obj2['Zombo District'][0][0],
+                                        drilldown: 'zom'
+                                    }
+                                ]
+                            },
+                            {
+                                id: 'adj',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Adjumani District"] === 'undefined') ? 0 : obj2['Adjumani District'][i][0],
+                                            (typeof obj2["Adjumani District"] === 'undefined') ? 0 : obj2['Adjumani District'][i][1]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'aru',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Arua District"] === 'undefined') ? 0 : obj2['Arua District'][i][0],
+                                            (typeof obj2["Arua District"] === 'undefined') ? 0 : obj2['Arua District'][i][1]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'kob',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Koboko District"] === 'undefined') ? 0 : obj2['Koboko District'][i][0],
+                                            (typeof obj2["Koboko District"] === 'undefined') ? 0 : obj2['Koboko District'][i][1]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'mar',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Maracha District"] === 'undefined') ? 0 : obj2['Maracha District'][i][0],
+                                            (typeof obj2["Maracha District"] === 'undefined') ? 0 : obj2['Maracha District'][i][1]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'moy',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Moyo District"] === 'undefined') ? 0 : obj2['Moyo District'][i][0],
+                                            (typeof obj2["Moyo District"] === 'undefined') ? 0 : obj2['Moyo District'][i][1]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'neb',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Nebbi District"] === 'undefined') ? 0 : obj2['Nebbi District'][i][0],
+                                            (typeof obj2["Nebbi District"] === 'undefined') ? 0 : obj2['Nebbi District'][i][1]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'pak',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Pakwach District"] === 'undefined') ? 0 : obj2['Pakwach District'][i][0],
+                                            (typeof obj2["Pakwach District"] === 'undefined') ? 0 : obj2['Pakwach District'][i][1]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'yum',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Yumbe District"] === 'undefined') ? 0 : obj2['Yumbe District'][i][0],
+                                            (typeof obj2["Yumbe District"] === 'undefined') ? 0 : obj2['Yumbe District'][i][1]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'zom',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Zombo District"] === 'undefined') ? 0 : obj2['Zombo District'][i][0],
+                                            (typeof obj2["Zombo District"] === 'undefined') ? 0 : obj2['Zombo District'][i][1]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
 
-                                for (i = 1; i <= 16; i += 1) {
-                                    data.push([
-                                        (typeof cobj2["Arua District"] === 'undefined') ? 0:cobj2['Arua District'][i][0],
-                                        (typeof cobj2["Arua District"] === 'undefined') ? 0:cobj2['Arua District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'kob',
-                            name: 'Regimens',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
+                            //Affected Clients
 
-                                for (i = 1; i <= 16; i += 1) {
-                                    data.push([
-                                        (typeof cobj2["Koboko District"] === 'undefined') ? 0:cobj2['Koboko District'][i][0],
-                                        (typeof cobj2["Koboko District"] === 'undefined') ? 0:cobj2['Koboko District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'mar',
-                            name: 'Regimens',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
+                            {
+                                name: 'Districts',
+                                id: 'aaRwenzori',
+                                data: [
+                                    {
+                                        name: 'Kabarole',
+                                        y: (typeof obj2["Kabarole District"] === 'undefined') ? 0 : obj2['Kabarole District'][0][1],
+                                        drilldown: 'aakab'
+                                    },
+                                    {
+                                        name: 'Kasese',
+                                        y: (typeof obj2["Kasese District"] === 'undefined') ? 0 : obj2["Kasese District"][0][1],
+                                        drilldown: 'aakas'
+                                    },
+                                    {
+                                        name: 'Kamwenge',
+                                        y: (typeof obj2["Kamwenge District"] === 'undefined') ? 0 : obj2['Kamwenge District'][0][1],
+                                        drilldown: 'aakam'
+                                    },
+                                    {
+                                        name: 'Kyenjojo',
+                                        y: (typeof obj2["Kyenjojo District"] === 'undefined') ? 0 : obj2["Kyenjojo District"][0][1],
+                                        drilldown: 'aakyen'
+                                    },
+                                    {
+                                        name: 'Kyegegwa',
+                                        y: (typeof obj2["Kyegegwa District"] === 'undefined') ? 0 : obj2['Kyegegwa District'][0][1],
+                                        drilldown: 'aakyeg'
+                                    },
+                                    {
+                                        name: 'Bundibugyo',
+                                        y: (typeof obj2["Bundibugyo District"] === 'undefined') ? 0 : obj2["Bundibugyo District"][0][1],
+                                        drilldown: 'aabun'
+                                    },
+                                    {
+                                        name: 'Ntoroko',
+                                        y: (typeof obj2["Ntoroko District"] === 'undefined') ? 0 : obj2["Ntoroko District"][0][1],
+                                        drilldown: 'aanto'
+                                    }
+                                ]
+                            },
+                            {
+                                id: 'aakab',
+                                name: 'Kabarole',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Kabarole District"] === 'undefined') ? 0 : obj2['Kabarole District'][i][0],
+                                            (typeof obj2["Kabarole District"] === 'undefined') ? 0 : obj2['Kabarole District'][i][2]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'aakas',
+                                name: 'Kasese',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Kasese District"] === 'undefined') ? 0 : obj2['Kasese District'][i][0],
+                                            (typeof obj2["Kasese District"] === 'undefined') ? 0 : obj2['Kasese District'][i][2]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'aakam',
+                                name: 'Kamwenge',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Kamwenge District"] === 'undefined') ? 0 : obj2['Kamwenge District'][i][0],
+                                            (typeof obj2["Kamwenge District"] === 'undefined') ? 0 : obj2['Kamwenge District'][i][2]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'aakyen',
+                                name: 'Kyenjojo',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Kyenjojo District"] === 'undefined') ? 0 : obj2['Kyenjojo District'][i][0],
+                                            (typeof obj2["Kyenjojo District"] === 'undefined') ? 0 : obj2['Kyenjojo District'][i][2]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'aakyeg',
+                                name: 'Kyegegwa',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Kyegegwa District"] === 'undefined') ? 0 : obj2['Kyegegwa District'][i][0],
+                                            (typeof obj2["Kyegegwa District"] === 'undefined') ? 0 : obj2['Kyegegwa District'][i][2]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'aabun',
+                                name: 'Bundibugyo',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Bundibugyo District"] === 'undefined') ? 0 : obj2['Bundibugyo District'][i][0],
+                                            (typeof obj2["Bundibugyo District"] === 'undefined') ? 0 : obj2['Bundibugyo District'][i][2]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
 
-                                for (i = 1; i <= 16; i += 1) {
-                                    data.push([
-                                        (typeof cobj2["Maracha District"] === 'undefined') ? 0:cobj2['Maracha District'][i][0],
-                                        (typeof cobj2["Maracha District"] === 'undefined') ? 0:cobj2['Maracha District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'moy',
-                            name: 'Regimens',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
+                            {
+                                id: 'aanto',
+                                name: 'Ntoroko',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Ntoroko District"] === 'undefined') ? 0 : obj2['Ntoroko District'][i][0],
+                                            (typeof obj2["Ntoroko District"] === 'undefined') ? 0 : obj2['Ntoroko District'][i][2]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
 
-                                for (i = 1; i <= 16; i += 1) {
-                                    data.push([
-                                        (typeof cobj2["Moyo District"] === 'undefined') ? 0:cobj2['Moyo District'][i][0],
-                                        (typeof cobj2["Moyo District"] === 'undefined') ? 0:cobj2['Moyo District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'neb',
-                            name: 'Regimens',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
+                            {
+                                name: 'Districts',
+                                id: 'aaWest Nile',
+                                data: [
+                                    {
+                                        name: 'Adjumani',
+                                        y: (typeof obj2["Adjumani District"] === 'undefined') ? 0 : obj2['Adjumani District'][0][1],
+                                        drilldown: 'aaadj'
+                                    },
+                                    {
+                                        name: 'Arua',
+                                        y: (typeof obj2["Arua District"] === 'undefined') ? 0 : obj2['Arua District'][0][1],
+                                        drilldown: 'aaaru'
+                                    },
+                                    {
+                                        name: 'Koboko',
+                                        y: (typeof obj2["Koboko District"] === 'undefined') ? 0 : obj2['Koboko District'][0][1],
+                                        drilldown: 'aakob'
+                                    },
+                                    {
+                                        name: 'Maracha',
+                                        y: (typeof obj2["Maracha District"] === 'undefined') ? 0 : obj2['Maracha District'][0][1],
+                                        drilldown: 'aamar'
+                                    },
+                                    {
+                                        name: 'Moyo',
+                                        y: (typeof obj2["Moyo District"] === 'undefined') ? 0 : obj2['Moyo District'][0][1],
+                                        drilldown: 'aamoy'
+                                    },
+                                    {
+                                        name: 'Nebbi',
+                                        y: (typeof obj2["Nebbi District"] === 'undefined') ? 0 : obj2['Nebbi District'][0][1],
+                                        drilldown: 'aaneb'
+                                    },
+                                    {
+                                        name: 'Pakwach',
+                                        y: (typeof obj2["Pakwach District"] === 'undefined') ? 0 : obj2['Pakwach District'][0][1],
+                                        drilldown: 'aapak'
+                                    },
+                                    {
+                                        name: 'Yumbe',
+                                        y: (typeof obj2["Yumbe District"] === 'undefined') ? 0 : obj2['Yumbe District'][0][1],
+                                        drilldown: 'aayum'
+                                    },
+                                    {
+                                        name: 'Zombo',
+                                        y: (typeof obj2["Zombo District"] === 'undefined') ? 0 : obj2['Zombo District'][0][1],
+                                        drilldown: 'aazom'
+                                    }
+                                ]
+                            },
+                            {
+                                id: 'aaadj',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Adjumani District"] === 'undefined') ? 0 : obj2['Adjumani District'][i][0],
+                                            (typeof obj2["Adjumani District"] === 'undefined') ? 0 : obj2['Adjumani District'][i][2]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'aaaru',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Arua District"] === 'undefined') ? 0 : obj2['Arua District'][i][0],
+                                            (typeof obj2["Arua District"] === 'undefined') ? 0 : obj2['Arua District'][i][2]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'aakob',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Koboko District"] === 'undefined') ? 0 : obj2['Koboko District'][i][0],
+                                            (typeof obj2["Koboko District"] === 'undefined') ? 0 : obj2['Koboko District'][i][2]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'aamar',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Maracha District"] === 'undefined') ? 0 : obj2['Maracha District'][i][0],
+                                            (typeof obj2["Maracha District"] === 'undefined') ? 0 : obj2['Maracha District'][i][2]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'aamoy',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Moyo District"] === 'undefined') ? 0 : obj2['Moyo District'][i][0],
+                                            (typeof obj2["Moyo District"] === 'undefined') ? 0 : obj2['Moyo District'][i][2]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'aaneb',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Nebbi District"] === 'undefined') ? 0 : obj2['Nebbi District'][i][0],
+                                            (typeof obj2["Nebbi District"] === 'undefined') ? 0 : obj2['Nebbi District'][i][2]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'aapak',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Pakwach District"] === 'undefined') ? 0 : obj2['Pakwach District'][i][0],
+                                            (typeof obj2["Pakwach District"] === 'undefined') ? 0 : obj2['Pakwach District'][i][2]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'aayum',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Yumbe District"] === 'undefined') ? 0 : obj2['Yumbe District'][i][0],
+                                            (typeof obj2["Yumbe District"] === 'undefined') ? 0 : obj2['Yumbe District'][i][2]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'aazom',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Zombo District"] === 'undefined') ? 0 : obj2['Zombo District'][i][0],
+                                            (typeof obj2["Zombo District"] === 'undefined') ? 0 : obj2['Zombo District'][i][2]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            }
+                        ]
+                    }
+                });
+            }
 
-                                for (i = 1; i <= 16; i += 1) {
-                                    data.push([
-                                        (typeof cobj2["Nebbi District"] === 'undefined') ? 0:cobj2['Nebbi District'][i][0],
-                                        (typeof cobj2["Nebbi District"] === 'undefined') ? 0:cobj2['Nebbi District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'pak',
-                            name: 'Regimens',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
+            //Map Distribution
 
-                                for (i = 1; i <= 16; i += 1) {
-                                    data.push([
-                                        (typeof cobj2["Pakwach District"] === 'undefined') ? 0:cobj2['Pakwach District'][i][0],
-                                        (typeof cobj2["Pakwach District"] === 'undefined') ? 0:cobj2['Pakwach District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'yum',
-                            name: 'Regimens',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
+            /**
+             * Event handler for clicking points. Use jQuery UI to pop up
+             * a pie chart showing the details for each state.
+             */
 
-                                for (i = 1; i <= 16; i += 1) {
-                                    data.push([
-                                        (typeof cobj2["Yumbe District"] === 'undefined') ? 0:cobj2['Yumbe District'][i][0],
-                                        (typeof cobj2["Yumbe District"] === 'undefined') ? 0:cobj2['Yumbe District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
-                        },
-                        {
-                            id: 'zom',
-                            name: 'Regimens',
-                            data: (function () {
-                                // generate an array of random data
-                                var data = [], i;
+            function pointClick() {
 
-                                for (i = 1; i <= 16; i += 1) {
-                                    data.push([
-                                        (typeof cobj2["Zombo District"] === 'undefined') ? 0:cobj2['Zombo District'][i][0],
-                                        (typeof cobj2["Zombo District"] === 'undefined') ? 0:cobj2['Zombo District'][i][1]
-                                    ]);
-                                }
-                                return data;
-                            }())
+                $('#pop').dialog({
+                    title: this.name + ' [ARV Category]',
+                    width: 'auto',
+                    height: 'auto'
+                });
+
+                window.chart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'pop',
+                        type: 'pie',
+                        width: 370,
+                        height: 240
+                    },
+                    title: {
+                        text: null
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    exporting: {
+                        enabled: false
+                    },
+                    series: [{
+                        name: 'Categories',
+                        data: [{
+                            name: 'Adults',
+                            color: '#0200D0',
+                            y: 70
+                        }, {
+                            name: 'Paediatrics',
+                            color: '#C40401',
+                            y: 30
+                        }],
+                        dataLabels: {
+                            format: '<b>{point.name}</b> {point.percentage:.1f}%'
                         }
-                    ]
-                }
+                    }]
+                });
+
+            }
+
+            //Function drawMap
+            function drawMap(data) {
+                $.getJSON('assets/files/organisationUnits.geojson', function (geojson) {
+                    // Instanciate the map
+                    Highcharts.mapChart('dmap', {
+
+                        chart: {
+                            borderWidth: 1,
+                            height: 400,
+                            borderColor: 'grey'
+                        },
+
+                        title: {
+                            text: 'Stockout Distribution Rates (%) <br />' + cat + ' (' + $('#w').html() + ')'
+                        }
+                        /*
+                        ,
+                        subtitle: {
+                            text: 'Click on District for more details'
+                        }
+                        */
+                        ,
+
+                        legend: {
+                            enabled: true
+                        },
+                        credits: {
+                            enabled: false,
+                            text: 'Mets.or.ug',
+                            href: 'http://www.mets.or.ug'
+                        },
+
+                        colorAxis: {
+
+                            dataClasses: [{
+                                from: 0,
+                                to: 25,
+                                color: '#ADFF2F',
+                                name: '<=25'
+                            }, {
+                                from: 26,
+                                to: 50,
+                                color: '#FFFF00',
+                                name: '<=50'
+                            },
+                                {
+                                    from: 51,
+                                    to: 75,
+                                    color: '#FF0000',
+                                    name: '<=75'
+                                },
+                                {
+                                    from: 76,
+                                    to: 100,
+                                    color: '#bf0000',
+                                    name: '<=100'
+                                }
+                            ]
+                        },
+
+                        series: [{
+                            name: 'Stockouts',
+                            mapData: geojson, //Highcharts.maps['countries/ug/ug-all']
+                            joinBy: 'name',
+                            keys: ['name', 'value'],
+                            data: data,
+                            color: '#FF0000',
+                            dataLabels: {
+                                enabled: false,
+                                color: '#FFFFFF',
+                                formatter: function () {
+                                    if (this.point.value) {
+                                        return this.point.name;
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                headerFormat: '',
+                                pointFormat: '{point.name}' + '<br />{point.value}%'
+                            },
+
+                            states: {
+                                hover: {
+                                    color: '#DCDCDC',
+                                    borderWidth:1,
+                                    borderColor:'#000000'
+                                }
+                            }
+                            /*
+                            ,
+
+                            point: {
+                                events: {
+                                    click: pointClick
+                                }
+                            }
+                            */
+                        }
+                        ]
+
+                    });//end
+                });
+            }
+            //Load Reporting rates
+
+            var rsmry = $('#rsmry').val();
+            var robj = JSON.parse(rsmry);
+
+            //Load Map
+            var data = [
+                ['Adjumani District', (typeof obj2["Adjumani District"] === 'undefined') ? 0 : obj2['Adjumani District'][0][2]],
+                ['Arua District', (typeof obj2["Arua District"] === 'undefined') ? 0 : obj2['Arua District'][0][2]],
+                ['Koboko District', (typeof obj2["Koboko District"] === 'undefined') ? 0 : obj2['Koboko District'][0][2]],
+                ['Maracha District', (typeof obj2["Maracha District"] === 'undefined') ? 0 : obj2['Maracha District'][0][2]],
+                ['Moyo District', (typeof obj2["Moyo District"] === 'undefined') ? 0 : obj2['Moyo District'][0][2]],
+                ['Nebbi District', (typeof obj2["Nebbi District"] === 'undefined') ? 0 : obj2['Nebbi District'][0][2]],
+                ['Pakwach District', (typeof obj2["Pakwach District"] === 'undefined') ? 0 : obj2['Pakwach District'][0][2]],
+                ['Kasese District', (typeof obj2["Kasese District"] === 'undefined') ? 0 : obj2['Kasese District'][0][2]],
+                ['Yumbe District', (typeof obj2["Yumbe District"] === 'undefined') ? 0 : obj2['Yumbe District'][0][2]],
+                ['Zombo District', (typeof obj2["Zombo District"] === 'undefined') ? 0 : obj2['Zombo District'][0][2]],
+                ['Kyenjojo District', (typeof obj2["Kyenjojo District"] === 'undefined') ? 0 : obj2['Kyenjojo District'][0][2]],
+                ['Kamwenge District', (typeof obj2["Kamwenge District"] === 'undefined') ? 0 : obj2['Kamwenge District'][0][2]],
+                ['Kyegegwa District', (typeof obj2["Kyegegwa District"] === 'undefined') ? 0 : obj2['Kyegegwa District'][0][2]],
+                ['Bundibugyo District', (typeof obj2["Bundibugyo District"] === 'undefined') ? 0 : obj2['Bundibugyo District'][0][2]],
+                ['Ntoroko District', (typeof obj2["Ntoroko District"] === 'undefined') ? 0 : obj2['Ntoroko District'][0][2]],
+                ['Kabarole District', (typeof obj2["Kabarole District"] === 'undefined') ? 0 : obj2['Kabarole District'][0][2]]
+            ];
+
+            var cdata = [
+                ['Adjumani District', (typeof cobj2["Adjumani District"] === 'undefined') ? 0 : cobj2['Adjumani District'][0][2]],
+                ['Arua District', (typeof cobj2["Arua District"] === 'undefined') ? 0 : cobj2['Arua District'][0][2]],
+                ['Koboko District', (typeof cobj2["Koboko District"] === 'undefined') ? 0 : cobj2['Koboko District'][0][2]],
+                ['Maracha District', (typeof cobj2["Maracha District"] === 'undefined') ? 0 : cobj2['Maracha District'][0][2]],
+                ['Moyo District', (typeof cobj2["Moyo District"] === 'undefined') ? 0 : cobj2['Moyo District'][0][2]],
+                ['Nebbi District', (typeof cobj2["Nebbi District"] === 'undefined') ? 0 : cobj2['Nebbi District'][0][2]],
+                ['Pakwach District', (typeof cobj2["Pakwach District"] === 'undefined') ? 0 : cobj2['Pakwach District'][0][2]],
+                ['Kasese District', (typeof cobj2["Kasese District"] === 'undefined') ? 0 : cobj2['Kasese District'][0][2]],
+                ['Yumbe District', (typeof cobj2["Yumbe District"] === 'undefined') ? 0 : cobj2['Yumbe District'][0][2]],
+                ['Zombo District', (typeof cobj2["Zombo District"] === 'undefined') ? 0 : cobj2['Zombo District'][0][2]],
+                ['Kyenjojo District', (typeof cobj2["Kyenjojo District"] === 'undefined') ? 0 : cobj2['Kyenjojo District'][0][2]],
+                ['Kamwenge District', (typeof cobj2["Kamwenge District"] === 'undefined') ? 0 : cobj2['Kamwenge District'][0][2]],
+                ['Kyegegwa District', (typeof cobj2["Kyegegwa District"] === 'undefined') ? 0 : cobj2['Kyegegwa District'][0][2]],
+                ['Bundibugyo District', (typeof cobj2["Bundibugyo District"] === 'undefined') ? 0 : cobj2['Bundibugyo District'][0][2]],
+                ['Ntoroko District', (typeof cobj2["Ntoroko District"] === 'undefined') ? 0 : cobj2['Ntoroko District'][0][2]],
+                ['Kabarole District', (typeof cobj2["Kabarole District"] === 'undefined') ? 0 : cobj2['Kabarole District'][0][2]]
+            ];
+
+            drawMap(data);
+
+            $('.select li').first().click(function(){
+                //alert('First');
+
+                cat = 'Adults';
+
+                $('#sr').html(robj[0][0]); $('#sn').html(robj[0][1]); $('#sd').html(robj[0][2]); $('#si').html(robj[0][3]);
+                $('#rr').html(robj[0][4]); $('#rn').html(robj[0][5]); $('#rd').html(robj[0][6]); $('#ri').html(robj[0][7]);
+
+                $('.arrow-img').tooltip();
+
+                drawBarChart(obj1, obj2, 18);
+                drawMap(data);
+            });
+
+            $('.select li').last().click(function(){
+                //alert('Last');
+
+                cat = 'Paediatrics';
+
+                $('#sr').html(robj[1][0]); $('#sn').html(robj[1][1]); $('#sd').html(robj[1][2]); $('#si').html(robj[1][3]);
+                $('#rr').html(robj[1][4]); $('#rn').html(robj[1][5]); $('#rd').html(robj[1][6]); $('#ri').html(robj[1][7]);
+
+                $('.arrow-img').tooltip();
+
+                drawBarChart(cobj1, cobj2, 16);
+                drawMap(cdata);
             });
 
         });
+
     </script>
 
     <?php
@@ -882,7 +1119,7 @@ function stock_status(){
             $cur = "SELECT EXTRACT(YEAR FROM NOW()) AS yr, (EXTRACT(WEEK FROM NOW()) - 1) AS weekno;";
             $onerow = pg_fetch_array(pg_query($db, $cur));
 
-            $org = 'Uganda';
+            $org = 'akV6429SUqu'; $orgname = 'Uganda';
             $per = $onerow['yr'] . 'W' . $onerow['weekno'];
             $yr = $onerow['yr'];
             $wk = $onerow['weekno'];
@@ -892,7 +1129,7 @@ function stock_status(){
         //STKA KPIs
 
         //National Level
-        $sql = "SELECT * FROM staging.rass_kpi_stka_w WHERE entity = '$org' AND week = '$per';";
+        $sql = "SELECT * FROM staging.rass_kpi_stka_w WHERE uid = '$org' AND week = '$per';";
         //Regional Level
         $sql1 = "SELECT * FROM staging.rass_kpi_stka_w WHERE level = 'Regional' AND week = '$per' ORDER BY entity;";
         //District Level
@@ -901,7 +1138,7 @@ function stock_status(){
         //STKC KPIs
 
         //National Level
-        $csql = "SELECT * FROM staging.rass_kpi_stkc_w WHERE entity = '$org' AND week = '$per';";
+        $csql = "SELECT * FROM staging.rass_kpi_stkc_w WHERE uid = '$org' AND week = '$per';";
         //Regional Level
         $csql1 = "SELECT * FROM staging.rass_kpi_stkc_w WHERE level = 'Regional' AND week = '$per' ORDER BY entity;";
         //District Level
@@ -910,10 +1147,10 @@ function stock_status(){
         //Trends Data
         //Adults
         $asql = "SELECT * FROM staging.last_12_wks (". $yr . ", " . $wk . ") lw LEFT JOIN staging.rass_kpi_stka_w w
-                ON w.week = lw.week  AND entity = '$org' OR entity IS NULL ORDER BY lw.id;";
+                ON w.week = lw.week  AND uid = '$org' OR entity IS NULL ORDER BY lw.id;";
         //Paeds
         $psql = "SELECT * FROM staging.last_12_wks (" . $yr . ", " . $wk . ") lw LEFT JOIN staging.rass_kpi_stkc_w w
-                ON w.week = lw.week  AND entity = '$org' OR entity IS NULL ORDER BY lw.id;";
+                ON w.week = lw.week  AND uid = '$org' OR entity IS NULL ORDER BY lw.id;";
 
         $res = pg_query($db, $sql);
         $res1 = pg_query($db, $sql1);
@@ -940,7 +1177,8 @@ function stock_status(){
         $creg = array();
         $cdis = array();
 
-        $reports = array();
+        $reports = array(); //Adult report indicators
+        $preports = array(); //Paediatric report indicators
 
         //STKA data
         while($row = pg_fetch_array($res)) {
@@ -948,6 +1186,7 @@ function stock_status(){
             $reports[] = $row['receivedreports'];
             $reports[] = $row['expectedreports'];
             $reports[] = $row['rso'];
+
             $wdata[] = array("NVP", "Adult", $row['a'], $row['aamc'], $row['au'], $row['an'], $row['am'], $row['ao'], abs($row['aa']));
             $wdata[] = array("EFV", "Adult", $row['b'], $row['bamc'], $row['bu'], $row['bn'], $row['bm'], $row['bo'], abs($row['ba']));
             $wdata[] = array("ABC", "Adult", $row['c'], $row['camc'], $row['cu'], $row['cn'], $row['cm'], $row['co'], abs($row['ca']));
@@ -971,6 +1210,11 @@ function stock_status(){
 
         //STKC data
         while($crow = pg_fetch_array($cres)) {
+
+            $preports[] = $crow['receivedreports'];
+            $preports[] = $crow['expectedreports'];
+            $preports[] = $crow['rso'];
+
             $wdata[] = array("NVP 50mg", "Paediatric", $crow['a'], $crow['aamc'], $crow['au'], $crow['an'], $crow['am'], $crow['ao'], abs($crow['aa']));
             $wdata[] = array("NVP 10mg/ml (240ml)", "Paediatric", $crow['b'], $crow['bamc'], $crow['bu'], $crow['bn'], $crow['bm'], $crow['bo'], abs($crow['ba']));
             $wdata[] = array("NVP 10mg/ml (100ml)", "Paediatric", $crow['c'], $crow['camc'], $crow['cu'], $crow['cn'], $crow['cm'], $crow['co'], abs($crow['ca']));
@@ -1014,33 +1258,41 @@ function stock_status(){
         while($row1 = pg_fetch_array($res1)){
 
             $stkouts = $row1['rso'];
-            $reg["$row1[entity]"] = (int)$stkouts;
+            $affc = $row1['aa'] + $row1['ba'] + $row1['ca'] + $row1['da'] + $row1['ea'] + $row1['fa'] + $row1['ga'] + $row1['ha']+
+                $row1['ia'] + $row1['ja'] + $row1['ka'] + $row1['la'] + $row1['ma'] + $row1['na'] + $row1['oa'] + $row1['pa'] +
+                $row1['qa'] + $row1['ra'];
+
+            $reg["$row1[entity]"] = array((int)$stkouts, (float)$affc / 100);
             //$reg[] = array($row1['entity'], (int)$stkouts);
         }
 
         while($row2 = pg_fetch_array($res2)){
 
             $stkouts = $row2['rso'];
+            $affc = $row2['aa'] + $row2['ba'] + $row2['ca'] + $row2['da'] + $row2['ea'] + $row2['fa'] + $row2['ga'] + $row2['ha']+
+                $row2['ia'] + $row2['ja'] + $row2['ka'] + $row2['la'] + $row2['ma'] + $row2['na'] + $row2['oa'] + $row2['pa'] +
+                $row2['qa'] + $row2['ra'];
+
             $dis["$row2[entity]"] = array(
-                    array((int)$stkouts),
-                    array("NVP", (int)$row2['ao']),
-                    array("EFV", (int)$row2['bo']),
-                    array("ABC", (int)$row2['co']),
-                    array("ETV", (int)$row2['do']),
-                    array("3TC", (int)$row2['eo']),
-                    array("AZT", (int)$row2['fo']),
-                    array("RAL", (int)$row2['go']),
-                    array("ATV", (int)$row2['ho']),
-                    array("RTV", (int)$row2['io']),
-                    array("Darunavir", (int)$row2['jo']),
-                    array("ABC/3TC", (int)$row2['ko']),
-                    array("AZT/3TC", (int)$row2['lo']),
-                    array("TDF/3TC", (int)$row2['mo']),
-                    array("LPV/r", (int)$row2['no']),
-                    array("ATV/r", (int)$row2['oo']),
-                    array("AZT/3TC/NVP", (int)$row2['po']),
-                    array("TDF/3TC/EFV", (int)$row2['qo']),
-                    array("TDF/3TC + NVP", (int)$row2['ro']),
+                    array((int)$stkouts, (int)$affc, round(($stkouts * 100) / $row2['receivedreports'])),
+                    array("NVP", (int)$row2['ao'], (int)$row2['aa']),
+                    array("EFV", (int)$row2['bo'], (int)$row2['ba']),
+                    array("ABC", (int)$row2['co'], (int)$row2['ca']),
+                    array("ETV", (int)$row2['do'], (int)$row2['da']),
+                    array("3TC", (int)$row2['eo'], (int)$row2['ea']),
+                    array("AZT", (int)$row2['fo'], (int)$row2['fa']),
+                    array("RAL", (int)$row2['go'], (int)$row2['ga']),
+                    array("ATV", (int)$row2['ho'], (int)$row2['ha']),
+                    array("RTV", (int)$row2['io'], (int)$row2['ia']),
+                    array("Darunavir", (int)$row2['jo'], (int)$row2['ja']),
+                    array("ABC/3TC", (int)$row2['ko'], (int)$row2['ka']),
+                    array("AZT/3TC", (int)$row2['lo'], (int)$row2['la']),
+                    array("TDF/3TC", (int)$row2['mo'], (int)$row2['ma']),
+                    array("LPV/r", (int)$row2['no'], (int)$row2['na']),
+                    array("ATV/r", (int)$row2['oo'], (int)$row2['oa']),
+                    array("AZT/3TC/NVP", (int)$row2['po'], (int)$row2['pa']),
+                    array("TDF/3TC/EFV", (int)$row2['qo'], (int)$row2['qa']),
+                    array("TDF/3TC + NVP", (int)$row2['ro'], (int)$row2['ra']),
             );
         }
 
@@ -1049,30 +1301,36 @@ function stock_status(){
         while($crow1 = pg_fetch_array($cres1)){
 
             $stkouts = $crow1['rso'];
-            $creg["$crow1[entity]"] = (int)$stkouts;
+            $affc = $crow1['aa'] + $crow1['ba'] + $crow1['ca'] + $crow1['da'] + $crow1['ea'] + $crow1['fa'] + $crow1['ga'] + $crow1['ha']+
+                    $crow1['ia'] + $crow1['ja'] + $crow1['ka'] + $crow1['la'] + $crow1['ma'] + $crow1['na'] + $crow1['oa'] + $crow1['pa'];
+
+            $creg["$crow1[entity]"] = array((int)$stkouts, (float)$affc / 100);
         }
 
         while($crow2 = pg_fetch_array($cres2)){
 
             $stkouts = $crow2['rso'];
+            $affc = $crow2['aa'] + $crow2['ba'] + $crow2['ca'] + $crow2['da'] + $crow2['ea'] + $crow2['fa'] + $crow2['ga'] + $crow2['ha']+
+                    $crow2['ia'] + $crow2['ja'] + $crow2['ka'] + $crow2['la'] + $crow2['ma'] + $crow2['na'] + $crow2['oa'] + $crow2['pa'];
+
             $cdis["$crow2[entity]"] = array(
-                array((int)$stkouts),
-                array("NVP 50mg", (int)$crow2['ao']),
-                array("NVP 10mg/ml (240ml)", (int)$crow2['bo']),
-                array("NVP 10mg/ml (100ml)", (int)$crow2['co']),
-                array("EFV 200mg", (int)$crow2['do']),
-                array("EFV 50mg", (int)$crow2['eo']),
-                array("ABC 60mg", (int)$crow2['fo']),
-                array("ABC 20mg/ml", (int)$crow2['go']),
-                array("AZT 100mg", (int)$crow2['ho']),
-                array("AZT 60mg", (int)$crow2['io']),
-                array("ABC/3TC 120/60mg", (int)$crow2['jo']),
-                array("ABC/3TC 60/30mg", (int)$crow2['ko']),
-                array("AZT/3TC 60/30mg", (int)$crow2['lo']),
-                array("LPV/r 100/25mg", (int)$crow2['mo']),
-                array("LPV/r 80/20mg (300ml)", (int)$crow2['no']),
-                array("LPV/r 40/10mg (Oral Pellets)", (int)$crow2['oo']),
-                array("AZT/3TC/NVP", (int)$crow2['po'])
+                array((int)$stkouts, (int)$affc, round(($stkouts * 100) / $crow2['receivedreports'])),
+                array("NVP 50mg", (int)$crow2['ao'], (int)$crow2['aa']),
+                array("NVP 10mg/ml (240ml)", (int)$crow2['bo'], (int)$crow2['ba']),
+                array("NVP 10mg/ml (100ml)", (int)$crow2['co'], (int)$crow2['ca']),
+                array("EFV 200mg", (int)$crow2['do'], (int)$crow2['da']),
+                array("EFV 50mg", (int)$crow2['eo'], (int)$crow2['ea']),
+                array("ABC 60mg", (int)$crow2['fo'], (int)$crow2['fa']),
+                array("ABC 20mg/ml", (int)$crow2['go'], (int)$crow2['ga']),
+                array("AZT 100mg", (int)$crow2['ho'], (int)$crow2['ha']),
+                array("AZT 60mg", (int)$crow2['io'], (int)$crow2['ia']),
+                array("ABC/3TC 120/60mg", (int)$crow2['jo'], (int)$crow2['ja']),
+                array("ABC/3TC 60/30mg", (int)$crow2['ko'], (int)$crow2['ka']),
+                array("AZT/3TC 60/30mg", (int)$crow2['lo'], (int)$crow2['la']),
+                array("LPV/r 100/25mg", (int)$crow2['mo'], (int)$crow2['ma']),
+                array("LPV/r 80/20mg (300ml)", (int)$crow2['no'], (int)$crow2['na']),
+                array("LPV/r 40/10mg (Oral Pellets)", (int)$crow2['oo'], (int)$crow2['oa']),
+                array("AZT/3TC/NVP", (int)$crow2['po'], (int)$crow2['pa'])
             );
         }
 
@@ -1094,28 +1352,10 @@ function stock_status(){
                 $arow['la'] + $arow['ma'] + $arow['na'] + $arow['oa'] + $arow['pa'] + $arow['qa'] +
                 $arow['ra'];
 
-            $atrends[] = array($arow['week'], (float)$stkouts, abs((int)$clients), (int)$arow['receivedreports'],
+            $atrends[] = array($arow['week'], (float)$stkouts, (int)$clients, (int)$arow['receivedreports'],
                         (int)$arow['expectedreports']);
 
         }
-
-        $psrate = $atrends[10][1];
-        $csrate = round(($reports[2] / $reports[0]) * 100, 1);
-
-        $prrate = round(($atrends[10][3] / $atrends[10][4]) * 100);
-        $crrate = round(($reports[0] / $reports[1]) * 100);
-
-        $simg = "";
-        if ($atrends[11][1] > $atrends[10][1])
-            $simg = '<img class = "arrow-img" title = "' . round(($csrate - $psrate), 1) . '%" src="assets/images/up_arrow_red.png" />';
-        else
-            $simg = '<img class = "arrow-img" title = "' . round(($csrate - $psrate)) . '%" src="assets/images/down_arrow_green.png" />';
-
-        $rimg = "";
-        if ($atrends[11][3] > $atrends[10][3])
-            $rimg = '<img class = "arrow-img" title="' . ($crrate - $prrate) . '%" src="assets/images/up_green.png" />';
-        else
-            $rimg = '<img class = "arrow-img" title="' . ($crrate - $prrate) . '%" src="assets/images/down_red.png" />';
 
         //Paediatric Trends
         while($prow = pg_fetch_array($pres)){
@@ -1129,55 +1369,115 @@ function stock_status(){
                 $prow['fa'] + $prow['ga'] + $prow['ha'] + $prow['ia'] + $prow['ja'] + $prow['ka'] +
                 $prow['la'] + $prow['ma'] + $prow['na'] + $prow['oa'] + $prow['pa'];
 
-            $ptrends[] = array($prow['week'], (float)$stkouts, abs((int)$clients));
+            $ptrends[] = array($prow['week'], (float)$stkouts, (int)$clients, (int)$prow['receivedreports'],
+                (int)$prow['expectedreports']);
 
         }
+
+        //Stockout/Reporting Rates -STKA
+        $snum = $reports[2]; $sden = $reports[0];
+        $psrate = $atrends[10][1];
+        $csrate = round(($snum / $sden) * 100, 1);
+
+        $rnum = $reports[0]; $rden = $reports[1];
+        $prrate = round(($atrends[10][3] / $atrends[10][4]) * 100);
+        $crrate = round(($rnum / $rden) * 100);
+
+        $simg = "";
+        if ($atrends[11][1] > $atrends[10][1])
+            $simg = '<img class = "arrow-img" title = "' . round(($csrate - $psrate), 1) . '%" src="assets/images/up_arrow_red.png" />';
+        else
+            $simg = '<img class = "arrow-img" title = "' . round(($csrate - $psrate)) . '%" src="assets/images/down_arrow_green.png" />';
+
+        $rimg = "";
+        if ($atrends[11][3] > $atrends[10][3])
+            $rimg = '<img class = "arrow-img" title="' . ($crrate - $prrate) . '%" src="assets/images/up_green.png" />';
+        else
+            $rimg = '<img class = "arrow-img" title="' . ($crrate - $prrate) . '%" src="assets/images/down_red.png" />';
+
+        //Stockout/Reporting Rates -STKC
+        $psnum = $preports[2]; $psden = $preports[0];
+        $ppsrate = $ptrends[10][1];
+        $pcsrate = round(($psnum / $psden) * 100, 1);
+
+        $prnum = $preports[0]; $prden = $preports[1];
+        $pprrate = round(($ptrends[10][3] / $ptrends[10][4]) * 100);
+        $pcrrate = round(($prnum / $prden) * 100);
+
+        $psimg = "";
+        if ($ptrends[11][1] > $ptrends[10][1])
+            $psimg = '<img class = "arrow-img" title = "' . round(($pcsrate - $ppsrate), 1) . '%" src="assets/images/up_arrow_red.png" />';
+        else
+            $psimg = '<img class = "arrow-img" title = "' . round(($pcsrate - $ppsrate)) . '%" src="assets/images/down_arrow_green.png" />';
+
+        $primg = "";
+        if ($ptrends[11][3] > $ptrends[10][3])
+            $primg = '<img class = "arrow-img" title="' . ($pcrrate - $pprrate) . '%" src="assets/images/up_green.png" />';
+        else
+            $primg = '<img class = "arrow-img" title="' . ($pcrrate - $pprrate) . '%" src="assets/images/down_red.png" />';
+
+        $report_smry = array(
+                array($csrate, '<a href="#">' . $snum . '</a>', '<a href="#">' . $sden . '</a>', $simg,
+                    $crrate, '<a href="#">'. $rnum. '</a>', '<a href="#">' . $rden. '</a>', $rimg),
+                array($pcsrate, '<a href="#">' . $psnum . '</a>', '<a href="#">' . $psden . '</a>', $psimg,
+                    $pcrrate, '<a href="#">' . $prnum. '</a>', '<a href="#">' . $prden. '</a>', $primg)
+        );
 
         pg_close($db);
     ?>
 
     <article class="content charts-flot-page">
-        <div class="title-block">
+        <div class="title-block" style="margin-top:-4px">
             <h3 class="title">Stock Status</h3>
             <p class="title-description">Sites with Stock out of ARVS</p>
-            <button type="button" class="pull-right btn btn-info btn-sm rounded-s" data-toggle="modal" data-target="#modal-media">
-                Level/Period - Filter
-            </button>
+            <div class="pull-right" style="margin-top: -47px">
+                <div class="pull-left">
+                    <ul class="select">
+                        <li>Adults</li>
+                        <li>Paediatrics</li>
+                    </ul>
+                </div>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-info btn-sm rounded-s" data-toggle="modal" data-target="#modal-media" style="margin-top:-1px">
+                        Level/Period - Filter
+                    </button>
+                </div>
+            </div>
         </div>
         <section class="section">
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6" style="padding-right: 0px">
                         <div class="card">
                             <div class="card-block">
-
+                                <input type="hidden" value='<?php echo json_encode($report_smry); ?>'  id="rsmry" name="rsmry"/>
                                 <div class="card-title-block">
-                                    <h3 class="title"><span>Stock Out Rate: </span><span id = "w"><?php echo isset($_GET['w']) ? $_GET['w']:$per ; ?></span> (<span id = "o"><?php echo isset($_GET['o']) ? $_GET['o']:$org ; ?></span>)</h3>
+                                    <h3 class="title"><span>Stock Out Rate: </span><span id = "w"><?php echo isset($_GET['w']) ? $_GET['w']:$per ; ?></span> (<span id = "o"><?php echo isset($_GET['o']) ? $_GET['on']:$orgname ; ?></span>)</h3>
                                 </div>
 
                                 <section class="">
                                     <div class="">
-                                        <h1 class="title"><span><?php echo $csrate; ?></span>% <?php echo $simg; ?></h1>
-                                        <p class="title-description"><span><a href="#"><?php echo $reports[2]; ?></a></span> of <span><a href="#"><?php echo $reports[0]; ?></a></span> Health Facilities Stocked Out - <a href="#">View</a></p>
+                                        <h1 class="title"><span id="sr"><?php echo $csrate; ?></span>% <span id="si"><?php echo $simg; ?></span></h1>
+                                        <p class="title-description"><span id="sn"><a href="#"><?php echo $reports[2]; ?></a></span> of <span id="sd"><a href="#"><?php echo $reports[0]; ?></a></span> Health Facilities Stocked Out - <a href="#">View</a></p>
                                     </div>
                                 </section>
                             </div>
                         </div>
 
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" style="padding-left: 8px">
                         <div class="card">
                             <div class="card-block">
 
                                 <div class="card-title-block">
-                                    <h3 class="title"><span>Reporting Rate: <?php echo $w; ?></span><span class = ""><?php echo isset($_GET['w']) ? $_GET['w']:$per ; ?></span> (<span><?php echo isset($_GET['o']) ? $_GET['o']:$org ; ?></span>)</h3>
+                                    <h3 class="title"><span>Reporting Rate: <?php echo $w; ?></span><span class = ""><?php echo isset($_GET['w']) ? $_GET['w']:$per ; ?></span> (<span><?php echo isset($_GET['o']) ? $_GET['on']:$orgname ; ?></span>)</h3>
                                 </div>
 
                                 <section class="">
                                     <div class="">
-                                        <h1 class="title"><span><?php echo $crrate; ?></span>% <?php echo $rimg; ?></h1>
-                                        <p class="title-description"><span><a href="#"><?php echo $reports[0]; ?></a></span> of <span><a href="#"><?php echo $reports[1]; ?></a></span> Health Facilities Reported - <a href="#">View</a></p>
+                                        <h1 class="title"><span id="rr"><?php echo $crrate; ?></span>% <span id="ri"><?php echo $rimg; ?></span></h1>
+                                        <p class="title-description"><span id="rn"><a href="#"><?php echo $reports[0]; ?></a></span> of <span id="rd"><a href="#"><?php echo $reports[1]; ?></a></span> Health Facilities Reported - <a href="#">View</a></p>
                                     </div>
                                 </section>
                             </div>
@@ -1188,22 +1488,7 @@ function stock_status(){
         </section>
         <section class="section">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-block">
-                            <section class="">
-                                <div class="">
-                                    <div id="trends"></div>
-                                </div>
-                            </section>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="section">
-            <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6" style="padding-right: 0px">
                     <div class="card">
                         <div class="card-block">
                             <section class="">
@@ -1214,12 +1499,28 @@ function stock_status(){
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" style="padding-left: 8px">
+                    <div class="card">
+                        <div class="card-block" style="height:440px;">
+                            <section class="">
+                                <div class="">
+                                    <div id="dmap"></div>
+                                    <div id="pop"></div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="row">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-block">
                             <section class="">
                                 <div class="">
-                                    <div id="spaeds"></div>
+                                    <div id="trends"></div>
                                 </div>
                             </section>
                         </div>

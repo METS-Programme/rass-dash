@@ -10,7 +10,7 @@ require_once ("db.php");
 
 $level = $_POST['level'];
 
-$sql = "SELECT DISTINCT entity FROM staging.rass_kpi_stka_w WHERE level = '$level' ORDER BY entity;";
+$sql = "SELECT DISTINCT entity, uid FROM staging.rass_kpi_stka_w WHERE level = '$level' ORDER BY entity;";
 
 $res = pg_query($db, $sql);
 
@@ -23,7 +23,7 @@ if(!$res) {
 $orgunits =array();
 
 while($row = pg_fetch_array($res)) {
-    $orgunits[] = array('entity' => $row['entity']);
+    $orgunits[] = array('entity' => $row['entity'], 'uid' => $row['uid']);
 }
 //echo "Operation done successfully\n";
 pg_close($db);

@@ -1,11 +1,13 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: stephocay
+ * User: kayemilton
  * Date: 14/02/2017
  * Time: 15:04
  */
-//require_once ("src/commons/db.php");
+
+require ("src/commons/pvisits.php");
+
 require_once ("src/commons/functions.php");
 
 //require_once ("src/commons/orgs.php");
@@ -36,9 +38,9 @@ requireFiles("src/contents");
     <link rel="stylesheet" href="assets/css/app.css">
 
     <link rel="stylesheet" href="assets/css/jquery.dataTables.min.css">
+    <!-- <link rel="stylesheet" href="assets/css/jquery-ui.css"> -->
     <!-- Bootstrap core CSS -->
     <!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet"> -->
-
     <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
 
     <script src="assets/js/jquery-3.2.1.min.js" type="text/javascript"></script> <!--1.12.4 -->
@@ -57,22 +59,73 @@ requireFiles("src/contents");
             top: -1px;
             left: -3px;
         }
+
+        #dmap {
+            height: 500px;
+            min-width: 310px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .loading {
+            margin-top: 10em;
+            text-align: center;
+            color: gray;
+        }
+
+        .select {
+            display: inline-block;
+            width: auto;
+            color: #3B6692;
+        }
+
+        ul.select li {
+            float: left;
+            list-style: none;
+            text-align: center;
+            margin-right: 5px;
+            width: auto;
+            /*padding: 5px;*/
+            padding-left: 8px;
+            padding-right: 8px;
+            color: #3B6692;
+            background-color: #FFF;
+            border: dashed 1px #CEC6C6;
+            border-radius: 0.2rem;
+        }
+
+        ul.select li:hover {
+            background-color: #46c5f2;
+            color: white;
+            cursor: pointer;
+        }
+
+        ul.select li.selected {
+            background-color: #94979A;
+            color: white;
+            border-color: transparent;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -o-border-radius: 5px;
+            -ms-border-radius: 5px;
+            -khtml-border-radius: 5px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+
     </style>
 
     <script type="text/javascript">
         $(document).ready(function(){
-            //alert("Hello");
-            //$('#btns-sum').attr('hidden', false);
             $('.arrow-img').tooltip();
-            /*
-            var jtext = $('#jtext').val();
 
-            var obj = JSON.parse(jtext);
+            $('.select li').first().addClass('selected');
 
-            alert (obj.a[0]);
-             $("#list option[value='2']").text()
-             */
-            //alert ($('#ounit option').size());
+            $('.select li').click(function(){
+                $(this).addClass('selected');
+                $(this).siblings().removeClass("selected");
+                //alert('Hello');
+            });
 
             $.post(
                 "src/commons/periods.php",
@@ -124,7 +177,7 @@ requireFiles("src/contents");
                         //put here error handling code!
                         $.each(JSON.parse(data), function() {
                             //alert();
-                            options.append($("<option />").val(this.entity).text(this.entity));
+                            options.append($("<option />").val(this.uid).text(this.entity));
                         });
                     }
                 );
@@ -136,12 +189,13 @@ requireFiles("src/contents");
 
                 var wk = $('#operiod option:selected').text();
                 var wkno = $('#operiod option:selected').val();
-                var org = $('#ounit option:selected').text();
+                var org = $('#ounit option:selected').val();
+                var on = $('#ounit option:selected').text();
 
                 //$('.wk').html(wk);
                 //$('.org').html(org);
                 if ($('#ounit option:selected').val() != 0 || $('#operiod option:selected').val() != 0)
-                    window.location.href = "?o=" + org + "&w=" + wk + "&wn=" + wkno;
+                    window.location.href = "?o=" + org + "&w=" + wk + "&wn=" + wkno + "&on=" + on;
 
             });
 
@@ -450,12 +504,18 @@ requireFiles("src/contents");
 <script src="assets/js/app.js"></script>
 
 <script src="assets/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<!--<script src="assets/js/jquery-ui.js" type="text/javascript"></script> -->
 
 <!-- Highcharts JS -->
 <script src="assets/js/highcharts.js" type="text/javascript"></script>
 <script src="assets/js/data.js" type="text/javascript"></script>
 <script src="assets/js/drilldown.js" type="text/javascript"></script>
 <script src="assets/js/exporting.js" type="text/javascript"></script>
+<script src="assets/js/map.js" type="text/javascript"></script>
+
+<!--Ug Map-->
+
+
 <!--
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/data.js"></script>
