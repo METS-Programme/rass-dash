@@ -30,7 +30,7 @@ function stock_status(){
                     text: 'ARV Stockout rates - Last 12 Weeks (' + $('#o').html() + ')'
                 },
                 subtitle: {
-                    text: 'Source: MoH'
+                    text: 'Health Facilities Reporting ARV Stockstatus during the reporting periods'
                 },
                 xAxis: [{
                     categories: [aobj[0][0], aobj[1][0], aobj[2][0], aobj[3][0], aobj[4][0], aobj[5][0],
@@ -85,8 +85,8 @@ function stock_status(){
                 },
                 credits: {
                     enabled: true,
-                    text: 'Mets.or.ug',
-                    href: 'http://www.mets.or.ug'
+                    text: 'www.rass.mets.or.ug',
+                    href: 'http://rass.mets.or.ug'
                 },
                 series: [{
                     name: 'Affected Clients - Adults',
@@ -192,8 +192,8 @@ function stock_status(){
                     },
                     credits: {
                         enabled: true,
-                        text: 'Mets.or.ug',
-                        href: 'http://www.mets.or.ug'
+                        text: 'rass.mets.or.ug',
+                        href: 'http://rass.mets.or.ug'
                     },
                     series: [
                         {
