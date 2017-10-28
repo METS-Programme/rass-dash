@@ -79,7 +79,7 @@ function stock_status(){
                     align: 'left',
                     x: 70,
                     verticalAlign: 'top',
-                    y: 40,
+                    y: 52,
                     floating: true,
                     backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
                 },
