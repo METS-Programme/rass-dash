@@ -51,7 +51,7 @@ function stock_status(){
                         }
                     },
                     title: {
-                        text: 'Stockout rates',
+                        text: '% of Health Facilities with ARV Stockouts',
                         style: {
                             color: Highcharts.getOptions().colors[1]
                         }
@@ -79,9 +79,18 @@ function stock_status(){
                     align: 'left',
                     x: 70,
                     verticalAlign: 'top',
-                    y: 30,
+                    y: 40,
                     floating: true,
                     backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+                },
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y:,.0f}' //{point.y:.1f}
+                        }
+                    }
                 },
                 credits: {
                     enabled: true,
