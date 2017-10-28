@@ -83,6 +83,7 @@ function stock_status(){
                     floating: true,
                     backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
                 },
+                /*
                 plotOptions: {
                     series: {
                         borderWidth: 0,
@@ -92,6 +93,7 @@ function stock_status(){
                         }
                     }
                 },
+                */
                 credits: {
                     enabled: true,
                     text: 'www.rass.mets.or.ug',
