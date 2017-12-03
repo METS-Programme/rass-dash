@@ -75,12 +75,18 @@ function stock_status(){
                     shared: true
                 },
                 legend: {
+                    /*
                     layout: 'vertical',
                     align: 'left',
                     x: 70,
                     verticalAlign: 'top',
                     y: 52,
                     floating: true,
+                    */
+                    align: 'center',
+                    verticalAlign: 'bottom',
+                    x: 0,
+                    y: 0,
                     backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
                 },
                 /*
