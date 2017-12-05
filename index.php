@@ -203,6 +203,40 @@ requireFiles("src/contents");
                 "order": [[ 5, "desc" ]]
             } );
 
+            $(".show-hfs").click(function(){
+
+                $('#fc').html("");
+
+                var cat = $(this).attr("data-cat");
+                var col = $(this).attr("data-col");
+                var o = $('#rsmry').attr("data-o");
+                var wn = $('#rsmry').attr("data-wn");
+                var on = $('#rsmry').attr("data-on");
+
+                //alert (cat + " " + col + " " + on);
+
+                $.post(
+                    "src/commons/facilities.php",
+                    {
+                        o: o,
+                        wn: wn,
+                        cat: cat,
+                        col: col,
+                        on: on
+                    },
+                    function(data, status){
+
+                        //alert(data + " " + status);
+
+                        $('#fc').html(data);
+
+                        $('#hf-list').DataTable();
+
+                    }
+                );
+
+            });
+
         });
     </script>
 
@@ -466,6 +500,37 @@ requireFiles("src/contents");
             <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
+
+        <!-- Modal displaying details -->
+        <div class="modal fade" id="modal-hfs">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <h4 class="modal-title">Health Facilities</h4>
+                    </div>
+                    <div class="modal-body modal-tab-container">
+                        <section class="section" style="padding:10px">
+                                <div class="table-responsive" id="fc">
+
+                                </div>
+                        </section>
+                    </div>
+                    <!--
+                    <div class="modal-footer">
+
+                    </div>
+                    -->
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
         <div class="modal fade" id="confirm-modal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">

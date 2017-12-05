@@ -1089,8 +1089,13 @@ function stock_status(){
 
                 cat = 'Adults';
 
-                $('#sr').html(robj[0][0]); $('#sn').html(robj[0][1]); $('#sd').html(robj[0][2]); $('#si').html(robj[0][3]);
-                $('#rr').html(robj[0][4]); $('#rn').html(robj[0][5]); $('#rd').html(robj[0][6]); $('#ri').html(robj[0][7]);
+                $('#sn a').attr('data-cat', 'akpi');
+                $('#sd a').attr('data-cat', 'akpi');
+                $('#rn a').attr('data-cat', 'akpi');
+                $('#rd a').attr('data-cat', 'akpi');
+
+                $('#sr').html(robj[0][0]); $('#sn a').html(robj[0][1]); $('#sd a').html(robj[0][2]); $('#si').html(robj[0][3]);
+                $('#rr').html(robj[0][4]); $('#rn a').html(robj[0][5]); $('#rd a').html(robj[0][6]); $('#ri').html(robj[0][7]);
 
                 $('.arrow-img').tooltip();
 
@@ -1103,8 +1108,13 @@ function stock_status(){
 
                 cat = 'Paediatrics';
 
-                $('#sr').html(robj[1][0]); $('#sn').html(robj[1][1]); $('#sd').html(robj[1][2]); $('#si').html(robj[1][3]);
-                $('#rr').html(robj[1][4]); $('#rn').html(robj[1][5]); $('#rd').html(robj[1][6]); $('#ri').html(robj[1][7]);
+                $('#sn a').attr('data-cat', 'pkpi');
+                $('#sd a').attr('data-cat', 'pkpi');
+                $('#rn a').attr('data-cat', 'pkpi');
+                $('#rd a').attr('data-cat', 'pkpi');
+
+                $('#sr').html(robj[1][0]); $('#sn a').html(robj[1][1]); $('#sd a').html(robj[1][2]); $('#si').html(robj[1][3]);
+                $('#rr').html(robj[1][4]); $('#rn a').html(robj[1][5]); $('#rd a').html(robj[1][6]); $('#ri').html(robj[1][7]);
 
                 $('.arrow-img').tooltip();
 
@@ -1204,24 +1214,24 @@ function stock_status(){
             $reports[] = $row['expectedreports'];
             $reports[] = $row['rso'];
 
-            $wdata[] = array("NVP", "Adult", $row['a'], $row['aamc'], $row['au'], $row['an'], $row['am'], $row['ao'], abs($row['aa']));
-            $wdata[] = array("EFV", "Adult", $row['b'], $row['bamc'], $row['bu'], $row['bn'], $row['bm'], $row['bo'], abs($row['ba']));
-            $wdata[] = array("ABC", "Adult", $row['c'], $row['camc'], $row['cu'], $row['cn'], $row['cm'], $row['co'], abs($row['ca']));
-            $wdata[] = array("ETV", "Adult", $row['d'], $row['damc'], $row['du'], $row['dn'], $row['dm'], $row['do'], abs($row['da']));
-            $wdata[] = array("3TC", "Adult", $row['e'], $row['eamc'], $row['eu'], $row['en'], $row['em'], $row['eo'], abs($row['ea']));
-            $wdata[] = array("AZT", "Adult", $row['f'], $row['famc'], $row['fu'], $row['fn'], $row['fm'], $row['fo'], abs($row['fa']));
-            $wdata[] = array("RAL", "Adult", $row['g'], $row['gamc'], $row['gu'], $row['gn'], $row['gm'], $row['go'], abs($row['ga']));
-            $wdata[] = array("ATV", "Adult", $row['h'], $row['hamc'], $row['hu'], $row['hn'], $row['hm'], $row['ho'], abs($row['ha']));
-            $wdata[] = array("RTV", "Adult", $row['i'], $row['iamc'], $row['iu'], $row['in'], $row['im'], $row['io'], abs($row['ia']));
-            $wdata[] = array("Darunavir", "Adult", $row['j'], $row['jamc'], $row['ju'], $row['jn'], $row['jm'], $row['jo'], abs($row['ja']));
-            $wdata[] = array("ABC/3TC", "Adult", $row['k'], $row['kamc'], $row['ku'], $row['kn'], $row['km'], $row['ko'], abs($row['ka']));
-            $wdata[] = array("AZT/3TC", "Adult", $row['l'], $row['lamc'], $row['lu'], $row['ln'], $row['lm'], $row['lo'], abs($row['la']));
-            $wdata[] = array("TDF/3TC", "Adult", $row['m'], $row['mamc'], $row['mu'], $row['mn'], $row['mm'], $row['mo'], abs($row['ma']));
-            $wdata[] = array("LPV/r", "Adult", $row['n'], $row['namc'], $row['nu'], $row['nn'], $row['nm'], $row['no'], abs($row['na']));
-            $wdata[] = array("ATV/r", "Adult", $row['o'], $row['oamc'], $row['ou'], $row['on'], $row['om'], $row['oo'], abs($row['oa']));
-            $wdata[] = array("AZT/3TC/NVP", "Adult", $row['p'], $row['pamc'], $row['pu'], $row['pn'], $row['pm'], $row['po'], abs($row['pa']));
-            $wdata[] = array("TDF/3TC/EFV", "Adult", $row['q'], $row['qamc'], $row['qu'], $row['qn'], $row['qm'], $row['qo'], abs($row['qa']));
-            $wdata[] = array("TDF/3TC + NVP", "Adult", $row['r'], $row['ramc'], $row['ru'], $row['rn'], $row['rm'], $row['ro'], abs($row['ra']));
+            $wdata[] = array("NVP", "Adult", $row['a'], $row['aamc'], $row['au'], $row['an'], $row['am'], $row['ao'], abs($row['aa']), 'a');
+            $wdata[] = array("EFV", "Adult", $row['b'], $row['bamc'], $row['bu'], $row['bn'], $row['bm'], $row['bo'], abs($row['ba']), 'b');
+            $wdata[] = array("ABC", "Adult", $row['c'], $row['camc'], $row['cu'], $row['cn'], $row['cm'], $row['co'], abs($row['ca']), 'c');
+            $wdata[] = array("ETV", "Adult", $row['d'], $row['damc'], $row['du'], $row['dn'], $row['dm'], $row['do'], abs($row['da']), 'd');
+            $wdata[] = array("3TC", "Adult", $row['e'], $row['eamc'], $row['eu'], $row['en'], $row['em'], $row['eo'], abs($row['ea']), 'e');
+            $wdata[] = array("AZT", "Adult", $row['f'], $row['famc'], $row['fu'], $row['fn'], $row['fm'], $row['fo'], abs($row['fa']), 'f');
+            $wdata[] = array("RAL", "Adult", $row['g'], $row['gamc'], $row['gu'], $row['gn'], $row['gm'], $row['go'], abs($row['ga']), 'g');
+            $wdata[] = array("ATV", "Adult", $row['h'], $row['hamc'], $row['hu'], $row['hn'], $row['hm'], $row['ho'], abs($row['ha']), 'h');
+            $wdata[] = array("RTV", "Adult", $row['i'], $row['iamc'], $row['iu'], $row['in'], $row['im'], $row['io'], abs($row['ia']), 'i');
+            $wdata[] = array("Darunavir", "Adult", $row['j'], $row['jamc'], $row['ju'], $row['jn'], $row['jm'], $row['jo'], abs($row['ja']), 'j');
+            $wdata[] = array("ABC/3TC", "Adult", $row['k'], $row['kamc'], $row['ku'], $row['kn'], $row['km'], $row['ko'], abs($row['ka']), 'k');
+            $wdata[] = array("AZT/3TC", "Adult", $row['l'], $row['lamc'], $row['lu'], $row['ln'], $row['lm'], $row['lo'], abs($row['la']), 'l');
+            $wdata[] = array("TDF/3TC", "Adult", $row['m'], $row['mamc'], $row['mu'], $row['mn'], $row['mm'], $row['mo'], abs($row['ma']), 'm');
+            $wdata[] = array("LPV/r", "Adult", $row['n'], $row['namc'], $row['nu'], $row['nn'], $row['nm'], $row['no'], abs($row['na']), 'n');
+            $wdata[] = array("ATV/r", "Adult", $row['o'], $row['oamc'], $row['ou'], $row['on'], $row['om'], $row['oo'], abs($row['oa']), 'o');
+            $wdata[] = array("AZT/3TC/NVP", "Adult", $row['p'], $row['pamc'], $row['pu'], $row['pn'], $row['pm'], $row['po'], abs($row['pa']), 'p');
+            $wdata[] = array("TDF/3TC/EFV", "Adult", $row['q'], $row['qamc'], $row['qu'], $row['qn'], $row['qm'], $row['qo'], abs($row['qa']), 'q');
+            $wdata[] = array("TDF/3TC + NVP", "Adult", $row['r'], $row['ramc'], $row['ru'], $row['rn'], $row['rm'], $row['ro'], abs($row['ra']), 'r');
 
         }
 
@@ -1232,34 +1242,40 @@ function stock_status(){
             $preports[] = $crow['expectedreports'];
             $preports[] = $crow['rso'];
 
-            $wdata[] = array("NVP 50mg", "Paediatric", $crow['a'], $crow['aamc'], $crow['au'], $crow['an'], $crow['am'], $crow['ao'], abs($crow['aa']));
-            $wdata[] = array("NVP 10mg/ml (240ml)", "Paediatric", $crow['b'], $crow['bamc'], $crow['bu'], $crow['bn'], $crow['bm'], $crow['bo'], abs($crow['ba']));
-            $wdata[] = array("NVP 10mg/ml (100ml)", "Paediatric", $crow['c'], $crow['camc'], $crow['cu'], $crow['cn'], $crow['cm'], $crow['co'], abs($crow['ca']));
-            $wdata[] = array("EFV 200mg", "Paediatric", $crow['d'], $crow['damc'], $crow['du'], $crow['dn'], $crow['dm'], $crow['do'], abs($crow['da']));
-            $wdata[] = array("EFV 50mg", "Paediatric", $crow['e'], $crow['eamc'], $crow['eu'], $crow['en'], $crow['em'], $crow['eo'], abs($crow['ea']));
-            $wdata[] = array("ABC 60mg", "Paediatric", $crow['f'], $crow['famc'], $crow['fu'], $crow['fn'], $crow['fm'], $crow['fo'], abs($crow['fa']));
-            $wdata[] = array("ABC 20mg/ml", "Paediatric", $crow['g'], $crow['gamc'], $crow['gu'], $crow['gn'], $crow['gm'], $crow['go'], abs($crow['ga']));
-            $wdata[] = array("AZT 100mg", "Paediatric", $crow['h'], $crow['hamc'], $crow['hu'], $crow['hn'], $crow['hm'], $crow['ho'], abs($crow['ha']));
-            $wdata[] = array("AZT 60mg", "Paediatric", $crow['i'], $crow['iamc'], $crow['iu'], $crow['in'], $crow['im'], $crow['io'], abs($crow['ia']));
-            $wdata[] = array("ABC/3TC 120/60mg", "Paediatric", $crow['j'], $crow['jamc'], $crow['ju'], $crow['jn'], $crow['jm'], $crow['jo'], abs($crow['ja']));
-            $wdata[] = array("ABC/3TC 60/30mg", "Paediatric", $crow['k'], $crow['kamc'], $crow['ku'], $crow['kn'], $crow['km'], $crow['ko'], abs($crow['ka']));
-            $wdata[] = array("AZT/3TC 60/30mg", "Paediatric", $crow['l'], $crow['lamc'], $crow['lu'], $crow['ln'], $crow['lm'], $crow['lo'], abs($crow['la']));
-            $wdata[] = array("LPV/r 100/25mg", "Paediatric", $crow['m'], $crow['mamc'], $crow['mu'], $crow['mn'], $crow['mm'], $crow['mo'], abs($crow['ma']));
-            $wdata[] = array("LPV/r 80/20mg (300ml)", "Paediatric", $crow['n'], $crow['namc'], $crow['nu'], $crow['nn'], $crow['nm'], $crow['no'], abs($crow['na']));
-            $wdata[] = array("LPV/r 40/10mg (Oral Pellets)", "Paediatric", $crow['o'], $crow['oamc'], $crow['ou'], $crow['on'], $crow['om'], $crow['oo'], abs($crow['oa']));
-            $wdata[] = array("AZT/3TC/NVP", "Paediatric", $crow['p'], $crow['pamc'], $crow['pu'], $crow['pn'], $crow['pm'], $crow['po'], abs($crow['pa']));
+            $wdata[] = array("NVP 50mg", "Paediatric", $crow['a'], $crow['aamc'], $crow['au'], $crow['an'], $crow['am'], $crow['ao'], abs($crow['aa']), 'a');
+            $wdata[] = array("NVP 10mg/ml (240ml)", "Paediatric", $crow['b'], $crow['bamc'], $crow['bu'], $crow['bn'], $crow['bm'], $crow['bo'], abs($crow['ba']), 'b');
+            $wdata[] = array("NVP 10mg/ml (100ml)", "Paediatric", $crow['c'], $crow['camc'], $crow['cu'], $crow['cn'], $crow['cm'], $crow['co'], abs($crow['ca']), 'c');
+            $wdata[] = array("EFV 200mg", "Paediatric", $crow['d'], $crow['damc'], $crow['du'], $crow['dn'], $crow['dm'], $crow['do'], abs($crow['da']), 'd');
+            $wdata[] = array("EFV 50mg", "Paediatric", $crow['e'], $crow['eamc'], $crow['eu'], $crow['en'], $crow['em'], $crow['eo'], abs($crow['ea']), 'e');
+            $wdata[] = array("ABC 60mg", "Paediatric", $crow['f'], $crow['famc'], $crow['fu'], $crow['fn'], $crow['fm'], $crow['fo'], abs($crow['fa']), 'f');
+            $wdata[] = array("ABC 20mg/ml", "Paediatric", $crow['g'], $crow['gamc'], $crow['gu'], $crow['gn'], $crow['gm'], $crow['go'], abs($crow['ga']), 'g');
+            $wdata[] = array("AZT 100mg", "Paediatric", $crow['h'], $crow['hamc'], $crow['hu'], $crow['hn'], $crow['hm'], $crow['ho'], abs($crow['ha']), 'h');
+            $wdata[] = array("AZT 60mg", "Paediatric", $crow['i'], $crow['iamc'], $crow['iu'], $crow['in'], $crow['im'], $crow['io'], abs($crow['ia']), 'i');
+            $wdata[] = array("ABC/3TC 120/60mg", "Paediatric", $crow['j'], $crow['jamc'], $crow['ju'], $crow['jn'], $crow['jm'], $crow['jo'], abs($crow['ja']), 'j');
+            $wdata[] = array("ABC/3TC 60/30mg", "Paediatric", $crow['k'], $crow['kamc'], $crow['ku'], $crow['kn'], $crow['km'], $crow['ko'], abs($crow['ka']), 'k');
+            $wdata[] = array("AZT/3TC 60/30mg", "Paediatric", $crow['l'], $crow['lamc'], $crow['lu'], $crow['ln'], $crow['lm'], $crow['lo'], abs($crow['la']), 'l');
+            $wdata[] = array("LPV/r 100/25mg", "Paediatric", $crow['m'], $crow['mamc'], $crow['mu'], $crow['mn'], $crow['mm'], $crow['mo'], abs($crow['ma']), 'm');
+            $wdata[] = array("LPV/r 80/20mg (300ml)", "Paediatric", $crow['n'], $crow['namc'], $crow['nu'], $crow['nn'], $crow['nm'], $crow['no'], abs($crow['na']), 'n');
+            $wdata[] = array("LPV/r 40/10mg (Oral Pellets)", "Paediatric", $crow['o'], $crow['oamc'], $crow['ou'], $crow['on'], $crow['om'], $crow['oo'], abs($crow['oa']), 'o');
+            $wdata[] = array("AZT/3TC/NVP", "Paediatric", $crow['p'], $crow['pamc'], $crow['pu'], $crow['pn'], $crow['pm'], $crow['po'], abs($crow['pa']), 'p');
 
         }
 
+        //$para = "?o=" . $_GET['o'] . "&w=" . $_GET['w'] . "&wn=". $_GET['wn'] . "&on=" . $_GET['on'];
+
         $tr = "";
         foreach ($wdata as $item){
+
+            $arv = $item[9];
+            $cat = $item[1];
+
             $tr .= "<tr>";
             $tr .= "<td>" . $item[0] ."</td>";
             $tr .= "<td>" . $item[1] ."</td>";
-            $tr .= "<td>" . $item[4] ."</td>";
-            $tr .= "<td>" . $item[5] ."</td>";
-            $tr .= "<td>" . $item[6] ."</td>";
-            $tr .= "<td>" . $item[7] ."</td>";
+            $tr .= "<td><a href='#' class='show-hfs' data-cat = '". $cat ."' data-col = '". $arv ."u' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $item[4] ."</a></td>";
+            $tr .= "<td><a href='#' class='show-hfs' data-cat = '". $cat ."' data-col = '". $arv ."n' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $item[5] ."</a></td>";
+            $tr .= "<td><a href='#' class='show-hfs' data-cat = '". $cat ."' data-col = '". $arv ."m' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $item[6] ."</a></td>";
+            $tr .= "<td><a href='#' class='show-hfs' data-cat = '". $cat ."' data-col = '". $arv ."o' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $item[7] ."</a></td>";
             $tr .= "<td>" . $item[3] ."</td>";
             $tr .= "<td>" . $item[8] ."</td>";
             $tr .= "</tr>";
@@ -1434,10 +1450,8 @@ function stock_status(){
             $primg = '<img class = "arrow-img" title="' . ($pcrrate - $pprrate) . '%" src="assets/images/down_red.png" />';
 
         $report_smry = array(
-                array($csrate, '<a href="#">' . $snum . '</a>', '<a href="#">' . $sden . '</a>', $simg,
-                    $crrate, '<a href="#">'. $rnum. '</a>', '<a href="#">' . $rden. '</a>', $rimg),
-                array($pcsrate, '<a href="#">' . $psnum . '</a>', '<a href="#">' . $psden . '</a>', $psimg,
-                    $pcrrate, '<a href="#">' . $prnum. '</a>', '<a href="#">' . $prden. '</a>', $primg)
+                array($csrate, $snum, $sden, $simg, $crrate, $rnum, $rden, $rimg),
+                array($pcsrate, $psnum, $psden, $psimg, $pcrrate, $prnum, $prden, $primg)
         );
 
         pg_close($db);
@@ -1455,7 +1469,7 @@ function stock_status(){
                     </ul>
                 </div>
                 <div class="pull-right">
-                    <button type="button" class="btn btn-info btn-sm rounded-s" data-toggle="modal" data-target="#modal-media" style="margin-top:-1px">
+                    <button type="button" class="btn btn-info btn-sm rounded-s" data-toggle="modal" data-target="#modal-media" data-backdrop="static" data-keyboard="false" style="margin-top:-1px">
                         Level/Period - Filter
                     </button>
                 </div>
@@ -1468,7 +1482,7 @@ function stock_status(){
                     <div class="col-md-6" style="padding-right: 0px">
                         <div class="card">
                             <div class="card-block">
-                                <input type="hidden" value='<?php echo json_encode($report_smry); ?>'  id="rsmry" name="rsmry"/>
+                                <input type="hidden" value='<?php echo json_encode($report_smry); ?>'  id="rsmry" name="rsmry" data-wn="<?php echo isset($_GET['wn']) ? $_GET['wn']:$wk ; ?>" data-o="<?php echo isset($_GET['o']) ? $_GET['o']:$org ; ?>" data-on="<?php echo isset($_GET['o']) ? $_GET['on']:$orgname ; ?>"/>
                                 <div class="card-title-block">
                                     <h3 class="title"><span>Stock Out Rate: </span><span id = "w"><?php echo isset($_GET['w']) ? $_GET['w']:$per ; ?></span> (<span id = "o"><?php echo isset($_GET['o']) ? $_GET['on']:$orgname ; ?></span>)</h3>
                                 </div>
@@ -1476,7 +1490,7 @@ function stock_status(){
                                 <section class="">
                                     <div class="">
                                         <h1 class="title"><span id="sr"><?php echo $csrate; ?></span>% <span id="si"><?php echo $simg; ?></span></h1>
-                                        <p class="title-description"><span id="sn"><a href="#"><?php echo $reports[2]; ?></a></span> of <span id="sd"><a href="#"><?php echo $reports[0]; ?></a></span> Health Facilities Stocked Out - <a href="#">View</a></p>
+                                        <p class="title-description"><span id="sn"><a href='#' class="show-hfs" data-cat ="akpi" data-col="aso" data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'><?php echo $reports[2]; ?></a></span> of <span id="sd"><a href='#' class="show-hfs" data-cat ="akpi" data-col="areports" data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'><?php echo $reports[0]; ?></a></span> Health Facilities Stocked Out<!-- - <a href="#">View</a>--></p>
                                     </div>
                                 </section>
                             </div>
@@ -1494,7 +1508,7 @@ function stock_status(){
                                 <section class="">
                                     <div class="">
                                         <h1 class="title"><span id="rr"><?php echo $crrate; ?></span>% <span id="ri"><?php echo $rimg; ?></span></h1>
-                                        <p class="title-description"><span id="rn"><a href="#"><?php echo $reports[0]; ?></a></span> of <span id="rd"><a href="#"><?php echo $reports[1]; ?></a></span> Health Facilities Reported - <a href="#">View</a></p>
+                                        <p class="title-description"><span id="rn"><a href='#' class="show-hfs" data-cat ="akpi" data-col="areports" data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'><?php echo $reports[0]; ?></a></span> of <span id="rd"><a href='#' class="show-hfs" data-cat ="akpi" data-col="atotal" data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'><?php echo $reports[1]; ?></a></span> Health Facilities Reported<!-- - <a href="#">View</a>--></p>
                                     </div>
                                 </section>
                             </div>
@@ -1551,7 +1565,7 @@ function stock_status(){
                     <div class="card">
                         <div class="card-block">
                             <div class="card-title-block">
-                                <h3 class="title">Most Stocked Out ARV Regimens - <a href="#">View All</a></h3>
+                                <h3 class="title">Most Stocked Out ARV Regimens - Number Of Facilities</h3>
                             </div>
                             <section class="">
                                 <div class="">
