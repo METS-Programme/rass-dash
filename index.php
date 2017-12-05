@@ -217,10 +217,7 @@ requireFiles("src/contents");
                 "order": [[ 5, "desc" ]]
             } );
 
-            $(".show-hfs").click(function(){
-
-                $('#fc').addClass("center");
-                $('#fc').html("<img src='assets/images/load.gif' class='img load'/>");
+            $(document).on('click', '.show-hfs', function(){
 
                 var cat = $(this).attr("data-cat");
                 var col = $(this).attr("data-col");
@@ -229,6 +226,10 @@ requireFiles("src/contents");
                 var on = $('#rsmry').attr("data-on");
 
                 //alert (cat + " " + col + " " + on);
+
+                $('#fc').addClass("center");
+                $('#fc').html("<img src='assets/images/load.gif' class='img load'/>");
+                //$('#fc').html("Loading...");
 
                 $.post(
                     "src/commons/facilities.php",
