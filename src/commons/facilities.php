@@ -17,11 +17,11 @@ $yr = '2017';
 
 if ($cat == "Adult"){
 
-    $sql = "SELECT subcounty, hf FROM staging.weekly_data_smry_a WHERE \"$col\" = 1 AND weekno = $wn AND yr = $yr AND (cuid = '$o' OR ruid = '$o' OR duid = '$o')";
+    $sql = "SELECT region, district, subcounty, hf FROM staging.weekly_data_smry_a WHERE \"$col\" = 1 AND weekno = $wn AND yr = $yr AND (cuid = '$o' OR ruid = '$o' OR duid = '$o')";
 
 }elseif ($cat == "Paediatric"){
 
-    $sql = "SELECT subcounty, hf FROM staging.weekly_data_smry_c WHERE \"$col\" = 1 AND weekno = $wn AND yr = $yr AND (cuid = '$o' OR ruid = '$o' OR duid = '$o')";
+    $sql = "SELECT region, district, subcounty, hf FROM staging.weekly_data_smry_c WHERE \"$col\" = 1 AND weekno = $wn AND yr = $yr AND (cuid = '$o' OR ruid = '$o' OR duid = '$o')";
 
 }
 
@@ -31,11 +31,11 @@ if ($cat == "pkpi")//KPIs for Paediatrics
     $tbl = 'staging.weekly_data_smry_c';
 
 if ($col == "aso"){//Facilities reporting stockouts
-    $sql = "SELECT subcounty, hf FROM $tbl WHERE rso = 1 AND weekno = $wn AND yr = $yr AND (cuid = '$o' OR ruid = '$o' OR duid = '$o')";
+    $sql = "SELECT region, district, subcounty, hf FROM $tbl WHERE rso = 1 AND weekno = $wn AND yr = $yr AND (cuid = '$o' OR ruid = '$o' OR duid = '$o')";
 }elseif($col == "areports"){//Facilities Reported
-    $sql = "SELECT subcounty, hf FROM $tbl WHERE weekno = $wn AND yr = $yr AND (cuid = '$o' OR ruid = '$o' OR duid = '$o')";
+    $sql = "SELECT region, district, subcounty, hf FROM $tbl WHERE weekno = $wn AND yr = $yr AND (cuid = '$o' OR ruid = '$o' OR duid = '$o')";
 }elseif($col == "atotal"){//Total registered facilities
-    $sql = "SELECT subcounty, hf FROM staging.rass_reporting_orgs WHERE country = '$on' OR region = '$on' OR district = '$on'";
+    $sql = "SELECT region, district, subcounty, hf FROM staging.rass_reporting_orgs WHERE country = '$on' OR region = '$on' OR district = '$on'";
 }
 
 $res = pg_query($db, $sql);
@@ -48,12 +48,14 @@ if(!$res) {
 
 //$orgunits =array();
 $tr = "<table id = 'hf-list' class='display' cellspacing='0' data-ccat = '".$cat."'>";
-$tr .=  "<thead><tr><th>Health Facility</th> <th>Sub County</th></tr></thead><tbody>";
+$tr .=  "<thead><tr><th>Health Facility</th><th>Sub County</th><th>District</th><th>Region</th></tr></thead><tbody>";
 
 while($row = pg_fetch_array($res)) {
     //$orgunits[] = array('entity' => $row['entity'], 'uid' => $row['uid']);
     $tr .= "<tr><td>" . $row['hf'] . "</td>";
-    $tr .= "<td>" . $row['subcounty'] . "</td></tr>";
+    $tr .= "<td>" . $row['subcounty'] . "</td>";
+    $tr .= "<td>" . $row['district'] . "</td>";
+    $tr .= "<td>" . $row['region'] . "</td></tr>";
 }
 
 $tr .=  "</tbody></table>";

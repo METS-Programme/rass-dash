@@ -111,6 +111,16 @@ requireFiles("src/contents");
             border-radius: 5px;
             text-align: center;
         }
+        img.load{
+            height: 129px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto
+        }
+        .center {
+            margin: auto;
+            width: 50%;
+        }
 
 
     </style>
@@ -205,7 +215,8 @@ requireFiles("src/contents");
 
             $(".show-hfs").click(function(){
 
-                $('#fc').html("");
+                $('#fc').addClass("center");
+                $('#fc').html("<img src='assets/images/load.gif' class='img load'/>");
 
                 var cat = $(this).attr("data-cat");
                 var col = $(this).attr("data-col");
@@ -228,7 +239,10 @@ requireFiles("src/contents");
 
                         //alert(data + " " + status);
 
-                        $('#fc').html(data);
+                        if (status === "success") {
+                            $('#fc').removeClass("center");
+                            $('#fc').html(data);
+                        }
 
                         $('#hf-list').DataTable();
 
@@ -503,7 +517,7 @@ requireFiles("src/contents");
 
         <!-- Modal displaying details -->
         <div class="modal fade" id="modal-hfs">
-            <div class="modal-dialog modal-md">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -515,7 +529,7 @@ requireFiles("src/contents");
                     <div class="modal-body modal-tab-container">
                         <section class="section" style="padding:10px">
                                 <div class="table-responsive" id="fc">
-
+                                    <img src="assets/images/load.gif" class="img load"/>
                                 </div>
                         </section>
                     </div>
