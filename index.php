@@ -122,6 +122,10 @@ requireFiles("src/contents");
             width: 50%;
         }
 
+        .modal-lg {
+            max-width: 80% !important;
+        }
+
 
     </style>
 
@@ -244,7 +248,9 @@ requireFiles("src/contents");
                             $('#fc').html(data);
                         }
 
-                        $('#hf-list').DataTable();
+                        $('#hf-list').DataTable(
+                            //"autoWidth": true
+                        );
 
                     }
                 );
