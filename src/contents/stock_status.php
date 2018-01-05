@@ -1143,7 +1143,8 @@ function stock_status(){
 
         }else{
 
-            $cur = "SELECT EXTRACT(YEAR FROM NOW()) AS yr, (EXTRACT(WEEK FROM NOW()) - 1) AS weekno;";
+            $cur = "SELECT DISTINCT weekno, week, yr FROM staging.rass_kpi_stka_w WHERE level = 'National' ORDER BY yr DESC, weekno DESC LIMIT 1;";
+            //$cur = "SELECT EXTRACT(YEAR FROM NOW()) AS yr, (EXTRACT(WEEK FROM NOW()) - 1) AS weekno;";
             $onerow = pg_fetch_array(pg_query($db, $cur));
 
             $org = 'akV6429SUqu'; $orgname = 'Uganda';
