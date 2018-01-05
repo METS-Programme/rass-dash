@@ -10,7 +10,9 @@ require_once ("db.php");
 
 //$level = $_POST['level'];
 
-$sql = "SELECT DISTINCT weekno, week, yr FROM staging.rass_kpi_stka_w WHERE level = 'National' AND weekno <= (EXTRACT(WEEK FROM NOW()) - 1) ORDER BY yr DESC, weekno DESC;";
+$sql = "SELECT DISTINCT weekno, week, yr FROM staging.rass_kpi_stka_w WHERE level = 'National' ORDER BY yr DESC, weekno DESC;";
+
+//AND weekno <= (EXTRACT(WEEK FROM NOW()) - 1)
 
 $res = pg_query($db, $sql);
 

@@ -48,11 +48,11 @@ if(!$res) {
 
 //$orgunits =array();
 $tr = "<table id = 'hf-list' class='display' cellspacing='0' data-ccat = '".$cat."'>";
-$tr .=  "<thead><tr><th>Health Facility</th><th>Sub County</th><th>District</th><th>Region</th></tr></thead><tbody>";
+$tr .=  "<thead><tr><th></th><th>Health Facility</th><th>Sub County</th><th>District</th><th>Region</th></tr></thead><tbody>";
 
 while($row = pg_fetch_array($res)) {
     //$orgunits[] = array('entity' => $row['entity'], 'uid' => $row['uid']);
-    $tr .= "<tr><td>" . $row['hf'] . "</td>";
+    $tr .= "<tr><td class='details-control'></td><td>" . $row['hf'] . "</td>";
     $tr .= "<td>" . $row['subcounty'] . "</td>";
     $tr .= "<td>" . $row['district'] . "</td>";
     $tr .= "<td>" . $row['region'] . "</td></tr>";

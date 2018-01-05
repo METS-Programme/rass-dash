@@ -1325,7 +1325,7 @@ function stock_status(){
                     array("ATV/r", (int)$row2['oo'], (int)$row2['oa']),
                     array("AZT/3TC/NVP", (int)$row2['po'], (int)$row2['pa']),
                     array("TDF/3TC/EFV", (int)$row2['qo'], (int)$row2['qa']),
-                    array("TDF/3TC + NVP", (int)$row2['ro'], (int)$row2['ra']),
+                    array("TDF/3TC + NVP", (int)$row2['ro'], (int)$row2['ra'])
             );
         }
 

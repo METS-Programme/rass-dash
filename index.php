@@ -126,6 +126,14 @@ requireFiles("src/contents");
             max-width: 80% !important;
         }
 
+        td.details-control {
+            background: url('assets/images/details_open.png') no-repeat center center;
+            cursor: pointer;
+        }
+        tr.shown td.details-control {
+            background: url('assets/images/details_close.png') no-repeat center center;
+        }
+
 
     </style>
 
@@ -217,6 +225,8 @@ requireFiles("src/contents");
                 "order": [[ 5, "desc" ]]
             } );
 
+            var table;
+
             $(document).on('click', '.show-hfs', function(){
 
                 var cat = $(this).attr("data-cat");
@@ -249,8 +259,10 @@ requireFiles("src/contents");
                             $('#fc').html(data);
                         }
 
-                        $('#hf-list').DataTable(
+                        table = $('#hf-list').DataTable(
+                            //{"ajax": "assets/files/data.txt"}
                             //"autoWidth": true
+                            //"order": [[1, 'asc']]
                         );
 
                     }
@@ -258,7 +270,51 @@ requireFiles("src/contents");
 
             });
 
+            /* Formatting function for row details - modify as you need */
+            function format ( d ) {
+                // `d` is the original data object for the row
+                return "";
+                /*
+                return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+                    '<tr>'+
+                    '<td>Full name:</td>'+
+                    '<td>'+ d.district +'</td>'+
+                    '</tr>'+
+                    '<tr>'+
+                    '<td>Extension number:</td>'+
+                    '<td>'+ 'Milton' +'</td>'+
+                    '</tr>'+
+                    '<tr>'+
+                    '<td>Extra info:</td>'+
+                    '<td>And any further details here (images etc)...</td>'+
+                    '</tr>'+
+                    '</table>';
+                */
+            }
+
+            // Add event listener for opening and closing details
+            $(document).on('click', '#hf-list tbody td.details-control', function () {
+
+                //alert('Hello');
+
+                var tr = $(this).closest('tr');
+                var row = table.row( tr );
+                //var row = $('#hf-list').DataTable({"ajax": "assets/files/data.txt"}).row( tr );
+
+                if ( row.child.isShown() ) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                }
+                else {
+                    // Open this row
+                    row.child( format(row.data()) ).show();
+                    tr.addClass('shown');
+                }
+            } );
+
         });
+
     </script>
 
 
