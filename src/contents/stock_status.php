@@ -1140,6 +1140,7 @@ function stock_status(){
             $org = pg_escape_string($_GET['o']);
             $per = pg_escape_string($_GET['w']);
             $wk = pg_escape_string($_GET['wn']);
+            $yr = date('Y');
 
         }else{
 
@@ -1503,7 +1504,7 @@ function stock_status(){
                             <div class="card-block">
 
                                 <div class="card-title-block">
-                                    <h3 class="title"><span>Reporting Rate: <?php echo $w; ?></span><span class = ""><?php echo isset($_GET['w']) ? $_GET['w']:$per ; ?></span> (<span><?php echo isset($_GET['o']) ? $_GET['on']:$orgname ; ?></span>)</h3>
+                                    <h3 class="title"><span>Reporting Rate: <?php if (isset($w))echo $w; ?></span><span class = ""><?php echo isset($_GET['w']) ? $_GET['w']:$per ; ?></span> (<span><?php echo isset($_GET['o']) ? $_GET['on']:$orgname ; ?></span>)</h3>
                                 </div>
 
                                 <section class="">
