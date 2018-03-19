@@ -1484,7 +1484,7 @@ function stock_status(){
                     <div class="col-md-6" style="padding-right: 0px">
                         <div class="card">
                             <div class="card-block">
-                                <input type="hidden" value='<?php echo json_encode($report_smry); ?>'  id="rsmry" name="rsmry" data-wn="<?php echo isset($_GET['wn']) ? $_GET['wn']:$wk ; ?>" data-o="<?php echo isset($_GET['o']) ? $_GET['o']:$org ; ?>" data-on="<?php echo isset($_GET['o']) ? $_GET['on']:$orgname ; ?>"/>
+                                <input type="hidden" value='<?php echo json_encode($report_smry); ?>'  id="rsmry" name="rsmry" data-wn="<?php echo isset($_GET['wn']) ? $_GET['wn']:$wk ; ?>" data-o="<?php echo isset($_GET['o']) ? $_GET['o']:$org ; ?>" data-on="<?php echo isset($_GET['o']) ? $_GET['on']:$orgname ; ?>" data-yr="<?php echo $yr; ?>"/>
                                 <div class="card-title-block">
                                     <h3 class="title"><span>Stock Out Rate: </span><span id = "w"><?php echo isset($_GET['w']) ? $_GET['w']:$per ; ?></span> (<span id = "o"><?php echo isset($_GET['o']) ? $_GET['on']:$orgname ; ?></span>)</h3>
                                 </div>

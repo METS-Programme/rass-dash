@@ -234,6 +234,7 @@ requireFiles("src/contents");
                 var o = $('#rsmry').attr("data-o");
                 var wn = $('#rsmry').attr("data-wn");
                 var on = $('#rsmry').attr("data-on");
+                var yr = $('#rsmry').attr("data-yr");
 
                 //alert (cat + " " + col + " " + on);
 
@@ -248,7 +249,8 @@ requireFiles("src/contents");
                         wn: wn,
                         cat: cat,
                         col: col,
-                        on: on
+                        on: on,
+                        yr: yr
                     },
                     function(data, status){
 

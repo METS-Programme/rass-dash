@@ -13,7 +13,7 @@ $wn= $_POST['wn'];
 $cat = $_POST['cat'];
 $col = $_POST['col'];
 $on  = $_POST['on'];
-$yr = '2017';
+$yr = $_POST['yr'];
 
 if ($cat == "Adult"){
 
