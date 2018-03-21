@@ -31,9 +31,9 @@ if ($cat == "pkpi")//KPIs for Paediatrics
     $tbl = 'staging.weekly_data_smry_c';
 
 if ($col == "aso"){//Facilities reporting stockouts
-    $sql = "SELECT region, district, subcounty, hf FROM $tbl WHERE rso = 1 AND weekno = $wn AND yr = $yr AND (cuid = '$o' OR ruid = '$o' OR duid = '$o')";
+    $sql = "SELECT region, district, subcounty, hf FROM $tbl WHERE rso = 1 AND weekno = $wn AND yr = $yr AND (cuid = '$o' OR ruid = '$o' OR duid = '$o') AND uid <> '$o'";
 }elseif($col == "areports"){//Facilities Reported
-    $sql = "SELECT region, district, subcounty, hf FROM $tbl WHERE weekno = $wn AND yr = $yr AND (cuid = '$o' OR ruid = '$o' OR duid = '$o')";
+    $sql = "SELECT region, district, subcounty, hf FROM $tbl WHERE weekno = $wn AND yr = $yr AND (cuid = '$o' OR ruid = '$o' OR duid = '$o') AND uid <> '$o'";
 }elseif($col == "atotal"){//Total registered facilities
     $sql = "SELECT region, district, subcounty, hf FROM staging.rass_reporting_orgs WHERE country = '$on' OR region = '$on' OR district = '$on'";
 }
