@@ -236,6 +236,11 @@ function stock_status(){
                                 name: 'West Nile',
                                 y: (typeof obj1["Northern Region"] === 'undefined') ? 0 : obj1["Northern Region"][1],
                                 drilldown: 'aaWest Nile'
+                            },
+                            {
+                                name: 'Soroti',
+                                y: (typeof obj1["Eastern Region"] === 'undefined') ? 0 : obj1["Eastern Region"][1],
+                                drilldown: 'aaSoroti'
                             }]
                         }
 
@@ -554,6 +559,54 @@ function stock_status(){
                                         data.push([
                                             (typeof obj2["Zombo District"] === 'undefined') ? 0 : obj2['Zombo District'][i][0],
                                             (typeof obj2["Zombo District"] === 'undefined') ? 0 : obj2['Zombo District'][i][1]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+
+
+                            //Soroti Region Districts
+
+                            {
+                                name: 'Districts',
+                                id: 'Soroti',
+                                data: [
+                                    {
+                                        name: 'Soroti',
+                                        y: (typeof obj2["Soroti District"] === 'undefined') ? 0 : obj2['Soroti District'][0][0],
+                                        drilldown: 'sor'
+                                    },
+                                    {
+                                        name: 'Katakwi',
+                                        y: (typeof obj2["Katakwi District"] === 'undefined') ? 0 : obj2['Katakwi District'][0][0],
+                                        drilldown: 'kat'
+                                    }
+                                ]
+                            },
+                            {
+                                id: 'sor',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Soroti District"] === 'undefined') ? 0 : obj2['Soroti District'][i][0],
+                                            (typeof obj2["Soroti District"] === 'undefined') ? 0 : obj2['Soroti District'][i][1]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'kat',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Katakwi District"] === 'undefined') ? 0 : obj2['Katakwi District'][i][0],
+                                            (typeof obj2["Katakwi District"] === 'undefined') ? 0 : obj2['Katakwi District'][i][1]
                                         ]);
                                     }
                                     return data;
@@ -879,6 +932,53 @@ function stock_status(){
                                     }
                                     return data;
                                 }())
+                            },
+
+                            //Soroti Region Affected patients
+
+                            {
+                                name: 'Districts',
+                                id: 'aaSoroti',
+                                data: [
+                                    {
+                                        name: 'Soroti',
+                                        y: (typeof obj2["Soroti District"] === 'undefined') ? 0 : obj2['Soroti District'][0][1],
+                                        drilldown: 'aasor'
+                                    },
+                                    {
+                                        name: 'Katakwi',
+                                        y: (typeof obj2["Katakwi District"] === 'undefined') ? 0 : obj2['Katakwi District'][0][1],
+                                        drilldown: 'aakat'
+                                    }
+                                ]
+                            },
+                            {
+                                id: 'aasor',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Soroti District"] === 'undefined') ? 0 : obj2['Soroti District'][i][0],
+                                            (typeof obj2["Soroti District"] === 'undefined') ? 0 : obj2['Soroti District'][i][2]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'aakat',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Katakwi District"] === 'undefined') ? 0 : obj2['Katakwi District'][i][0],
+                                            (typeof obj2["Katakwi District"] === 'undefined') ? 0 : obj2['Katakwi District'][i][2]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
                             }
                         ]
                     }
@@ -1060,7 +1160,9 @@ function stock_status(){
                 ['Kyegegwa District', (typeof obj2["Kyegegwa District"] === 'undefined') ? 0 : obj2['Kyegegwa District'][0][2]],
                 ['Bundibugyo District', (typeof obj2["Bundibugyo District"] === 'undefined') ? 0 : obj2['Bundibugyo District'][0][2]],
                 ['Ntoroko District', (typeof obj2["Ntoroko District"] === 'undefined') ? 0 : obj2['Ntoroko District'][0][2]],
-                ['Kabarole District', (typeof obj2["Kabarole District"] === 'undefined') ? 0 : obj2['Kabarole District'][0][2]]
+                ['Kabarole District', (typeof obj2["Kabarole District"] === 'undefined') ? 0 : obj2['Kabarole District'][0][2]],
+                ['Soroti District', (typeof obj2["Soroti District"] === 'undefined') ? 0 : obj2['Soroti District'][0][2]],
+                ['Katakwi District', (typeof obj2["Katakwi District"] === 'undefined') ? 0 : obj2['Katakwi District'][0][2]]
             ];
 
             var cdata = [
@@ -1079,7 +1181,9 @@ function stock_status(){
                 ['Kyegegwa District', (typeof cobj2["Kyegegwa District"] === 'undefined') ? 0 : cobj2['Kyegegwa District'][0][2]],
                 ['Bundibugyo District', (typeof cobj2["Bundibugyo District"] === 'undefined') ? 0 : cobj2['Bundibugyo District'][0][2]],
                 ['Ntoroko District', (typeof cobj2["Ntoroko District"] === 'undefined') ? 0 : cobj2['Ntoroko District'][0][2]],
-                ['Kabarole District', (typeof cobj2["Kabarole District"] === 'undefined') ? 0 : cobj2['Kabarole District'][0][2]]
+                ['Kabarole District', (typeof cobj2["Kabarole District"] === 'undefined') ? 0 : cobj2['Kabarole District'][0][2]],
+                ['Soroti District', (typeof cobj2["Soroti District"] === 'undefined') ? 0 : cobj2['Soroti District'][0][2]],
+                ['Katakwi District', (typeof cobj2["Katakwi District"] === 'undefined') ? 0 : cobj2['Katakwi District'][0][2]]
             ];
 
             drawMap(data);
@@ -1510,7 +1614,7 @@ function stock_status(){
                                 <section class="">
                                     <div class="">
                                         <h1 class="title"><span id="rr"><?php echo $crrate; ?></span>% <span id="ri"><?php echo $rimg; ?></span></h1>
-                                        <p class="title-description"><span id="rn"><a href='#' class="show-hfs" data-cat ="akpi" data-col="areports" data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'><?php echo $reports[0]; ?></a></span> of <span id="rd"><a href='#' class="show-hfs" data-cat ="akpi" data-col="atotal" data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'><?php echo $reports[1]; ?></a></span> Health Facilities Reported<!-- - <a href="#">View</a>--></p>
+                                        <p class="title-description"><span id="rn"><a href='#' class="show-hfs" data-cat ="akpi" data-col="areports" data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'><?php echo $reports[0]; ?></a></span> of <span id="rd"><a href='#' class="show-hfs" data-cat ="akpi" data-col="atotal" data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'><?php echo $reports[1]; ?></a></span> Health Facilities Reported [<a href="#">List Not Reporting</a>]</p>
                                     </div>
                                 </section>
                             </div>
