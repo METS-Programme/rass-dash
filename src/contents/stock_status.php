@@ -949,6 +949,16 @@ function stock_status(){
                                         name: 'Katakwi',
                                         y: (typeof obj2["Katakwi District"] === 'undefined') ? 0 : obj2['Katakwi District'][0][1],
                                         drilldown: 'aakat'
+                                    },
+                                    {
+                                        name: 'Amuria',
+                                        y: (typeof obj2["Amuria District"] === 'undefined') ? 0 : obj2['Amuria District'][0][1],
+                                        drilldown: 'aaamu'
+                                    },
+                                    {
+                                        name: 'Kumi',
+                                        y: (typeof obj2["Kumi District"] === 'undefined') ? 0 : obj2['Kumi District'][0][1],
+                                        drilldown: 'aakum'
                                     }
                                 ]
                             },
@@ -975,6 +985,34 @@ function stock_status(){
                                         data.push([
                                             (typeof obj2["Katakwi District"] === 'undefined') ? 0 : obj2['Katakwi District'][i][0],
                                             (typeof obj2["Katakwi District"] === 'undefined') ? 0 : obj2['Katakwi District'][i][2]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'aaamu',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Amuria District"] === 'undefined') ? 0 : obj2['Amuria District'][i][0],
+                                            (typeof obj2["Amuria District"] === 'undefined') ? 0 : obj2['Amuria District'][i][2]
+                                        ]);
+                                    }
+                                    return data;
+                                }())
+                            },
+                            {
+                                id: 'aakum',
+                                name: 'Regimens',
+                                data: (function () {
+                                    var data = [], i;
+                                    for (i = 1; i <= count; i += 1) {
+                                        data.push([
+                                            (typeof obj2["Kumi District"] === 'undefined') ? 0 : obj2['Kumi District'][i][0],
+                                            (typeof obj2["Kumi District"] === 'undefined') ? 0 : obj2['Kumi District'][i][2]
                                         ]);
                                     }
                                     return data;
@@ -1162,7 +1200,9 @@ function stock_status(){
                 ['Ntoroko District', (typeof obj2["Ntoroko District"] === 'undefined') ? 0 : obj2['Ntoroko District'][0][2]],
                 ['Kabarole District', (typeof obj2["Kabarole District"] === 'undefined') ? 0 : obj2['Kabarole District'][0][2]],
                 ['Soroti District', (typeof obj2["Soroti District"] === 'undefined') ? 0 : obj2['Soroti District'][0][2]],
-                ['Katakwi District', (typeof obj2["Katakwi District"] === 'undefined') ? 0 : obj2['Katakwi District'][0][2]]
+                ['Katakwi District', (typeof obj2["Katakwi District"] === 'undefined') ? 0 : obj2['Katakwi District'][0][2]],
+                ['Amuria District', (typeof obj2["Amuria District"] === 'undefined') ? 0 : obj2['Amuria District'][0][2]],
+                ['Kumi District', (typeof obj2["Kumi District"] === 'undefined') ? 0 : obj2['Kumi District'][0][2]]
             ];
 
             var cdata = [
@@ -1183,7 +1223,9 @@ function stock_status(){
                 ['Ntoroko District', (typeof cobj2["Ntoroko District"] === 'undefined') ? 0 : cobj2['Ntoroko District'][0][2]],
                 ['Kabarole District', (typeof cobj2["Kabarole District"] === 'undefined') ? 0 : cobj2['Kabarole District'][0][2]],
                 ['Soroti District', (typeof cobj2["Soroti District"] === 'undefined') ? 0 : cobj2['Soroti District'][0][2]],
-                ['Katakwi District', (typeof cobj2["Katakwi District"] === 'undefined') ? 0 : cobj2['Katakwi District'][0][2]]
+                ['Katakwi District', (typeof cobj2["Katakwi District"] === 'undefined') ? 0 : cobj2['Katakwi District'][0][2]],
+                ['Amuria District', (typeof cobj2["Amuria District"] === 'undefined') ? 0 : cobj2['Amuria District'][0][2]],
+                ['Kumi District', (typeof cobj2["Kumi District"] === 'undefined') ? 0 : cobj2['Kumi District'][0][2]]
             ];
 
             drawMap(data);
@@ -1255,7 +1297,7 @@ function stock_status(){
             $org = 'akV6429SUqu'; $orgname = 'Uganda';
             $per = '2018W11'; //$onerow['yr'] . 'W' . $onerow['weekno'];
             $yr = 2018; //$onerow['yr'];
-            $wk = 11; //$onerow['weekno'];
+            $wk = 12; //$onerow['weekno'];
 
         }
 
