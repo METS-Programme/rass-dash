@@ -1295,7 +1295,7 @@ function stock_status(){
             $onerow = pg_fetch_array(pg_query($db, $cur));
 
             $org = 'akV6429SUqu'; $orgname = 'Uganda';
-            $per = '2018W11'; //$onerow['yr'] . 'W' . $onerow['weekno'];
+            $per = '2018W12'; //$onerow['yr'] . 'W' . $onerow['weekno'];
             $yr = 2018; //$onerow['yr'];
             $wk = 12; //$onerow['weekno'];
 
