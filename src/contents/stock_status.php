@@ -1404,6 +1404,7 @@ function stock_status(){
                 ['Soroti District', (typeof obj2["Soroti District"] === 'undefined') ? 0 : obj2['Soroti District'][0][2]],
                 ['Katakwi District', (typeof obj2["Katakwi District"] === 'undefined') ? 0 : obj2['Katakwi District'][0][2]],
                 ['Amuria District', (typeof obj2["Amuria District"] === 'undefined') ? 0 : obj2['Amuria District'][0][2]],
+                ['Kumi District', (typeof cobj2["Kumi District"] === 'undefined') ? 0 : cobj2['Kumi District'][0][2]],
                 ['Bukedea District', (typeof obj2["Bukedea District"] === 'undefined') ? 0 : obj2['Bukedea District'][0][2]],
                 ['Kaberamaido District', (typeof obj2["Kaberamaido District"] === 'undefined') ? 0 : obj2['Kaberamaido District'][0][2]],
                 ['Ngora District', (typeof obj2["Ngora District"] === 'undefined') ? 0 : obj2['Ngora District'][0][2]],
@@ -1505,7 +1506,7 @@ function stock_status(){
             $onerow = pg_fetch_array(pg_query($db, $cur));
 
             $org = 'akV6429SUqu'; $orgname = 'Uganda';
-            $per = '2018W15'; //$onerow['yr'] . 'W' . $onerow['weekno'];
+            $per = '2018W19'; //$onerow['yr'] . 'W' . $onerow['weekno'];
             $yr = 2018; //$onerow['yr'];
             $wk = 19; //$onerow['weekno'];
 
