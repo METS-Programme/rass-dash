@@ -347,13 +347,13 @@ requireFiles("src/contents");
                 <nav class="menu">
                     <ul class="nav metismenu" id="sidebar-menu">
                         <li class="active">
-                            <a href="index?category=stocks"> <i class="fa fa-th-large"></i> ARV Stocks <i class="fa arrow"></i> </a>
+                            <a href="?category=stocks"> <i class="fa fa-th-large"></i> ARV Stocks <i class="fa arrow"></i> </a>
                             <ul>
-                                <li><a href="index.php?category=stocks&option=stock_status">
+                                <li><a href="?category=stocks&option=stock_status">
                                         Stock Status
                                     </a></li>
 
-                                <li><a href="index?category=stocks&option=received">
+                                <li><a href="?category=stocks&option=received">
                                         <!-- data-toggle="modal" data-target="#modal-placeholder" data-backdrop="static" data-keyboard="false" -->
                                         Received Stock
                                     </a></li>
