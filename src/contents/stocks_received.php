@@ -10,6 +10,17 @@ function stocks_received(){
     ?>
 
     <script type="text/javascript">
+
+        $(document).ready(function() {
+           //alert() ;
+            $('#modal-placeholder').data('backdrop', "static");
+            $('#modal-placeholder').data('keyboard', false);
+            $('#modal-placeholder').modal('show');
+
+
+            //data-toggle="modal" data-target="#modal-placeholder" data-backdrop="static" data-keyboard="false"
+        });
+
         $(function () {
             Highcharts.chart('stock-comp', {
                 chart: {
@@ -65,17 +76,18 @@ function stocks_received(){
             });
         });
     </script>
-
+    <!--
     <article class="content dashboard-page" style="padding-top:84px;">
         <div class="title-block">
             <h1 class="title">Stock Received - <small>Number of ARV Regimens received by a Health Facility.</small></h1>
-            <!--<a href="#" class="pull-right btn btn-primary btn-sm rounded-s" data-toggle="modal" data-target="#exampleModal">Level/Period - Filter</a>-->
+            <!--<a href="#" class="pull-right btn btn-primary btn-sm rounded-s" data-toggle="modal" data-target="#exampleModal">Level/Period - Filter</a>
             <button type="button" class="pull-right btn btn-info btn-sm rounded-s" data-toggle="modal" data-target="#modal-media">
                 Level/Period - Filter
             </button>
         </div>
-
+    -->
         <section class="section">
+            <table id = "stock" class="display" cellspacing="0" ></table>
             <div class="row sameheight-container">
                 <div class="col-md-3">
                     <div class="card">
@@ -117,7 +129,7 @@ function stocks_received(){
                     <div class="card sameheight-item stats" data-exclude="xs">
                         <div class="card-block">
                             <div class="title-block">
-                                <h4 class="title"> Statistics - Uganda (2017W04)</h4>
+                                <h4 class="title"> Statistics - Uganda (2018W29)</h4>
                                 <p class="title-description">Total Received Stock Per Region</p>
                             </div>
                             <div class="row row-sm stats-container">
@@ -125,7 +137,7 @@ function stocks_received(){
                                     <div class="stat-icon"> <i class="fa fa-list-alt"></i> </div>
                                     <div class="stat">
                                         <div class="value"> 5,407 </div>
-                                        <div class="name">Eastern Region</div>
+                                        <div class="name">Rwenzori Region</div>
                                     </div> <progress class="progress stat-progress" value="75" max="100">
                                         <div class="progress">
                                             <span class="progress-bar" style="width: 75%;"></span>
@@ -135,7 +147,7 @@ function stocks_received(){
                                     <div class="stat-icon"> <i class="fa fa-list-alt"></i> </div>
                                     <div class="stat">
                                         <div class="value"> 78,464 </div>
-                                        <div class="name"> Northern Region</div>
+                                        <div class="name">West Nile Region</div>
                                     </div> <progress class="progress stat-progress" value="25" max="100">
                                         <div class="progress">
                                             <span class="progress-bar" style="width: 25%;"></span>
@@ -145,7 +157,7 @@ function stocks_received(){
                                     <div class="stat-icon"> <i class="fa fa-list-alt"></i> </div>
                                     <div class="stat">
                                         <div class="value"> 80,560 </div>
-                                        <div class="name"> Central Region</div>
+                                        <div class="name">Central1 Region</div>
                                     </div> <progress class="progress stat-progress" value="60" max="100">
                                         <div class="progress">
                                             <span class="progress-bar" style="width: 60%;"></span>
@@ -155,7 +167,7 @@ function stocks_received(){
                                     <div class="stat-icon"> <i class="fa fa-list-alt"></i> </div>
                                     <div class="stat">
                                         <div class="value"> 359 </div>
-                                        <div class="name"> Southern Region</div>
+                                        <div class="name">Masaka Region</div>
                                     </div> <progress class="progress stat-progress" value="34" max="100">
                                         <div class="progress">
                                             <span class="progress-bar" style="width: 34%;"></span>
@@ -165,7 +177,27 @@ function stocks_received(){
                                     <div class="stat-icon"> <i class="fa fa-list-alt"></i> </div>
                                     <div class="stat">
                                         <div class="value"> 59 </div>
-                                        <div class="name"> Western Region </div>
+                                        <div class="name">Bunyoro Region </div>
+                                    </div> <progress class="progress stat-progress" value="49" max="100">
+                                        <div class="progress">
+                                            <span class="progress-bar" style="width: 49%;"></span>
+                                        </div>
+                                    </progress> </div>
+                                <div class="col-xs-12 col-sm-6  stat-col">
+                                    <div class="stat-icon"> <i class="fa fa-list-alt"></i> </div>
+                                    <div class="stat">
+                                        <div class="value"> 59 </div>
+                                        <div class="name">Kampala Region </div>
+                                    </div> <progress class="progress stat-progress" value="49" max="100">
+                                        <div class="progress">
+                                            <span class="progress-bar" style="width: 49%;"></span>
+                                        </div>
+                                    </progress> </div>
+                                <div class="col-xs-12 col-sm-6  stat-col">
+                                    <div class="stat-icon"> <i class="fa fa-list-alt"></i> </div>
+                                    <div class="stat">
+                                        <div class="value"> 59 </div>
+                                        <div class="name">Soroti Region </div>
                                     </div> <progress class="progress stat-progress" value="49" max="100">
                                         <div class="progress">
                                             <span class="progress-bar" style="width: 49%;"></span>
@@ -177,6 +209,7 @@ function stocks_received(){
                     </div>
                 </div>
                 <div class="col col-xs-12 col-sm-12 col-md-6 col-xl-7 history-col">
+                    <!--
                     <div class="card sameheight-item" data-exclude="xs">
                         <div class="card-header card-header-sm bordered">
                             <div class="header-block">
@@ -191,12 +224,14 @@ function stocks_received(){
                         <div class="card-block">
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane active fade in" id="stock">
+
                                     <p class="title-description"></p>
                                     <section class="">
                                         <div class="">
                                             <div id="stock-comp"></div>
                                         </div>
                                     </section>
+
                                 </div>
 
                                 <div role="tabpanel" class="tab-pane fade" id="adult">
@@ -212,6 +247,8 @@ function stocks_received(){
                             </div>
                         </div>
                     </div>
+                    -->
+                    <div id="stock-comp"></div>
                 </div>
             </div>
         </section>
@@ -220,4 +257,5 @@ function stocks_received(){
 
     <?php
 }
+//stocks_received();
 ?>

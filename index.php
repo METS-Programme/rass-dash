@@ -220,11 +220,11 @@ requireFiles("src/contents");
                     window.location.href = "?o=" + org + "&w=" + wk + "&wn=" + wkno + "&on=" + on;
 
             });
-
-            $('#stock').DataTable( {
+            /*
+           $('#stock').DataTable( {
                 "order": [[ 5, "desc" ]]
-            } );
-
+           } );
+            */
             var table;
 
             $(document).on('click', '.show-hfs', function(){
@@ -352,11 +352,13 @@ requireFiles("src/contents");
                                 <li><a href="index.php?category=stocks&option=stock_status">
                                         Stock Status
                                     </a></li>
-                                <!--
+
                                 <li><a href="index?category=stocks&option=received">
-                                        Received Regimens
+                                        <!-- data-toggle="modal" data-target="#modal-placeholder" data-backdrop="static" data-keyboard="false" -->
+                                        Received Stock
                                     </a></li>
-                                <li><a href="index?category=stocks&option=ordered">
+
+                                <!--<li><a href="index?category=stocks&option=ordered">
                                         Ordered Regimens
                                     </a></li>
                                  !-->
@@ -482,7 +484,32 @@ requireFiles("src/contents");
         <div class="sidebar-overlay" id="sidebar-overlay"></div>
         <!--<article class="content dashboard-page">-->
         <?php
-            $content = new Content();
+        $content = new Content();
+        //$content->pageDetails();
+        ?>
+
+        <article class="content charts-flot-page dashboard-page">
+            <div class="title-block" style="margin-top:-4px">
+                <h3 class="title"><?php echo $content->pageDetails("title"); ?></h3>
+                <p class="title-description"><?php echo $content->pageDetails("desc"); ?></p>
+                <div class="pull-right" style="margin-top: -47px">
+                    <div class="pull-left">
+                        <ul class="select">
+                            <li>Adults</li>
+                            <li>Paediatrics</li>
+                            <!--<li>Rapid Test Kits</li> -->
+                        </ul>
+                    </div>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-info btn-sm rounded-s" data-toggle="modal" data-target="#modal-media" data-backdrop="static" data-keyboard="false" style="margin-top:-1px">
+                            Level/Period - Filter
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        <?php
+            //$content = new Content();
             $content->controlPanel();
         ?>
         <!--</article>-->
@@ -596,6 +623,36 @@ requireFiles("src/contents");
                                 <div class="table-responsive" id="fc">
                                     <img src="assets/images/load.gif" class="img load"/>
                                 </div>
+                        </section>
+                    </div>
+                    <!--
+                    <div class="modal-footer">
+
+                    </div>
+                    -->
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+        <!-- Modal Loading data -->
+        <div class="modal fade" id="modal-placeholder">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="javascript:window.location='/'">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <h5 class="modal-title">Received Stock - Please wait!</h5>
+                    </div>
+                    <div class="modal-body modal-tab-container">
+                        <section class="section" style="padding:10px">
+                            <div class="table-responsive" id="">
+                                <img src="assets/images/load.gif" class="img load"/>
+                            </div>
                         </section>
                     </div>
                     <!--

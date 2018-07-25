@@ -9,6 +9,12 @@
 function stock_status(){
     ?>
     <script type="text/javascript">
+        $(document).ready(function() {
+            $('#stock').DataTable({
+                "order": [[5, "desc"]]
+            });
+        });
+
         $(function () {
 
             var atrends = $('#atrends').val();
@@ -241,7 +247,29 @@ function stock_status(){
                                 name: 'Soroti',
                                 y: (typeof obj1["Eastern Region"] === 'undefined') ? 0 : obj1["Eastern Region"][1],
                                 drilldown: 'aaSoroti'
-                            }]
+                            },
+                            //new regions
+                            {
+                                name: 'Central1',
+                                y: (typeof obj1["Eastern Region"] === 'undefined') ? 0 : obj1["Eastern Region"][1],
+                                //drilldown: 'aaCentral1'
+                            },
+                            {
+                                name: 'Masaka',
+                                y: (typeof obj1["Eastern Region"] === 'undefined') ? 0 : obj1["Eastern Region"][1],
+                                //drilldown: 'aaMasaka'
+                            },
+                            {
+                                name: 'Bunyoro',
+                                y: (typeof obj1["Eastern Region"] === 'undefined') ? 0 : obj1["Eastern Region"][1],
+                                //drilldown: 'aaBunyoro'
+                            },
+                            {
+                                name: 'Kampala',
+                                y: (typeof obj1["Eastern Region"] === 'undefined') ? 0 : obj1["Eastern Region"][1],
+                                //drilldown: 'aaKampala'
+                            }
+                            ]
                         }
 
                     ],
@@ -1404,11 +1432,38 @@ function stock_status(){
                 ['Soroti District', (typeof obj2["Soroti District"] === 'undefined') ? 0 : obj2['Soroti District'][0][2]],
                 ['Katakwi District', (typeof obj2["Katakwi District"] === 'undefined') ? 0 : obj2['Katakwi District'][0][2]],
                 ['Amuria District', (typeof obj2["Amuria District"] === 'undefined') ? 0 : obj2['Amuria District'][0][2]],
-                ['Kumi District', (typeof cobj2["Kumi District"] === 'undefined') ? 0 : cobj2['Kumi District'][0][2]],
+                ['Kumi District', (typeof obj2["Kumi District"] === 'undefined') ? 0 : obj2['Kumi District'][0][2]],
                 ['Bukedea District', (typeof obj2["Bukedea District"] === 'undefined') ? 0 : obj2['Bukedea District'][0][2]],
                 ['Kaberamaido District', (typeof obj2["Kaberamaido District"] === 'undefined') ? 0 : obj2['Kaberamaido District'][0][2]],
                 ['Ngora District', (typeof obj2["Ngora District"] === 'undefined') ? 0 : obj2['Ngora District'][0][2]],
-                ['Serere District', (typeof obj2["Serere District"] === 'undefined') ? 0 : obj2['Serere District'][0][2]]
+                ['Serere District', (typeof obj2["Serere District"] === 'undefined') ? 0 : obj2['Serere District'][0][2]],
+
+                ['Bukomansimbi District', (typeof obj2["Bukomansimbi District"] === 'undefined') ? 0 : obj2['Bukomansimbi District'][0][2]],
+                ['Buliisa District', (typeof obj2["Buliisa District"] === 'undefined') ? 0 : obj2['Buliisa District'][0][2]],
+                ['Butambala District', (typeof obj2["Butambala District"] === 'undefined') ? 0 : obj2['Butambala District'][0][2]],
+                ['Gomba District', (typeof obj2["Gomba District"] === 'undefined') ? 0 : obj2['Gomba District'][0][2]],
+                ['Hoima District', (typeof obj2["Hoima District"] === 'undefined') ? 0 : obj2['Hoima District'][0][2]],
+                ['Kagadi District', (typeof obj2["Kagadi District"] === 'undefined') ? 0 : obj2['Kagadi District'][0][2]],
+                ['Kakumiro District', (typeof obj2["Kakumiro District"] === 'undefined') ? 0 : obj2['Kakumiro District'][0][2]],
+                ['Kalangala District', (typeof obj2["Kalangala District"] === 'undefined') ? 0 : obj2['Kalangala District'][0][2]],
+                ['Kalungu District', (typeof obj2["Kalungu District"] === 'undefined') ? 0 : obj2['Kalungu District'][0][2]],
+                ['Kampala District', (typeof obj2["Kampala District"] === 'undefined') ? 0 : obj2['Kampala District'][0][2]],
+                ['Kibaale District', (typeof obj2["Kibaale District"] === 'undefined') ? 0 : obj2['Kibaale District'][0][2]],
+                ['Kiboga District', (typeof obj2["Kiboga District"] === 'undefined') ? 0 : obj2['Kiboga District'][0][2]],
+                ['Kyankwanzi District', (typeof obj2["Kyankwanzi District"] === 'undefined') ? 0 : obj2['Kyankwanzi District'][0][2]],
+                ['Luweero District', (typeof obj2["Luweero District"] === 'undefined') ? 0 : obj2['Luweero District'][0][2]],
+                ['Lwengo District', (typeof obj2["Lwengo District"] === 'undefined') ? 0 : obj2['Lwengo District'][0][2]],
+                ['Lyantonde District', (typeof obj2["Lyantonde District"] === 'undefined') ? 0 : obj2['Lyantonde District'][0][2]],
+                ['Masaka District', (typeof obj2["Masaka District"] === 'undefined') ? 0 : obj2['Masaka District'][0][2]],
+                ['Masindi District', (typeof obj2["Masindi District"] === 'undefined') ? 0 : obj2['Masindi District'][0][2]],
+                ['Mityana District', (typeof obj2["Mityana District"] === 'undefined') ? 0 : obj2['Mityana District'][0][2]],
+                ['Mpigi District', (typeof obj2["Mpigi District"] === 'undefined') ? 0 : obj2['Mpigi District'][0][2]],
+                ['Mubende District', (typeof obj2["Mubende District"] === 'undefined') ? 0 : obj2['Mubende District'][0][2]],
+                ['Nakaseke District', (typeof obj2["Nakaseke District"] === 'undefined') ? 0 : obj2['Nakaseke District'][0][2]],
+                ['Nakasongola District', (typeof obj2["Nakasongola District"] === 'undefined') ? 0 : obj2['Nakasongola District'][0][2]],
+                ['Rakai District', (typeof obj2["Rakai District"] === 'undefined') ? 0 : obj2['Rakai District'][0][2]],
+                ['Sembabule District', (typeof obj2["Sembabule District"] === 'undefined') ? 0 : obj2['Sembabule District'][0][2]],
+                ['Wakiso District', (typeof obj2["Wakiso District"] === 'undefined') ? 0 : obj2['Wakiso District'][0][2]]
 
             ];
 
@@ -1433,10 +1488,37 @@ function stock_status(){
                 ['Katakwi District', (typeof cobj2["Katakwi District"] === 'undefined') ? 0 : cobj2['Katakwi District'][0][2]],
                 ['Amuria District', (typeof cobj2["Amuria District"] === 'undefined') ? 0 : cobj2['Amuria District'][0][2]],
                 ['Kumi District', (typeof cobj2["Kumi District"] === 'undefined') ? 0 : cobj2['Kumi District'][0][2]],
-                ['Bukedea District', (typeof obj2["Bukedea District"] === 'undefined') ? 0 : obj2['Bukedea District'][0][2]],
-                ['Kaberamaido District', (typeof obj2["Kaberamaido District"] === 'undefined') ? 0 : obj2['Kaberamaido District'][0][2]],
-                ['Ngora District', (typeof obj2["Ngora District"] === 'undefined') ? 0 : obj2['Ngora District'][0][2]],
-                ['Serere District', (typeof obj2["Serere District"] === 'undefined') ? 0 : obj2['Serere District'][0][2]]
+                ['Bukedea District', (typeof cobj2["Bukedea District"] === 'undefined') ? 0 : cobj2['Bukedea District'][0][2]],
+                ['Kaberamaido District', (typeof cobj2["Kaberamaido District"] === 'undefined') ? 0 : cobj2['Kaberamaido District'][0][2]],
+                ['Ngora District', (typeof cobj2["Ngora District"] === 'undefined') ? 0 : cobj2['Ngora District'][0][2]],
+                ['Serere District', (typeof cobj2["Serere District"] === 'undefined') ? 0 : cobj2['Serere District'][0][2]],
+
+                ['Bukomansimbi District', (typeof cobj2["Bukomansimbi District"] === 'undefined') ? 0 : cobj2['Bukomansimbi District'][0][2]],
+                ['Buliisa District', (typeof cobj2["Buliisa District"] === 'undefined') ? 0 : cobj2['Buliisa District'][0][2]],
+                ['Butambala District', (typeof cobj2["Butambala District"] === 'undefined') ? 0 : cobj2['Butambala District'][0][2]],
+                ['Gomba District', (typeof cobj2["Gomba District"] === 'undefined') ? 0 : cobj2['Gomba District'][0][2]],
+                ['Hoima District', (typeof cobj2["Hoima District"] === 'undefined') ? 0 : cobj2['Hoima District'][0][2]],
+                ['Kagadi District', (typeof cobj2["Kagadi District"] === 'undefined') ? 0 : cobj2['Kagadi District'][0][2]],
+                ['Kakumiro District', (typeof cobj2["Kakumiro District"] === 'undefined') ? 0 : cobj2['Kakumiro District'][0][2]],
+                ['Kalangala District', (typeof cobj2["Kalangala District"] === 'undefined') ? 0 : cobj2['Kalangala District'][0][2]],
+                ['Kalungu District', (typeof cobj2["Kalungu District"] === 'undefined') ? 0 : cobj2['Kalungu District'][0][2]],
+                ['Kampala District', (typeof cobj2["Kampala District"] === 'undefined') ? 0 : cobj2['Kampala District'][0][2]],
+                ['Kibaale District', (typeof cobj2["Kibaale District"] === 'undefined') ? 0 : cobj2['Kibaale District'][0][2]],
+                ['Kiboga District', (typeof cobj2["Kiboga District"] === 'undefined') ? 0 : cobj2['Kiboga District'][0][2]],
+                ['Kyankwanzi District', (typeof cobj2["Kyankwanzi District"] === 'undefined') ? 0 : cobj2['Kyankwanzi District'][0][2]],
+                ['Luweero District', (typeof cobj2["Luweero District"] === 'undefined') ? 0 : cobj2['Luweero District'][0][2]],
+                ['Lwengo District', (typeof cobj2["Lwengo District"] === 'undefined') ? 0 : cobj2['Lwengo District'][0][2]],
+                ['Lyantonde District', (typeof cobj2["Lyantonde District"] === 'undefined') ? 0 : cobj2['Lyantonde District'][0][2]],
+                ['Masaka District', (typeof cobj2["Masaka District"] === 'undefined') ? 0 : cobj2['Masaka District'][0][2]],
+                ['Masindi District', (typeof cobj2["Masindi District"] === 'undefined') ? 0 : cobj2['Masindi District'][0][2]],
+                ['Mityana District', (typeof cobj2["Mityana District"] === 'undefined') ? 0 : cobj2['Mityana District'][0][2]],
+                ['Mpigi District', (typeof cobj2["Mpigi District"] === 'undefined') ? 0 : cobj2['Mpigi District'][0][2]],
+                ['Mubende District', (typeof cobj2["Mubende District"] === 'undefined') ? 0 : cobj2['Mubende District'][0][2]],
+                ['Nakaseke District', (typeof cobj2["Nakaseke District"] === 'undefined') ? 0 : cobj2['Nakaseke District'][0][2]],
+                ['Nakasongola District', (typeof cobj2["Nakasongola District"] === 'undefined') ? 0 : cobj2['Nakasongola District'][0][2]],
+                ['Rakai District', (typeof cobj2["Rakai District"] === 'undefined') ? 0 : cobj2['Rakai District'][0][2]],
+                ['Sembabule District', (typeof cobj2["Sembabule District"] === 'undefined') ? 0 : cobj2['Sembabule District'][0][2]],
+                ['Wakiso District', (typeof cobj2["Wakiso District"] === 'undefined') ? 0 : cobj2['Wakiso District'][0][2]]
             ];
 
             drawMap(data);
@@ -1506,9 +1588,9 @@ function stock_status(){
             $onerow = pg_fetch_array(pg_query($db, $cur));
 
             $org = 'akV6429SUqu'; $orgname = 'Uganda';
-            $per = '2018W28'; //$onerow['yr'] . 'W' . $onerow['weekno'];
+            $per = '2018W29'; //$onerow['yr'] . 'W' . $onerow['weekno'];
             $yr = 2018; //$onerow['yr'];
-            $wk = 28; //$onerow['weekno'];
+            $wk = 29; //$onerow['weekno'];
 
         }
 
@@ -1815,7 +1897,7 @@ function stock_status(){
 
         pg_close($db);
     ?>
-
+    <!--
     <article class="content charts-flot-page">
         <div class="title-block" style="margin-top:-4px">
             <h3 class="title">Stock Status</h3>
@@ -1825,6 +1907,7 @@ function stock_status(){
                     <ul class="select">
                         <li>Adults</li>
                         <li>Paediatrics</li>
+                        <li>Rapid Test Kits</li>
                     </ul>
                 </div>
                 <div class="pull-right">
@@ -1834,6 +1917,7 @@ function stock_status(){
                 </div>
             </div>
         </div>
+        -->
         <section class="section">
         <div class="row">
             <div class="col-md-12">

@@ -22,6 +22,23 @@ class Content
         new Router($option);
     }
 
+    public function pageDetails($item)
+    {
+        @$opt = $this->option;
+
+        $title = "Stock Status";
+        $desc = "Sites with Stock out of ARVS";
+
+        if ($opt == "received"){
+            $title  = "Received Stock";
+            $desc = "Quantity of ARVs received by Sites";
+        }
+        if($item == "title")
+            return $title;
+        else
+            return $desc;
+    }
+
     public function getTask()
     {
         @$task = $this->option;
