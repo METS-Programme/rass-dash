@@ -238,22 +238,22 @@ function stock_status(){
                             //new regions
                             {
                                 name: 'Central1',
-                                y: (typeof obj1["Eastern Region"] === 'undefined') ? 0 : obj1["Eastern Region"][0]
+                                y: (typeof obj1["Central Region"] === 'undefined') ? 0 : obj1["Central Region"][0]
                                 //drilldown: 'aaCentral1'
                             },
                             {
                                 name: 'Masaka',
-                                y: (typeof obj1["Eastern Region"] === 'undefined') ? 0 : obj1["Eastern Region"][0]
+                                y: (typeof obj1["Central Region"] === 'undefined') ? 0 : obj1["Central Region"][0]
                                 //drilldown: 'aaMasaka'
                             },
                             {
                                 name: 'Bunyoro',
-                                y: (typeof obj1["Eastern Region"] === 'undefined') ? 0 : obj1["Eastern Region"][0]
+                                y: (typeof obj1["Central Region"] === 'undefined') ? 0 : obj1["Central Region"][0]
                                 //drilldown: 'aaBunyoro'
                             },
                             {
                                 name: 'Kampala',
-                                y: (typeof obj1["Eastern Region"] === 'undefined') ? 0 : obj1["Eastern Region"][0]
+                                y: (typeof obj1["Central Region"] === 'undefined') ? 0 : obj1["Central Region"][0]
                                 //drilldown: 'aaKampala'
                             }
                             ]
@@ -278,22 +278,22 @@ function stock_status(){
                             //new regions
                             {
                                 name: 'Central1',
-                                y: (typeof obj1["Eastern Region"] === 'undefined') ? 0 : obj1["Central Region"][1]
+                                y: (typeof obj1["Central Region"] === 'undefined') ? 0 : obj1["Central Region"][1]
                                 //drilldown: 'aaCentral1'
                             },
                             {
                                 name: 'Masaka',
-                                y: (typeof obj1["Eastern Region"] === 'undefined') ? 0 : obj1["Central Region"][1]
+                                y: (typeof obj1["Central Region"] === 'undefined') ? 0 : obj1["Central Region"][1]
                                 //drilldown: 'aaMasaka'
                             },
                             {
                                 name: 'Bunyoro',
-                                y: (typeof obj1["Eastern Region"] === 'undefined') ? 0 : obj1["Central Region"][1]
+                                y: (typeof obj1["Central Region"] === 'undefined') ? 0 : obj1["Central Region"][1]
                                 //drilldown: 'aaBunyoro'
                             },
                             {
                                 name: 'Kampala',
-                                y: (typeof obj1["Eastern Region"] === 'undefined') ? 0 : obj1["Central Region"][1]
+                                y: (typeof obj1["Central Region"] === 'undefined') ? 0 : obj1["Central Region"][1]
                                 //drilldown: 'aaKampala'
                             }
                             ]
