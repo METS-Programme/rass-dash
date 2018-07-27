@@ -10,7 +10,10 @@ require_once ("db.php");
 
 //$level = $_POST['level'];
 
-$sql = "SELECT DISTINCT weekno, week, yr FROM staging.rass_kpi_stka_w WHERE level = 'National' ORDER BY yr DESC, weekno DESC;";
+$sql = "SELECT DISTINCT weekno, week, yr FROM staging.rass_kpi_stka_w 
+        WHERE level = 'National' 
+        AND (CASE WHEN yr = EXTRACT(YEAR FROM NOW()) AND weekno > EXTRACT(WEEK FROM NOW()) - 1 THEN 0 ELSE 1 END) = 1
+        ORDER BY yr DESC, weekno DESC;";
 
 //AND weekno <= (EXTRACT(WEEK FROM NOW()) - 1)
 
