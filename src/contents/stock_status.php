@@ -1610,17 +1610,17 @@ function stock_status(){
 
         }else{
 
-            //$cur = "SELECT DISTINCT weekno, week, yr FROM staging.rass_kpi_stka_w
-                    //WHERE level = 'National'
-                    //AND (CASE WHEN yr = EXTRACT(YEAR FROM NOW()) AND weekno > EXTRACT(WEEK FROM NOW()) - 1 THEN 0 ELSE 1 END) = 1
-                    //ORDER BY yr DESC, weekno DESC LIMIT 1;";
+            $cur = "SELECT DISTINCT weekno, week, yr FROM staging.rass_kpi_stka_w
+                    WHERE level = 'National'
+                    AND (CASE WHEN yr = EXTRACT(YEAR FROM NOW()) AND weekno > EXTRACT(WEEK FROM NOW()) - 1 THEN 0 ELSE 1 END) = 1
+                    ORDER BY yr DESC, weekno DESC LIMIT 1;";
             //$cur = "SELECT EXTRACT(YEAR FROM NOW()) AS yr, (EXTRACT(WEEK FROM NOW()) - 1) AS weekno;";
-            //$onerow = pg_fetch_array(pg_query($db, $cur));
+            $onerow = pg_fetch_array(pg_query($db, $cur));
 
             $org = 'akV6429SUqu'; $orgname = 'Uganda';
-            $per = '2018W29'; //$onerow['yr'] . 'W' . $onerow['weekno'];
-            $yr = 2018; //$onerow['yr'];
-            $wk = 29; //$onerow['weekno'];
+            $per = $onerow['yr'] . 'W' . $onerow['weekno'];
+            $yr = $onerow['yr'];
+            $wk = $onerow['weekno'];
 
         }
 
