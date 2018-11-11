@@ -139,6 +139,8 @@ requireFiles("src/contents");
 
     <script type="text/javascript">
         $(document).ready(function(){
+            //console.log('Hello');
+
             $('.arrow-img').tooltip();
 
             $('.select li').first().addClass('selected');
@@ -275,7 +277,7 @@ requireFiles("src/contents");
             /* Formatting function for row details - modify as you need */
             function format ( d ) {
                 // `d` is the original data object for the row
-                return "";
+                return d.toString();
                 /*
                 return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
                     '<tr>'+
@@ -310,7 +312,8 @@ requireFiles("src/contents");
                 }
                 else {
                     // Open this row
-                    row.child( format(row.data()) ).show();
+                    //row.child( format(row.data()[1]) ).show();
+                    row.child( format(tr.attr('data-fid')) ).show();
                     tr.addClass('shown');
                 }
             } );
@@ -476,7 +479,7 @@ requireFiles("src/contents");
                                 </div>
                             </li>
                         </ul>
-                        <a href=""> <i class="fa fa-info"></i> Version 1.0.0 </a>
+                        <a href=""> <i class="fa fa-info"></i> Version 1.0.1 </a>
                     </li>
                 </ul>
             </footer>
@@ -497,7 +500,7 @@ requireFiles("src/contents");
                         <ul class="select">
                             <li>Adults</li>
                             <li>Paediatrics</li>
-                            <!--<li>Rapid Test Kits</li> -->
+                            <li>RTKS</li>
                         </ul>
                     </div>
                     <div class="pull-right">
@@ -516,8 +519,10 @@ requireFiles("src/contents");
         <footer class="footer">
             <div class="footer-block author">
                 <ul class="pull-right">
-                    <li> Developed By <a href="http://mets.or.ug">METS Program (MakSPH)</a></li>
+                    <!--
+                    <li> Powered By <a href="http://mets.or.ug">METS Program (MakSPH)</a></li>
                     <li><a href="http://mets.or.ug/contact/">Contact Us</a></li>
+                    -->
                 </ul>
             </div>
         </footer>
@@ -636,6 +641,34 @@ requireFiles("src/contents");
             <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
+        <!--Modal Loading facilities with missing reports  -->
+        <div class="modal fade" id="modal-mhfs">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <h4 class="modal-title">Health Facilities</h4>
+                    </div>
+                    <div class="modal-body modal-tab-container">
+                        <section class="section" style="padding:10px">
+                            <div class="table-responsive" id="mfc">
+                                <img src="assets/images/load.gif" class="img load"/>
+                            </div>
+                        </section>
+                    </div>
+                    <!--
+                    <div class="modal-footer">
+
+                    </div>
+                    -->
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
 
         <!-- Modal Loading data -->
         <div class="modal fade" id="modal-placeholder">
