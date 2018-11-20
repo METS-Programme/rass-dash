@@ -38,6 +38,8 @@ requireFiles("src/contents");
     <link rel="stylesheet" href="assets/css/app.css">
 
     <link rel="stylesheet" href="assets/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="assets/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="">
     <!-- <link rel="stylesheet" href="assets/css/jquery-ui.css"> -->
     <!-- Bootstrap core CSS -->
     <!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -134,7 +136,6 @@ requireFiles("src/contents");
             background: url('assets/images/details_close.png') no-repeat center center;
         }
 
-
     </style>
 
     <script type="text/javascript">
@@ -151,6 +152,12 @@ requireFiles("src/contents");
                 //alert('Hello');
             });
 
+            //Hide org unit category select element under filter
+            $('#orgcat').hide();
+            //$('#ounit').disable();
+            //$('#ounit').attr('disabled', 'disabled');
+            //$('#ounit').removeAttr('disabled');
+            /*
             $.post(
                 "src/commons/periods.php",
                 {
@@ -161,7 +168,7 @@ requireFiles("src/contents");
                     var options = $("#operiod");
                     //put here error handling code!
                     var obj = JSON.parse(data);
-                    //alert (obj[0].week);
+                    alert (obj[0].week);
                     $('.wk').html(obj[0].week);
 
                     $.each(JSON.parse(data), function() {
@@ -170,8 +177,15 @@ requireFiles("src/contents");
                     });
                 }
             );
+            */
+            //All orgunits
+            var orgs = JSON.parse($('#orgunits').val());
+            //Parent Orgunit
+            var level = '', parentLevel = '';
 
             $('#olevel').change(function() {
+
+                //var level = '';
 
                 $('#ounit option').each(function() {
                     if ( $(this).val() != '0' ) {
@@ -179,21 +193,57 @@ requireFiles("src/contents");
                     }
                 });
 
-                var level = '';
                 if ($(this).val() === '1') {
                     level = 'National';
+                    $('#ol').val("National");
+
+                    $('#ounit').append($("<option />").val('akV6429SUqu').text('Uganda'));
+
+                    $('#orgcat').hide();
+                    $('#ounit').removeAttr('disabled');
                 }
                 else if ($(this).val() === '2') {
                     level = 'Regional';
+                    $('#ol').val("Regional");
+
+                    $.each(orgs, function (key, val) {
+                        $('#ounit').append($("<option />").val(key.split("-")[1]).text(key.split("-")[0]));
+                    });
+
+                    $('#orgcat').hide();
+                    $('#ounit').removeAttr('disabled');
                 }
                 else if ($(this).val() === '3') {
+
                     level = 'District';
+                    parentLevel = 'Region'
+
+                    $('#ol').val("District");
+
+                    //Remove existing options before populating
+                    $('#orgcat option').each(function() {
+                        $(this).remove();
+                    });
+
+                    $('#orgcat').append($("<option />").val(0).text("--Select Region--"));
+                    $.each(orgs, function (key, val) {
+                        $('#orgcat').append($("<option />").val(key.split("-")[1]).text(key.split("-")[0]));
+                    });
+
+                    $('#orgcat').show();
+                    $('#ounit').attr('disabled', 'disabled');
+
                 } else
                     return;
+
+                //alert (parentLevel);
+
+                /*
                 $.post(
                     "src/commons/orgs.php",
                     {
-                        level: level
+                        level: level,
+                        parentLevel: parentLevel
                     },
                     function(data, status){
                         //alert(data + " " + status);
@@ -205,21 +255,50 @@ requireFiles("src/contents");
                         });
                     }
                 );
+                */
+                //$('#ounit').removeAttr('disabled');
+
+            });
+
+            $('#orgcat').change(function(){
+                //Selected Category
+                var selcat = $('#orgcat option:selected').text();
+
+                //Clear Org unit options before populating
+                $('#ounit option').each(function() {
+                    if ( $(this).val() != '0' ) {
+                        $(this).remove();
+                    }
+                });
+
+                //Populate orgunits at selected level and parentLevel
+
+                $.each(orgs, function (reg, dis) {
+                    //alert(reg);
+                        $.each(dis, function (disn, sub) {
+                            if(reg.split("-")[0] == selcat)
+                                $('#ounit').append($("<option />").val(disn.split("-")[1]).text(disn.split("-")[0]));
+                        });
+                });
+
+                //alert (parentLevel);
+                $('#ounit').removeAttr('disabled');
             });
 
             $('#sel').click(function () {
 
                 //location.reload();
 
-                var wk = $('#operiod option:selected').text();
-                var wkno = $('#operiod option:selected').val();
+                var wk = $('#operiod option:selected').val();
+                var wkno = $('#operiod option:selected').val().substring(5);
                 var org = $('#ounit option:selected').val();
                 var on = $('#ounit option:selected').text();
+                var ol = $('#ol').val();
 
                 //$('.wk').html(wk);
                 //$('.org').html(org);
                 if ($('#ounit option:selected').val() != 0 || $('#operiod option:selected').val() != 0)
-                    window.location.href = "?o=" + org + "&w=" + wk + "&wn=" + wkno + "&on=" + on;
+                    window.location.href = "?o=" + org + "&w=" + wk + "&wn=" + wkno + "&on=" + on + "&ol=" + ol;
 
             });
             /*
@@ -263,11 +342,15 @@ requireFiles("src/contents");
                             $('#fc').html(data);
                         }
 
-                        table = $('#hf-list').DataTable(
+                        table = $('#hf-list').DataTable({
                             //{"ajax": "assets/files/data.txt"}
                             //"autoWidth": true
                             //"order": [[1, 'asc']]
-                        );
+                            dom: 'Bfrtip',
+                            buttons: [
+                                'copy', 'csv', 'excel', 'pdf', 'print'
+                            ]
+                        });
 
                     }
                 );
@@ -318,6 +401,132 @@ requireFiles("src/contents");
                 }
             } );
 
+            Date.prototype.getWeekNumber = function(){
+                var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
+                var dayNum = d.getUTCDay() || 7;
+                d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+                var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+                return Math.ceil((((d - yearStart) / 86400000) + 1)/7)
+            };
+
+            //alert(wk);
+
+            function getDateOfWeek(w, y) {
+                var d = (1 + (w - 1) * 7); // 1st of January + 7 days for each week
+                return new Date(y, 0, d);
+            }
+
+            function GetFormattedDate(d) {
+                var date = new Date(d);
+                var month = format(date.getMonth() + 1);
+                var day = format(date.getDate() - 1);//Day from provided date - 1
+                var year = format(date.getFullYear());
+
+                if (day == 0)
+                    return "31-12-" + (year - 1);
+                else
+                    return day + "-" + month + "-" + year;
+            }
+
+            //alert(GetFormattedDate(getDateOfWeek(53, '2018')));
+
+            //Week ending 2018-11-18 (2018W46)
+
+            //var currYear = new Date().getFullYear();
+
+            function generatePeriods(dateObj) {
+
+                var weekNumber, yr = dateObj.getFullYear();
+                //Check if current year
+                if (yr == new Date().getFullYear())
+                    weekNumber = dateObj.getWeekNumber() - 1;
+                else
+                    weekNumber = dateObj.getWeekNumber();
+
+                $('.wk').html(yr + "W" + weekNumber);
+                var options = $("#operiod");
+
+                for (var i = weekNumber; i >= 1; i--) {
+                    //Week e.g 2018W47
+                    var week = yr + "W" + i;
+                    //Weeking ending 2018-11-18 (2018W46)
+                    var weekEndDate = GetFormattedDate(getDateOfWeek(i, yr));
+                    options.append($("<option />").val(week).text("Week ending " + weekEndDate + " (" + week + ")"));
+                }
+
+            }
+
+            $('#pyear').click(function () {
+
+                //Clear periods before populating with new periods
+                $('#operiod option').each(function() {
+                    if ( $(this).val() != '0' ) {
+                        $(this).remove();
+                    }
+                });
+
+                var currYear = new Date().getFullYear();
+                clicks = clicks - 1
+                var prevYear = currYear + clicks;
+                //Period date
+                var pDate = prevYear + '-12-31';
+                //alert(pDate);
+                //End on 2016
+                if (prevYear >= 2016) {
+                    generatePeriods(new Date(pDate));
+                } else {
+                    //neutralize the non useful clicks
+                    clicks = clicks + 1;
+                    generatePeriods(new Date('2016-12-31'));
+                }
+
+               // alert(clicks);
+
+            });
+
+            $('#nyear').click(function () {
+
+                //Clear periods before populating with new periods
+                $('#operiod option').each(function() {
+                    if ( $(this).val() != '0' ) {
+                        $(this).remove();
+                    }
+                });
+
+                var currYear = new Date().getFullYear();
+                clicks = clicks + 1
+                var nxtYear = currYear + clicks;
+                //Period date
+                var nDate = nxtYear + '-12-31';
+                //alert(nxtYear + '=' + currYear);
+                //Make sure next years don't point to future years
+                if (nxtYear < currYear) {
+                    generatePeriods(new Date(nDate));
+                } else {
+                    //neutralize the non useful clicks
+                    if (nxtYear != currYear)
+                        clicks = clicks - 1;
+                    generatePeriods(new Date());
+                }
+
+                //alert(clicks);
+
+            });
+
+            var clicks = 0;
+
+            $('#filter-btn').click(function () {
+                //Reset clicks to zero
+                clicks = 0;
+
+                //Default periods - Current year
+                generatePeriods(new Date());
+
+            });
+
+
+
+
         });
 
     </script>
@@ -350,7 +559,7 @@ requireFiles("src/contents");
                 <nav class="menu">
                     <ul class="nav metismenu" id="sidebar-menu">
                         <li class="active">
-                            <a href="?category=stocks"> <i class="fa fa-th-large"></i> ARV Stocks <i class="fa arrow"></i> </a>
+                            <a href="?category=stocks"> <i class="fa fa-th-large"></i> HIV Commodities <i class="fa arrow"></i> </a>
                             <ul>
                                 <li><a href="?category=stocks&option=stock_status">
                                         Stock Status
@@ -387,14 +596,16 @@ requireFiles("src/contents");
                             <a href="index?category=reports"> <i class="fa fa-table"></i> Reports <i class="fa arrow"></i> </a>
                             <ul>
                                 <li><a href="#"> <!--index.php?category=reports&option=stockout_rates -->
-                                        Stockout rates
+                                        Weekly Summary
                                     </a></li>
-                                <li><a href="#"> <!--index.php?category=reports&option=art_sites -->
+                                <!--
+                                <li><a href="#"> //index.php?category=reports&option=art_sites
                                         ART Accredited Sites
                                     </a></li>
-                                <li><a href="#"><!--index.php?category=reports&option=art_sites-->
+                                <li><a href="#">//--index.php?category=reports&option=art_sites
                                         Warehouse Distributions
                                     </a></li>
+                                -->
                             </ul>
                         </li>
                         <!--
@@ -504,7 +715,7 @@ requireFiles("src/contents");
                         </ul>
                     </div>
                     <div class="pull-right">
-                        <button type="button" class="btn btn-info btn-sm rounded-s" data-toggle="modal" data-target="#modal-media" data-backdrop="static" data-keyboard="false" style="margin-top:-1px">
+                        <button id = "filter-btn" type="button" class="btn btn-info btn-sm rounded-s" data-toggle="modal" data-target="#modal-media" data-backdrop="static" data-keyboard="false" style="margin-top:-1px">
                             Level/Period - Filter
                         </button>
                     </div>
@@ -554,11 +765,18 @@ requireFiles("src/contents");
                                                 </select>
                                             </div>
                                             <div class="form-group">
+                                                <select class="form-control" id="orgcat">
+                                                    <!-- <option value="0">--Select Org Cat--</option> -->
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
                                                 <select class="form-control" id="ounit">
                                                     <option value="0">--Select Org Unit--</option>
                                                 </select>
                                             </div>
                                             <div class="form-group">
+                                                <button id="pyear" type="button" class="btn btn-sm btn-outline-secondary rounded-s">Prev Year</button>
+                                                <button id="nyear" type="button" class="btn btn-sm btn-outline-secondary rounded-s">Next Year</button>
                                                 <select class="form-control" id="operiod">
                                                     <option value="0">--Select Period--</option>
                                                 </select>
@@ -602,6 +820,7 @@ requireFiles("src/contents");
                         </section>
                     </div>
                     <div class="modal-footer">
+
                         <button type="button" class="btn btn-secondary rounded-s" data-dismiss="modal">Cancel</button>
                         <button id = "sel" type="button" class="btn btn-primary rounded-s" data-dismiss="modal">Filter</button>
                     </div>
@@ -739,6 +958,17 @@ requireFiles("src/contents");
 
 <script src="assets/js/jquery.dataTables.min.js" type="text/javascript"></script>
 <!--<script src="assets/js/jquery-ui.js" type="text/javascript"></script> -->
+<script src="assets/js/dataTables.buttons.min.js" type="text/javascript"></script>
+<script src="assets/js/buttons.flash.min.js" type="text/javascript"></script>
+<script src="assets/js/jszip.min.js" type="text/javascript"></script>
+<script src="assets/js/pdfmake.min.js" type="text/javascript"></script>
+<script src="assets/js/vfs_fonts.js" type="text/javascript"></script>
+<script src="assets/js/buttons.html5.min.js" type="text/javascript"></script>
+<script src="assets/js/buttons.print.min.js" type="text/javascript"></script>
+
+
+
+<!-- <script src="assets/js/dataTables.fixedHeader.min.js" type="text/javascript"></script> -->
 
 <!-- Highcharts JS -->
 <script src="assets/js/highcharts.js" type="text/javascript"></script>
@@ -746,6 +976,11 @@ requireFiles("src/contents");
 <script src="assets/js/drilldown.js" type="text/javascript"></script>
 <script src="assets/js/exporting.js" type="text/javascript"></script>
 <script src="assets/js/map.js" type="text/javascript"></script>
+<!--
+<script src="https://code.highcharts.com/modules/data.src.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.src.js"></script>
+-->
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
 
 <!--Ug Map-->
 

@@ -9,8 +9,9 @@
 require_once ("db.php");
 
 $level = $_POST['level'];
+$parentLevel = $_POST['parentLevel'];
 
-$sql = "SELECT DISTINCT entity, uid FROM staging.rass_kpi_stka_w WHERE level = '$level' ORDER BY entity;";
+$sql = "SELECT DISTINCT entity, uid FROM staging.rass_kpi_stka_w WHERE level = '$level' AND entity = '$parentLevel' ORDER BY entity;";
 
 $res = pg_query($db, $sql);
 

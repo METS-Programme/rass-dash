@@ -9,13 +9,49 @@
 function stock_status(){
     ?>
     <script type="text/javascript">
+        /*
         $(document).ready(function() {
-            $('#stock').DataTable({
+            var dtable = $('#stock').DataTable({
                 "order": [[5, "desc"]]
             });
         });
+        */
 
         $(function () {
+
+            var dtable = $('#stock').DataTable({
+                "order": [[5, "desc"]],
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+                /*
+                ,
+                "columnDefs": [
+                    {
+                        "targets": [6],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [7],
+                        "visible": false
+                    }
+                    ]
+                 */
+            });
+
+            var orgsmrytable = $('#orgsmry').DataTable({
+                //"order": [[5, "desc"]],
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
+
+            dtable.column(1).data().search("Adult").draw();
+            orgsmrytable.column(0).data().search("STKA").draw();
+
 
             var atrends = $('#atrends').val();
             var ptrends = $('#ptrends').val();
@@ -28,156 +64,188 @@ function stock_status(){
 
             //alert (aobj[0][0]);
 
-            Highcharts.chart('trends', {
-                chart: {
-                    zoomType: 'xy',
-                    borderWidth: 1,
-                    borderColor: 'grey'
-                },
-                title: {
-                    text: 'HIV Commodity Stockout rates - Last 12 Weeks (' + $('#o').html() + ')'
-                },
-                subtitle: {
-                    text: 'Health Facilities Reporting HIV Commodity Stockstatus during the reporting periods'
-                },
-                xAxis: [{
-                    categories: [aobj[0][0], aobj[1][0], aobj[2][0], aobj[3][0], aobj[4][0], aobj[5][0],
-                        aobj[6][0], aobj[7][0], aobj[8][0], aobj[9][0], aobj[10][0], aobj[11][0]],
-                    crosshair: true,
-                    title: {
-                        text: 'Weeks',
-                        style: {
-                            color: Highcharts.getOptions().colors[1]
-                        }
-                    }
-                }],
-                yAxis: [{ // Primary yAxis
-                    labels: {
-                        format: '{value} %',
-                        style: {
-                            color: Highcharts.getOptions().colors[1]
-                        }
-                    },
-                    title: {
-                        text: '% of Health Facilities with Comodity Stockouts',
-                        style: {
-                            color: Highcharts.getOptions().colors[1]
-                        }
-                    }
-                }, { // Secondary yAxis
-                    title: {
-                        text: 'Number of Clients',
-                        style: {
-                            color: Highcharts.getOptions().colors[0]
-                        }
-                    },
-                    labels: {
-                        format: '{value}',
-                        style: {
-                            color: Highcharts.getOptions().colors[0]
-                        }
-                    },
-                    opposite: true
-                }],
-                tooltip: {
-                    shared: true
-                },
-                legend: {
-                    /*
-                    layout: 'vertical',
-                    align: 'left',
-                    x: 70,
-                    verticalAlign: 'top',
-                    y: 52,
-                    floating: true,
-                    */
-                    align: 'center',
-                    verticalAlign: 'bottom',
-                    x: 0,
-                    y: 0,
-                    backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
-                },
-                /*
-                plotOptions: {
-                    series: {
-                        borderWidth: 0,
-                        dataLabels: {
-                            enabled: true,
-                            format: '{point.y:,.0f}' //{point.y:.1f}
-                        }
-                    }
-                },
-                */
-                credits: {
-                    enabled: true,
-                    text: 'www.rass.mets.or.ug',
-                    href: 'http://rass.mets.or.ug'
-                },
-                series: [{
-                    name: 'Clients (at risk) - Adults',
-                    type: 'column',
-                    yAxis: 1,
-                    data: [aobj[0][2], aobj[1][2], aobj[2][2], aobj[3][2], aobj[4][2], aobj[5][2], aobj[6][2], aobj[7][2], aobj[8][2],
-                        aobj[9][2], aobj[10][2], aobj[11][2]],
-                    tooltip: {
-                        valueSuffix: ''
-                    }
+            //Trends data variables
+            var at, pt, rt;
 
-                },
-                {
-                    name: 'Clients (at risk) - Paediatric',
-                    type: 'column',
-                    yAxis: 1,
-                    data: [pobj[0][2], pobj[1][2], pobj[2][2], pobj[3][2], pobj[4][2], pobj[5][2], pobj[6][2], pobj[7][2], pobj[8][2],
-                    pobj[9][2], pobj[10][2], pobj[11][2]],
-                    tooltip: {
-                        valueSuffix: ''
-                    }
+            at = [
 
-                }
-                /*
-                ,
-                {
-                    name: 'Clients (at risk) - RTKs',
-                    type: 'column',
-                    yAxis: 1,
-                    data: [rtksobj[0][2], rtksobj[1][2], rtksobj[2][2], rtksobj[3][2], rtksobj[4][2], rtksobj[5][2], rtksobj[6][2], rtksobj[7][2], rtksobj[8][2],
-                        rtksobj[9][2], rtksobj[10][2], rtksobj[11][2]],
-                    tooltip: {
-                        valueSuffix: ''
-                    }
+            ];
 
-                }
-                */
-                ,
-                {
-                    name: 'Paediatric ARVs',
-                    type: 'line',
-                    data: [pobj[0][1], pobj[1][1], pobj[2][1], pobj[3][1], pobj[4][1], pobj[5][1], pobj[6][1], pobj[7][1], pobj[8][1],
-                        pobj[9][1], pobj[10][1], pobj[11][1]],
-                    tooltip: {
-                        valueSuffix: '%'
-                    }
-                }, {
-                    name: 'Adult ARVs',
-                    type: 'line',
-                    data: [aobj[0][1], aobj[1][1], aobj[2][1], aobj[3][1], aobj[4][1], aobj[5][1], aobj[6][1], aobj[7][1], aobj[8][1],
-                        aobj[9][1], aobj[10][1], aobj[11][1]],
-                    tooltip: {
-                        valueSuffix: '%'
-                    }
-                },
-                    {
-                        name: 'RTKs',
-                        type: 'line',
-                        data: [rtksobj[0][1], rtksobj[1][1], rtksobj[2][1], rtksobj[3][1], rtksobj[4][1], rtksobj[5][1], rtksobj[6][1], rtksobj[7][1], rtksobj[8][1],
-                            rtksobj[9][1], rtksobj[10][1], rtksobj[11][1]],
+            var tobj = aobj;
+            var colname = 'Clients (at risk) - Adults';
+            var linename = 'Adult ARVs';
+
+            plotTrends(tobj, colname, linename, "ARV");
+
+            function plotTrends(tobj, colname, linename, type) {
+
+                //alert(tobj[11][0]);
+
+                if (type == "ARV") {
+                    var trendData = [{
+                        name: colname,
+                        type: 'column',
+                        yAxis: 1,
+                        data: [tobj[0][2], tobj[1][2], tobj[2][2], tobj[3][2], tobj[4][2], tobj[5][2], tobj[6][2], tobj[7][2], tobj[8][2],
+                            tobj[9][2], tobj[10][2], tobj[11][2]],
                         tooltip: {
-                            valueSuffix: '%'
+                            valueSuffix: ''
                         }
-                    }]
-            });
+                    }
+                        ,
+                        {
+                            name: linename + " (Stockout Rates)",
+                            type: 'line',
+                            data: [tobj[0][1], tobj[1][1], tobj[2][1], tobj[3][1], tobj[4][1], tobj[5][1], tobj[6][1], tobj[7][1], tobj[8][1],
+                                tobj[9][1], tobj[10][1], tobj[11][1]],
+                            tooltip: {
+                                valueSuffix: '%'
+                            }
+                        },
+                        {
+                            name: linename + " (Reporting Rates)",
+                            type: 'line',
+                            data: [tobj[0][5], tobj[1][5], tobj[2][5], tobj[3][5], tobj[4][5], tobj[5][5], tobj[6][5], tobj[7][5], tobj[8][5],
+                                tobj[9][5], tobj[10][5], tobj[11][5]],
+                            tooltip: {
+                                valueSuffix: '%'
+                            }
+                        }
+                        ];
+                } else {
+                    //alert(tobj[11][5]);
+                    var trendData = [{
+                            name: linename + " (Stockout Rates)",
+                            type: 'line',
+                            data: [tobj[0][1], tobj[1][1], tobj[2][1], tobj[3][1], tobj[4][1], tobj[5][1], tobj[6][1], tobj[7][1], tobj[8][1],
+                                tobj[9][1], tobj[10][1], tobj[11][1]],
+                            tooltip: {
+                                valueSuffix: '%'
+                            }
+                        },
+                        {
+                            name: linename + " (Reporting Rates)",
+                            type: 'line',
+                            data: [tobj[0][5], tobj[1][5], tobj[2][5], tobj[3][5], tobj[4][5], tobj[5][5], tobj[6][5], tobj[7][5], tobj[8][5],
+                                tobj[9][5], tobj[10][5], tobj[11][5]],
+                            tooltip: {
+                                valueSuffix: '%'
+                            }
+                        }
+                        ];
 
+                }
+
+                Highcharts.chart('trends', {
+                    chart: {
+                        zoomType: 'xy',
+                        borderWidth: 1,
+                        borderColor: 'grey'
+                    },
+                    title: {
+                        text: 'HIV Commodity Stockout rates - Last 12 Weeks (' + $('#o').html() + ')'
+                    },
+                    subtitle: {
+                        text: 'Health Facilities Reporting HIV Commodity Stockstatus during the reporting periods'
+                    },
+                    xAxis: [{
+                        categories: [tobj[0][0], tobj[1][0], tobj[2][0], tobj[3][0], tobj[4][0], tobj[5][0],
+                            tobj[6][0], tobj[7][0], tobj[8][0], tobj[9][0], tobj[10][0], tobj[11][0]],
+                        crosshair: true,
+                        title: {
+                            text: 'Weeks',
+                            style: {
+                                color: Highcharts.getOptions().colors[1]
+                            }
+                        }
+                    }],
+                    yAxis: [{ // Primary yAxis
+                        labels: {
+                            format: '{value} %',
+                            style: {
+                                color: Highcharts.getOptions().colors[1]
+                            }
+                        },
+                        title: {
+                            text: 'Rates (%)',
+                            style: {
+                                color: Highcharts.getOptions().colors[1]
+                            }
+                        }
+                    }, { // Secondary yAxis
+                        title: {
+                            text: 'Number of Clients',
+                            style: {
+                                color: Highcharts.getOptions().colors[0]
+                            }
+                        },
+                        labels: {
+                            format: '{value}',
+                            style: {
+                                color: Highcharts.getOptions().colors[0]
+                            }
+                        },
+                        opposite: true
+                    }],
+                    tooltip: {
+                        shared: true
+                    },
+                    legend: {
+                        /*
+                         layout: 'vertical',
+                         align: 'left',
+                         x: 70,
+                         verticalAlign: 'top',
+                         y: 52,
+                         floating: true,
+                         */
+                        align: 'center',
+                        verticalAlign: 'bottom',
+                        x: 0,
+                        y: 0,
+                        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+                    },
+                    exporting: {
+                        filename: 'RASS_stockout_rates_reporting_rates_' + cat + '_' + $('#w').html(),
+                        buttons: {
+                            contextButton: {
+                                menuItems: [
+                                    "printChart",
+                                    "separator",
+                                    "downloadPNG",
+                                    "downloadJPEG",
+                                    "downloadPDF",
+                                    //"downloadSVG",
+                                    "separator",
+                                    "downloadXLS",
+                                    "downloadCSV"
+                                    //"viewData",
+                                    //"openInCloud"
+                                    ]
+                            }
+                        }
+                    }
+                    ,
+                    /*
+                     plotOptions: {
+                     series: {
+                     borderWidth: 0,
+                     dataLabels: {
+                     enabled: true,
+                     format: '{point.y:,.0f}' //{point.y:.1f}
+                     }
+                     }
+                     },
+                     */
+                    credits: {
+                        enabled: true,
+                        text: 'www.rass.mets.or.ug',
+                        href: 'http://rass.mets.or.ug'
+                    },
+                    series: trendData
+                });
+            }
+            //Data objects - data from hidden inpu fields
             // Create the chart
             //Adults
             var reg = $('#reg').val();
@@ -200,387 +268,313 @@ function stock_status(){
             var rtkobj1 = JSON.parse(rreg);
             var rtkobj2 = JSON.parse(rdis);
 
+            //OrgUnits
+            var orgunits = $('#orgunits').val();
+            var orgobj = JSON.parse(orgunits);
+
             var cat = 'Adults';
+
+            var rassReg, rassDis, rassSub;
+
+            var ol = $('#ol').val();
+            var orgn = $('#o').html().toString();
 
             drawBarChart(obj1, obj2, 16);
 
-            var rwenzoriDis, westNileDis, sorotiDis, central1Dis, masakaDis, bunyoroDis, kampalaDis, easternDis;
+            //alert(orgn);
 
             function drawBarChart(obj1, obj2, count) {
 
-                //var rwenzoriDis, westNileDis, sorotiDis, central1Dis, masakaDis, bunyoroDis, kampalaDis, easternDis;
+                //RASS regions
+                rassReg = [];
+                rassDis = [];
+                rassSub = [];
+                //console.log(orgobj);
+                $.each(orgobj, function( regName,  dis) {
+                    //regions;
+                    rassReg.push (regName.split("-")[0]);
+                    $.each(dis, function( disName, sub ) {
+                        //districts;
+                        rassDis.push ([regName.split("-")[0], disName.split("-")[0]]);
+                        //subcounties
+                        /*
+                        $.each(sub, function( subName, hf ) {
+                            //districts;
+                            rassSub.push ([disName, subName]);
+                        });
+                        */
+                    });
 
-                rwenzoriDis = [
-                    "Kabarole District", "Kasese District", "Kamwenge District", "Kyenjojo District",
-                    "Kyegegwa District", "Bundibugyo District", "Ntoroko District"
-                ];
-                westNileDis = [
-                    "Adjumani District", "Arua District", "Koboko District", "Maracha District",
-                    "Moyo District", "Nebbi District", "Pakwach District", "Yumbe District",
-                    "Zombo District"
-                ];
-                sorotiDis = [
-                    "Amuria District", "Bukedea District", "Kaberamaido District", "Katakwi District", "Kumi District",
-                    "Ngora District", "Soroti District", "Serere District"
-                ];
-                central1Dis = [
-                    "Kiboga District", "Kyankwanzi District", "Luwero District", "Mityana District", "Mubende District",
-                    "Nakaseke District", "Nakasongola District"
-                ];
-                masakaDis = [
-                    "Bukomansimbi District", "Butambala District", "Gomba District", "Kalangala District", "Kalungu District",
-                    "Kyotera District", "Lwengo District", "Lyantonde District", "Masaka District", "Mpigi District",
-                    "Rakai District", "Sembabule District"
-                ];
-                bunyoroDis = [
-                    "Buliisa Distric", "Hoima District", "Kagadi District", "Kakumiro District", "Kibaale District",
-                    "Masindi District"
-                ];
-                kampalaDis = ["Kampala District", "Wakiso District"];
-                easternDis = [
-                    "Budaka District", "Bududa District", "Bukwo District", "Butaleja District", "Kibuku District",
-                    "Manafwa District", "Mbale District", "Pallisa District", "Sironko District", "Tororo District",
-                    "Kotido District", "Moroto District"
-                ];
+                });
 
-                //Commodity Stockouts
-                //Rewenzori Region
-                var sdata = [{
-                        name: 'Stockouts',
-                        id: 'Rwenzori',
-                        data: (function(){
-                            var data = [], i;
-                            $.each(rwenzoriDis, function( key, val ) {
-                                data.push (
-                                    {
-                                        name: val.split(" ")[0],
-                                        y: (typeof obj2[val] === 'undefined') ? 0 : obj2[val][0][0],
-                                        drilldown: "so" + val.split(" ")[0]
-                                    }
-                                );
-                            });
-                            return data;
-                        }())
-                    },
-                    //West Nile Region
-                    {
-                        name: 'Stockouts',
-                        id: 'West Nile',
-                        data: (function(){
-                            var  data = [], i;
-                            $.each(westNileDis, function( key, val ) {
-                                data.push (
-                                    {
-                                        name: val.split(" ")[0],
-                                        y: (typeof obj2[val] === 'undefined') ? 0 : obj2[val][0][0],
-                                        drilldown: "so" + val.split(" ")[0]
-                                    }
-                                );
-                            });
-                            return data;
-                        }())
-                    },
-                    //Soroti Region
-                    {
-                        name: 'Stockouts',
-                        id: 'Soroti',
-                        data: (function(){
-                            var  data = [], i;
-                            $.each(sorotiDis, function( key, val ) {
-                                data.push (
-                                    {
-                                        name: val.split(" ")[0],
-                                        y: (typeof obj2[val] === 'undefined') ? 0 : obj2[val][0][0],
-                                        drilldown: "so" + val.split(" ")[0]
-                                    }
-                                );
-                            });
-                            return data;
-                        }())
-                    },
-                    //Central 1 Region
-                    {
-                        name: 'Stockouts',
-                        id: 'Central1',
-                        data: (function(){
-                            var  data = [], i;
-                            $.each(central1Dis, function( key, val ) {
-                                data.push (
-                                    {
-                                        name: val.split(" ")[0],
-                                        y: (typeof obj2[val] === 'undefined') ? 0 : obj2[val][0][0],
-                                        drilldown: "so" + val.split(" ")[0]
-                                    }
-                                );
-                            });
-                            return data;
-                        }())
-                    },
-                    //Masaka Region
-                    {
-                        name: 'Stockouts',
-                        id: 'Masaka',
-                        data: (function(){
-                            var  data = [], i;
-                            $.each(masakaDis, function( key, val ) {
-                                data.push (
-                                    {
-                                        name: val.split(" ")[0],
-                                        y: (typeof obj2[val] === 'undefined') ? 0 : obj2[val][0][0],
-                                        drilldown: "so" + val.split(" ")[0]
-                                    }
-                                );
-                            });
-                            return data;
-                        }())
-                    },
-                    //Bunyoro Region
-                    {
-                        name: 'Stockouts',
-                        id: 'Bunyoro',
-                        data: (function(){
-                            var  data = [], i;
-                            $.each(bunyoroDis, function( key, val ) {
-                                data.push (
-                                    {
-                                        name: val.split(" ")[0],
-                                        y: (typeof obj2[val] === 'undefined') ? 0 : obj2[val][0][0],
-                                        drilldown: "so" + val.split(" ")[0]
-                                    }
-                                );
-                            });
-                            return data;
-                        }())
-                    },
-                    //Kampala Region
-                    {
-                        name: 'Stockouts',
-                        id: 'Kampala',
-                        data: (function(){
-                            var  data = [], i;
-                            $.each(kampalaDis, function( key, val ) {
-                                data.push (
-                                    {
-                                        name: val.split(" ")[0],
-                                        y: (typeof obj2[val] === 'undefined') ? 0 : obj2[val][0][0],
-                                        drilldown: "so" + val.split(" ")[0]
-                                    }
-                                );
-                            });
-                            return data;
-                        }())
-                    },
-                    //Eastern Region
-                    {
-                        name: 'Stockouts',
-                        id: 'Eastern',
-                        data: (function(){
-                            var  data = [], i;
-                            $.each(easternDis, function( key, val ) {
-                                data.push (
-                                    {
-                                        name: val.split(" ")[0],
-                                        y: (typeof obj2[val] === 'undefined') ? 0 : obj2[val][0][0],
-                                        drilldown: "so" + val.split(" ")[0]
-                                    }
-                                );
-                            });
-                            return data;
-                        }())
-                    },
+                //console.log (rassDis);
+                //alert (rassDis);
 
+                //Regional bar graphs
+                var regData = [];
 
-                    //Affected Clients
-                    //Rewenzori Region
-                    {
-                        name: 'Clients at risk (x100)',
-                        id: 'aaRwenzori',
-                        data:
-                            (function(){
+                if (ol == "National") {
+
+                    regData = [
+                        {
+                            name: 'Stockouts',
+                            data: (function () {
                                 var data = [], i;
-                                $.each(rwenzoriDis, function( key, val ) {
-                                    data.push (
+                                $.each(rassReg, function (key, val) {
+                                    data.push(
                                         {
-                                            name: val.split(" ")[0],
-                                            y: (typeof obj2[val] === 'undefined') ? 0 : obj2[val][0][1],
-                                            drilldown: "ac" + val.split(" ")[0]
+                                            name: (val === 'West Nile Region') ? "West Nile" : val.split(" ")[0],
+                                            y: (typeof obj1[val] === 'undefined') ? 0 : obj1[val][0],
+                                            drilldown: (val === 'West Nile Region') ? "West Nile" : val.split(" ")[0]
                                         }
                                     );
                                 });
                                 return data;
                             }())
-                    },
-                    //West Nile Region
-                    {
-                        name: 'Clients at risk (x100)',
-                        id: 'aaWest Nile',
-                        data:
-                            (function(){
+
+                        },
+                        {
+                            name: 'Clients at risk (x100)',
+                            data: (function () {
                                 var data = [], i;
-                                $.each(westNileDis, function( key, val ) {
-                                    data.push (
+                                $.each(rassReg, function (key, val) {
+                                    data.push(
                                         {
-                                            name: val.split(" ")[0],
-                                            y: (typeof obj2[val] === 'undefined') ? 0 : obj2[val][0][1],
-                                            drilldown: "ac" + val.split(" ")[0]
+                                            name: (val === 'West Nile Region') ? "West Nile" : val.split(" ")[0],
+                                            y: (typeof obj1[val] === 'undefined') ? 0 : obj1[val][1],
+                                            drilldown: (val === 'West Nile Region') ? "aaWest Nile" : "aa" + val.split(" ")[0]
                                         }
                                     );
                                 });
                                 return data;
                             }())
-                    },
-                    //Soroti Region
-                    {
-                        name: 'Clients at risk (x100)',
-                        id: 'aaSoroti',
-                        data:
-                            (function(){
-                                var data = [], i;
-                                $.each(sorotiDis, function( key, val ) {
-                                    data.push (
-                                        {
-                                            name: val.split(" ")[0],
-                                            y: (typeof obj2[val] === 'undefined') ? 0 : obj2[val][0][1],
-                                            drilldown: "ac" + val.split(" ")[0]
-                                        }
-                                    );
-                                });
-                                return data;
-                            }())
-                    },
-                    //Central 1 Region
-                    {
-                        name: 'Clients at risk (x100)',
-                        id: 'aaCentral1',
-                        data:
-                            (function(){
-                                var data = [], i;
-                                $.each(central1Dis, function( key, val ) {
-                                    data.push (
-                                        {
-                                            name: val.split(" ")[0],
-                                            y: (typeof obj2[val] === 'undefined') ? 0 : obj2[val][0][1],
-                                            drilldown: "ac" + val.split(" ")[0]
-                                        }
-                                    );
-                                });
-                                return data;
-                            }())
-                    },
-                    //Masaka Region
-                    {
-                        name: 'Clients at risk (x100)',
-                        id: 'aaMasaka',
-                        data:
-                            (function(){
-                                var data = [], i;
-                                $.each(masakaDis, function( key, val ) {
-                                    data.push (
-                                        {
-                                            name: val.split(" ")[0],
-                                            y: (typeof obj2[val] === 'undefined') ? 0 : obj2[val][0][1],
-                                            drilldown: "ac" + val.split(" ")[0]
-                                        }
-                                    );
-                                });
-                                return data;
-                            }())
-                    },
-                    //Bunyoro Region
-                    {
-                        name: 'Clients at risk (x100)',
-                        id: 'aaBunyoro',
-                        data:
-                            (function(){
-                                var data = [], i;
-                                $.each(bunyoroDis, function( key, val ) {
-                                    data.push (
-                                        {
-                                            name: val.split(" ")[0],
-                                            y: (typeof obj2[val] === 'undefined') ? 0 : obj2[val][0][1],
-                                            drilldown: "ac" + val.split(" ")[0]
-                                        }
-                                    );
-                                });
-                                return data;
-                            }())
-                    },
-                    //Kampala Region
-                    {
-                        name: 'Clients at risk (x100)',
-                        id: 'aaKampala',
-                        data:
-                            (function(){
-                                var data = [], i;
-                                $.each(kampalaDis, function( key, val ) {
-                                    data.push (
-                                        {
-                                            name: val.split(" ")[0],
-                                            y: (typeof obj2[val] === 'undefined') ? 0 : obj2[val][0][1],
-                                            drilldown: "ac" + val.split(" ")[0]
-                                        }
-                                    );
 
-                                });
-                                return data;
-                            }())
-                    },
-                    //Eastern Region
-                    {
-                        name: 'Clients at risk (x100)',
-                        id: 'aaEastern',
-                        data:
-                            (function(){
-                                var data = [], i;
-                                $.each(easternDis, function( key, val ) {
-                                    data.push (
-                                        {
-                                            name: val.split(" ")[0],
-                                            y: (typeof obj2[val] === 'undefined') ? 0 : obj2[val][0][1],
-                                            drilldown: "ac" + val.split(" ")[0]
-                                        }
-                                    );
-
-                                });
-                                return data;
-                            }())
-                    }
-                ];
-
-                var allDis = [kampalaDis, rwenzoriDis, westNileDis, sorotiDis, central1Dis,
-                    masakaDis, bunyoroDis,easternDis];
-
-                $.each(allDis, function( key, dis ) {
-
-                    $.each(dis, function( key, val ) {
-                       //alert(val);
-                        var sodata = [], acdata = [], i;
-                        for (i = 1; i <= count; i += 1) {
-
-                            sodata.push([
-                                (typeof obj2[val] === 'undefined') ? 0 : obj2[val][i][0],
-                                (typeof obj2[val] === 'undefined') ? 0 : obj2[val][i][1]
-                            ]);
-
-                            acdata.push([
-                                (typeof obj2[val] === 'undefined') ? 0 : obj2[val][i][0],
-                                (typeof obj2[val] === 'undefined') ? 0 : obj2[val][i][2]
-                            ]);
                         }
-                        sdata.push(
+                    ];
+
+                } else if (ol == "Regional"){
+
+                    regData = [
+                        {
+                            name: 'Stockouts',
+                            data: (function () {
+                                var data = [], i;
+                                $.each(orgobj, function (reg, dis) {
+                                    if(reg.split("-")[0] == orgn) {
+                                        $.each(dis, function (disn, sub) {
+                                            data.push(
+                                                {
+                                                    name: disn.split("-")[0].split(" ")[0],
+                                                    y: (typeof obj2[disn.split("-")[0]] === 'undefined') ? 0 : obj2[disn.split("-")[0]][0][0],
+                                                    drilldown: "so" + disn.split("-")[0].split(" ")[0]
+                                                }
+                                            );
+                                        });
+                                    }
+                                });
+                                return data;
+                            }())
+
+                        },
+                        {
+                            name: 'Clients at risk (x100)',
+                            data: (function () {
+                                var data = [], i;
+                                $.each(orgobj, function (reg, dis) {
+                                    if (reg.split("-")[0] == orgn) {
+                                        $.each(dis, function (disn, sub) {
+                                            data.push(
+                                                {
+                                                    name: disn.split("-")[0].split(" ")[0],
+                                                    y: (typeof obj2[disn.split("-")[0]] === 'undefined') ? 0 : obj2[disn.split("-")[0]][0][1],
+                                                    drilldown: "ac" + disn.split("-")[0].split(" ")[0]
+                                                }
+                                            );
+                                        });
+                                    }
+                                });
+                                return data;
+                            }())
+
+                        }
+                    ];
+
+                } else if (ol == "District"){
+
+                } else if (ol == "Subcounty"){
+
+                } else if (ol == "Facility"){
+
+                }
+                //District bar graphs
+                var sdata = [];
+
+                if(ol == "National"){
+
+                    $.each(orgobj, function( k, v ) {
+
+                        sdata.push (
+                            //District bar graphs - Stockouts
                             {
-                                id: "so" + val.split(" ")[0],
                                 name: 'Stockouts',
-                                data: sodata
+                                id: (k.split("-")[0] === 'West Nile Region') ? "West Nile" : k.split("-")[0].split(" ")[0],
+                                data: (function(){
+                                    var data = [], i;
+                                    $.each(v, function( key, val ) {
+                                        data.push (
+                                            {
+                                                name: key.split("-")[0].split(" ")[0],
+                                                y: (typeof obj2[key.split("-")[0]] === 'undefined') ? 0 : obj2[key.split("-")[0]][0][0],
+                                                drilldown: "so" + key.split("-")[0].split(" ")[0]
+                                            }
+                                        );
+                                    });
+                                    return data;
+                                }())
                             },
+                            //District bar graphs -  Clients at risk
                             {
-                                id: "ac" + val.split(" ")[0],
                                 name: 'Clients at risk (x100)',
-                                data: acdata
+                                id: (k.split("-")[0] === 'West Nile Region') ? "aaWest Nile" : "aa" + k.split("-")[0].split(" ")[0],
+                                data:
+                                    (function(){
+                                        var data = [], i;
+                                        $.each(v, function( key, val ) {
+                                            data.push (
+                                                {
+                                                    name: key.split("-")[0].split(" ")[0],
+                                                    y: (typeof obj2[key.split("-")[0]] === 'undefined') ? 0 : obj2[key.split("-")[0]][0][1],
+                                                    drilldown: "ac" + key.split("-")[0].split(" ")[0]
+                                                }
+                                            );
+                                        });
+                                        return data;
+                                    }())
                             }
+
                         );
+                    });
+
+                } else if (ol == "Regional"){
+
+                } else if (ol == "District"){
+
+                } else if (ol == "Subcounty"){
+
+                } else if (ol == "Facility"){
+
+                }
+                //Commodity data bar graphs
+
+                $.each(orgobj, function( key, dis ) {
+
+                    $.each(dis, function( k, v ) {
+                       //alert(ol);
+
+                        if (ol == "National") {
+
+                            var sodata = [], acdata = [], i;
+                            for (i = 1; i <= count; i += 1) {
+                                //Stockouts per commodity
+                                sodata.push([
+                                    (typeof obj2[k.split("-")[0]] === 'undefined') ? 0 : obj2[k.split("-")[0]][i][0],
+                                    (typeof obj2[k.split("-")[0]] === 'undefined') ? 0 : obj2[k.split("-")[0]][i][1]
+                                ]);
+                                //Clients at risk per commodity
+                                acdata.push([
+                                    (typeof obj2[k.split("-")[0]] === 'undefined') ? 0 : obj2[k.split("-")[0]][i][0],
+                                    (typeof obj2[k.split("-")[0]] === 'undefined') ? 0 : obj2[k.split("-")[0]][i][2]
+                                ]);
+                            }
+                            sdata.push(
+                                {
+                                    id: "so" + k.split("-")[0].split(" ")[0],
+                                    name: 'Stockouts',
+                                    data: sodata
+                                },
+                                {
+                                    id: "ac" + k.split("-")[0].split(" ")[0],
+                                    name: 'Clients at risk (x100)',
+                                    data: acdata
+                                }
+                            );
+
+                        } else if (ol == "Regional"){
+
+                            if(key.split("-")[0] == orgn) {
+                                var sodata = [], acdata = [], i;
+                                for (i = 1; i <= count; i += 1) {
+                                    //Stockouts per commodity
+                                    sodata.push([
+                                        (typeof obj2[k.split("-")[0]] === 'undefined') ? 0 : obj2[k.split("-")[0]][i][0],
+                                        (typeof obj2[k.split("-")[0]] === 'undefined') ? 0 : obj2[k.split("-")[0]][i][1]
+                                    ]);
+                                    //Clients at risk per commodity
+                                    acdata.push([
+                                        (typeof obj2[k.split("-")[0]] === 'undefined') ? 0 : obj2[k.split("-")[0]][i][0],
+                                        (typeof obj2[k.split("-")[0]] === 'undefined') ? 0 : obj2[k.split("-")[0]][i][2]
+                                    ]);
+                                }
+                                sdata.push(
+                                    {
+                                        id: "so" + k.split("-")[0].split(" ")[0],
+                                        name: 'Stockouts',
+                                        data: sodata
+                                    },
+                                    {
+                                        id: "ac" + k.split("-")[0].split(" ")[0],
+                                        name: 'Clients at risk (x100)',
+                                        data: acdata
+                                    }
+                                );
+                            }
+
+                        } else if (ol == "District"){
+
+                            if(k.split("-")[0] == orgn) {
+
+                                var sodata = [], acdata = [], i;
+                                for (i = 1; i <= count; i += 1) {
+                                    //Stockouts per commodity
+                                    sodata.push({
+                                        name: (typeof obj2[k.split("-")[0]] === 'undefined') ? 0 : obj2[k.split("-")[0]][i][0],
+                                        y: (typeof obj2[k.split("-")[0]] === 'undefined') ? 0 : obj2[k.split("-")[0]][i][1]
+                                        //drilldown:
+                                    });
+                                    //Clients at risk per commodity
+                                    acdata.push({
+                                        name: (typeof obj2[k.split("-")[0]] === 'undefined') ? 0 : obj2[k.split("-")[0]][i][0],
+                                        y: (typeof obj2[k.split("-")[0]] === 'undefined') ? 0 : obj2[k.split("-")[0]][i][2]
+                                        //drilldown:
+                                    });
+                                }
+                                regData.push(
+                                    {
+                                        name: 'Stockouts',
+                                        data: sodata
+                                    },
+                                    {
+                                        name: 'Clients at risk (x100)',
+                                        data: acdata
+                                    }
+                                );
+                            }
+
+                        } else if (ol == "Subcounty"){
+
+                        } else if (ol == "Facility"){
+
+                        }
+
+
 
                    });
+                });
+
+                Highcharts.setOptions({
+                    lang: {
+                        drillUpText: '< Back'
+                    }
                 });
 
                 Highcharts.chart('sadults', {
@@ -594,7 +588,7 @@ function stock_status(){
                         text: 'Number Of Facilities Stocked Out <br />' + cat + ' (' + $('#w').html() + ')'
                     },
                     subtitle: {
-                        text: 'Click the columns to Drill down to ARV Drugs.'
+                        text: 'Click the columns to Drill down to HIV Commodities.'
                     },
                     xAxis: {
 
@@ -622,106 +616,60 @@ function stock_status(){
 
                     tooltip: {
                         headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b>'
+                        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b>'
                     },
                     credits: {
                         enabled: true,
                         text: 'rass.mets.or.ug',
                         href: 'http://rass.mets.or.ug'
                     },
-                    series: [
-                        {
-                            name: 'Stockouts',
-                            data: [{
-                                name: 'Rwenzori',
-                                y: (typeof obj1["Western Region"] === 'undefined') ? 0 : obj1["Western Region"][0],
-                                drilldown: 'Rwenzori'
-                            }, {
-                                name: 'West Nile',
-                                y: (typeof obj1["Northern Region"] === 'undefined') ? 0 : obj1["Northern Region"][0],
-                                drilldown: 'West Nile'
-                            },
-                            {
-                                name: 'Soroti',
-                                y: (typeof obj1["Eastern Region"] === 'undefined') ? 0 : obj1["Eastern Region"][0],
-                                drilldown: 'Soroti'
-                            },
-                            //new regions
-                            {
-                                name: 'Central1',
-                                y: (typeof obj1["Central Region"] === 'undefined') ? 0 : obj1["Central Region"][0],
-                                drilldown: 'Central1'
-                            },
-                            {
-                                name: 'Masaka',
-                                y: (typeof obj1["Central Region"] === 'undefined') ? 0 : obj1["Central Region"][0],
-                                drilldown: 'Masaka'
-                            },
-                            {
-                                name: 'Bunyoro',
-                                y: (typeof obj1["Central Region"] === 'undefined') ? 0 : obj1["Central Region"][0],
-                                drilldown: 'Bunyoro'
-                            },
-                            {
-                                name: 'Kampala',
-                                y: (typeof obj1["Central Region"] === 'undefined') ? 0 : obj1["Central Region"][0],
-                                drilldown: 'Kampala'
-                            },
-                            {
-                                name: 'Eastern',
-                                y: (typeof obj1["Eastern Region"] === 'undefined') ? 0 : obj1["Eastern Region"][0],
-                                drilldown: 'Eastern'
+                    exporting: {
+                        filename: 'RASS_number_of_health_facilities_stockedout_' + cat + '_' + $('#w').html(),
+                        buttons: {
+                            contextButton: {
+                                menuItems: [
+                                    "printChart",
+                                    "separator",
+                                    "downloadPNG",
+                                    "downloadJPEG",
+                                    "downloadPDF",
+                                    //"downloadSVG",
+                                    "separator",
+                                    "downloadXLS",
+                                    "downloadCSV"
+                                    //"viewData",
+                                    //"openInCloud"
+                                ]
                             }
-                            ]
-                        },
-
-                        {
-                            name: 'Clients at risk (x100)',
-                            data: [{
-                                name: 'Rwenzori',
-                                y: (typeof obj1["Western Region"] === 'undefined') ? 0 : obj1["Western Region"][1],
-                                drilldown: 'aaRwenzori'
-                            }, {
-                                name: 'West Nile',
-                                y: (typeof obj1["Northern Region"] === 'undefined') ? 0 : obj1["Northern Region"][1],
-                                drilldown: 'aaWest Nile'
-                            },
-                            {
-                                name: 'Soroti',
-                                y: (typeof obj1["Eastern Region"] === 'undefined') ? 0 : obj1["Eastern Region"][1],
-                                drilldown: 'aaSoroti'
-                            },
-                            //new regions
-                            {
-                                name: 'Central1',
-                                y: (typeof obj1["Central Region"] === 'undefined') ? 0 : obj1["Central Region"][1],
-                                drilldown: 'aaCentral1'
-                            },
-                            {
-                                name: 'Masaka',
-                                y: (typeof obj1["Central Region"] === 'undefined') ? 0 : obj1["Central Region"][1],
-                                drilldown: 'aaMasaka'
-                            },
-                            {
-                                name: 'Bunyoro',
-                                y: (typeof obj1["Central Region"] === 'undefined') ? 0 : obj1["Central Region"][1],
-                                drilldown: 'aaBunyoro'
-                            },
-                            {
-                                name: 'Kampala',
-                                y: (typeof obj1["Central Region"] === 'undefined') ? 0 : obj1["Central Region"][1],
-                                drilldown: 'aaKampala'
-                            },
-                            {
-                                name: 'Eastern',
-                                y: (typeof obj1["Eastern Region"] === 'undefined') ? 0 : obj1["Eastern Region"][1],
-                                drilldown: 'aaEastern'
-                            }
-                            ]
                         }
-
-                    ],
+                    },
+                    series: regData,
                     drilldown: {
+                        drillUpButton: {
+                            relativeTo: 'spacingBox',
+                            position: {
+                                y: 35,
+                                x: 0
+                            }
+                            /*
+                            ,
+                            theme: {
+                                fill: 'white',
+                                'stroke-width': 1,
+                                stroke: 'silver',
+                                r: 0,
+                                states: {
+                                    hover: {
+                                        fill: '#bada55'
+                                    },
+                                    select: {
+                                        stroke: '#039',
+                                        fill: '#bada55'
+                                    }
+                                }
+                            }
+                            */
+                        },
                         series: sdata
                     }
                 });
@@ -744,7 +692,7 @@ function stock_status(){
 
                 window.chart = new Highcharts.Chart({
                     chart: {
-                        renderTo: 'pop',
+                        renderTo: '#pop',
                         type: 'pie',
                         width: 370,
                         height: 240
@@ -790,7 +738,7 @@ function stock_status(){
                         },
 
                         title: {
-                            text: 'Stockout Distribution Rates (%) <br />' + cat + ' (' + $('#w').html() + ')'
+                            text: 'Stockout Distribution Rates (%)' + '<br />' + cat + ' (' + $('#w').html() + ')'
                         }
                         /*
                         ,
@@ -836,7 +784,26 @@ function stock_status(){
                                 }
                             ]
                         },
-
+                        exporting: {
+                            filename: 'RASS_stockout_rate_distribution_per_district_' + cat + '_' + $('#w').html(),
+                            buttons: {
+                                contextButton: {
+                                    menuItems: [
+                                        "printChart",
+                                        "separator",
+                                        "downloadPNG",
+                                        "downloadJPEG",
+                                        "downloadPDF",
+                                        //"downloadSVG",
+                                        "separator",
+                                        "downloadXLS",
+                                        "downloadCSV"
+                                        //"viewData",
+                                        //"openInCloud"
+                                    ]
+                                }
+                            }
+                        },
                         series: [{
                             name: 'Stockouts',
                             mapData: geojson, //Highcharts.maps['countries/ug/ug-all']
@@ -867,13 +834,12 @@ function stock_status(){
                             }
                             /*
                             ,
-
                             point: {
                                 events: {
                                     click: pointClick
                                 }
                             }
-                            */
+                        */
                         }
                         ]
 
@@ -888,38 +854,51 @@ function stock_status(){
             //Load Map
             //STKA data
             var data = [];
-
-            var allDis = [kampalaDis, rwenzoriDis, westNileDis, sorotiDis, central1Dis,
-                masakaDis, bunyoroDis,easternDis];
-
-            $.each(allDis, function( key, dis ) {
-
-                $.each(dis, function( key, val ) {
-                    //alert(val);
-                    if (typeof obj2[val] !== 'undefined')
-                        data.push([val, (typeof obj2[val] === 'undefined') ? 0 : obj2[val][0][2]]);
-                });
-            });
             //STKC data
             var cdata = [];
-
-            $.each(allDis, function( key, dis ) {
-
-                $.each(dis, function( key, val ) {
-                    //alert(val);
-                    if (typeof cobj2[val] !== 'undefined')
-                        cdata.push([val, (typeof cobj2[val] === 'undefined') ? 0 : cobj2[val][0][2]]);
-                });
-            });
             //RTK data
             var rdata = [];
 
-            $.each(allDis, function( key, dis ) {
+            $.each(orgobj, function( reg, dis ) {
 
-                $.each(dis, function( key, val ) {
+                $.each(dis, function( disn, val ) {
                     //alert(val);
-                    if (typeof rtkobj2[val] !== 'undefined')
-                        rdata.push([val, (typeof rtkobj2[val] === 'undefined') ? 0 : rtkobj2[val][0][2]]);
+                    if (ol == "National") {
+
+                        if (typeof obj2[disn.split("-")[0]] !== 'undefined')
+                            data.push([disn.split("-")[0], (typeof obj2[disn.split("-")[0]] === 'undefined') ? 0 : obj2[disn.split("-")[0]][0][2]]);
+                        if (typeof cobj2[disn.split("-")[0]] !== 'undefined')
+                            cdata.push([disn.split("-")[0], (typeof cobj2[disn.split("-")[0]] === 'undefined') ? 0 : cobj2[disn.split("-")[0]][0][2]]);
+                        if (typeof rtkobj2[disn.split("-")[0]] !== 'undefined')
+                            rdata.push([disn.split("-")[0], (typeof rtkobj2[disn.split("-")[0]] === 'undefined') ? 0 : rtkobj2[disn.split("-")[0]][0][2]]);
+
+                    } else if(ol == "Regional"){
+
+                        if (reg.split("-")[0] == orgn){
+                            if (typeof obj2[disn.split("-")[0]] !== 'undefined')
+                                data.push([disn.split("-")[0], (typeof obj2[disn.split("-")[0]] === 'undefined') ? 0 : obj2[disn.split("-")[0]][0][2]]);
+                            if (typeof cobj2[disn.split("-")[0]] !== 'undefined')
+                                cdata.push([disn.split("-")[0], (typeof cobj2[disn.split("-")[0]] === 'undefined') ? 0 : cobj2[disn.split("-")[0]][0][2]]);
+                            if (typeof rtkobj2[disn.split("-")[0]] !== 'undefined')
+                                rdata.push([disn.split("-")[0], (typeof rtkobj2[disn.split("-")[0]] === 'undefined') ? 0 : rtkobj2[disn.split("-")[0]][0][2]]);
+                        }
+
+                    } else if(ol == "District"){
+
+                        if (disn.split("-")[0] = orgn){
+                            if (typeof obj2[disn.split("-")[0]] !== 'undefined')
+                                data.push([disn.split("-")[0], (typeof obj2[disn.split("-")[0]] === 'undefined') ? 0 : obj2[disn.split("-")[0]][0][2]]);
+                            if (typeof cobj2[disn.split("-")[0]] !== 'undefined')
+                                cdata.push([disn.split("-")[0], (typeof cobj2[disn.split("-")[0]] === 'undefined') ? 0 : cobj2[disn.split("-")[0]][0][2]]);
+                            if (typeof rtkobj2[disn.split("-")[0]] !== 'undefined')
+                                rdata.push([disn.split("-")[0], (typeof rtkobj2[disn.split("-")[0]] === 'undefined') ? 0 : rtkobj2[disn.split("-")[0]][0][2]]);
+                        }
+
+                    } else if(ol == "Subcounty"){
+
+                    } else if(ol == "Facility"){
+
+                    }
                 });
             });
 
@@ -929,6 +908,10 @@ function stock_status(){
                 //alert('First');
 
                 cat = 'Adults';
+
+                var atobj = aobj;
+                var colname = 'Clients (at risk) - Adults';
+                var linename = 'Adult ARVs';
 
                 $('#sn a').attr('data-cat', 'akpi');
                 $('#sd a').attr('data-cat', 'akpi');
@@ -943,12 +926,20 @@ function stock_status(){
 
                 drawBarChart(obj1, obj2, 16);
                 drawMap(data);
+                plotTrends(atobj, colname, linename, "ARV");
+                dtable.column(1).data().search("Adult").draw();
+                orgsmrytable.column(0).data().search("STKA").draw();
+
             });
 
             $('.select li:nth-child(2)').click(function(){
                 //alert('Last');
 
                 cat = 'Paediatrics';
+
+                var ptobj = pobj;
+                var colname = 'Clients (at risk) - Paediatrics';
+                var linename = 'Paediatric ARVs';
 
                 $('#sn a').attr('data-cat', 'pkpi');
                 $('#sd a').attr('data-cat', 'pkpi');
@@ -963,6 +954,11 @@ function stock_status(){
 
                 drawBarChart(cobj1, cobj2, 11);
                 drawMap(cdata);
+                plotTrends(ptobj, colname, linename, "ARV");
+                dtable.column(1).data().search("Paediatric").draw();
+                orgsmrytable.column(0).data().search("STKC").draw();
+                //dtable.clear().draw();
+
             });
 
 
@@ -970,6 +966,10 @@ function stock_status(){
                 //alert('Last');
 
                 cat = 'RTKS';
+
+                var rtobj = rtksobj;
+                //var colname = 'Clients (at risk) - RTKS';
+                var linename = 'RTKS';
 
                 $('#sn a').attr('data-cat', 'rkpi');
                 $('#sd a').attr('data-cat', 'rkpi');
@@ -984,6 +984,9 @@ function stock_status(){
 
                 drawBarChart(rtkobj1, rtkobj2, 4);
                 drawMap(rdata);
+                plotTrends(rtobj, colname, linename, "RTKS");
+                dtable.column(1).data().search("RTKS").draw();
+                orgsmrytable.column(0).data().search("RTK").draw();
 
             });
 
@@ -999,12 +1002,15 @@ function stock_status(){
         $per = '';
         $yr = 2017;
         $wk = 1;
+        $on = '';
+        $orgunits = array();
 
         if(isset($_GET['w']) && isset($_GET['o'])){
 
             $org = pg_escape_string($_GET['o']);
             $per = pg_escape_string($_GET['w']);
             $wk = pg_escape_string($_GET['wn']);
+            $ol = pg_escape_string($_GET['ol']);
             $yr = date('Y');
 
         }else{
@@ -1020,8 +1026,23 @@ function stock_status(){
             $per = $onerow['yr'] . 'W' . $onerow['weekno'];
             $yr = $onerow['yr'];
             $wk = $onerow['weekno'];
-
+            $ol = "National";
         }
+
+        //$orgunits = array();
+        //All RASS orgunits
+        $org_qry  = "SELECT * FROM staging.rass_reporting_orgs ORDER BY region, district, subcounty, hf;";
+        $res_org = pg_query($db, $org_qry);
+
+        while($orgs = pg_fetch_array($res_org)) {
+            $orgunits["$orgs[region]-$orgs[ruid]"]["$orgs[district]-$orgs[duid]"]["$orgs[subcounty]-$orgs[suid]"][] = array($orgs['uid'], str_replace("'", "", $orgs['hf']));
+        }
+        //$json = json_encode($orgunits);
+
+        //Default orgunit number per region
+        $orgunitno_qry = "SELECT count(*) as no FROM staging.rass_reporting_orgs WHERE nuid = '$org' OR ruid = '$org' OR duid = '$org';";
+        $res_orgunitno = pg_fetch_array(pg_query($db, $orgunitno_qry));
+
 
         //STKA KPIs
 
@@ -1052,14 +1073,79 @@ function stock_status(){
 
         //Trends Data
         //Adults
-        $asql = "SELECT * FROM staging.last_12_wks (". $yr . ", " . $wk . ") lw LEFT JOIN staging.rass_kpi_stka_w w
+        $asql = "SELECT lw.week as wk, * FROM staging.last_12_wks (". $yr . ", " . $wk . ") lw LEFT JOIN staging.rass_kpi_stka_w w
                 ON w.week = lw.week  AND uid = '$org' OR entity IS NULL ORDER BY lw.id;";
         //Paeds
-        $psql = "SELECT * FROM staging.last_12_wks (" . $yr . ", " . $wk . ") lw LEFT JOIN staging.rass_kpi_stkc_w w
+        $psql = "SELECT lw.week as wk, * FROM staging.last_12_wks (" . $yr . ", " . $wk . ") lw LEFT JOIN staging.rass_kpi_stkc_w w
                 ON w.week = lw.week  AND uid = '$org' OR entity IS NULL ORDER BY lw.id;";
         //RTKs
-        $rtksql = "SELECT * FROM staging.last_12_wks (" . $yr . ", " . $wk . ") lw LEFT JOIN staging.rass_kpi_rtks_w w
+        $rtksql = "SELECT lw.week as wk, * FROM staging.last_12_wks (" . $yr . ", " . $wk . ") lw LEFT JOIN staging.rass_kpi_rtks_w w
                     ON w.week = lw.week  AND uid = '$org' OR entity IS NULL ORDER BY lw.id;";
+
+        //Retrieve Org Summaries
+        $qry_orgsmry_a = "SELECT
+                                level,
+                                SUM(count) As num,
+                                MAX(
+                                CASE WHEN ouid = 'sIbY5kh15sT' THEN count ELSE 0 END
+                                ) AS pnfp,
+                                MAX(
+                                CASE WHEN ouid = '2JWKwteWFo3' THEN count ELSE 0 END
+                                ) AS pfp,
+                                MAX(
+                                CASE WHEN ouid = 'uzg9rPxGZgq' THEN count ELSE 0 END
+                                ) AS govt,
+                                MAX(
+                                CASE WHEN ouid = 'VgJIIy7pbvE' THEN count ELSE 0 END
+                                ) AS ngo
+                                FROM
+                                (
+                                SELECT level, ouid, count(*) FROM staging.weekly_data_smry_a 
+                                WHERE weekno = $wk and yr = $yr GROUP BY level, ouid ORDER BY level
+                                )tbl
+                                GROUP BY level";
+        $qry_orgsmry_c = "SELECT
+                                level,
+                                SUM(count) As num,
+                                MAX(
+                                CASE WHEN ouid = 'sIbY5kh15sT' THEN count ELSE 0 END
+                                ) AS pnfp,
+                                MAX(
+                                CASE WHEN ouid = '2JWKwteWFo3' THEN count ELSE 0 END
+                                ) AS pfp,
+                                MAX(
+                                CASE WHEN ouid = 'uzg9rPxGZgq' THEN count ELSE 0 END
+                                ) AS govt,
+                                MAX(
+                                CASE WHEN ouid = 'VgJIIy7pbvE' THEN count ELSE 0 END
+                                ) AS ngo
+                                FROM
+                                (
+                                SELECT level, ouid, count(*) FROM staging.weekly_data_smry_c 
+                                WHERE weekno = $wk and yr = $yr GROUP BY level, ouid ORDER BY level
+                                )tbl
+                                GROUP BY level";
+        $qry_orgsmry_r = "SELECT
+                                level,
+                                SUM(count) As num,
+                                MAX(
+                                CASE WHEN ouid = 'sIbY5kh15sT' THEN count ELSE 0 END
+                                ) AS pnfp,
+                                MAX(
+                                CASE WHEN ouid = '2JWKwteWFo3' THEN count ELSE 0 END
+                                ) AS pfp,
+                                MAX(
+                                CASE WHEN ouid = 'uzg9rPxGZgq' THEN count ELSE 0 END
+                                ) AS govt,
+                                MAX(
+                                CASE WHEN ouid = 'VgJIIy7pbvE' THEN count ELSE 0 END
+                                ) AS ngo
+                                FROM
+                                (
+                                SELECT level, ouid, count(*) FROM staging.weekly_data_smry_rtks 
+                                WHERE weekno = $wk and yr = $yr GROUP BY level, ouid ORDER BY level
+                                )tbl
+                                GROUP BY level";
 
         $res = pg_query($db, $sql);
         $res1 = pg_query($db, $sql1);
@@ -1095,42 +1181,49 @@ function stock_status(){
         $rreg = array();
         $rdis = array();
 
+        //(int)$res_orgunitno['no'], array(0, (int)$res_orgunitno['no'], 0)
         $reports = array(); //Adult report indicators
         $preports = array(); //Paediatric report indicators
         $rreports = array(); //RTK report indicators
 
+        if(pg_num_rows($res) <= 0) $reports = array(0, (int)$res_orgunitno['no'], 0);
+        if(pg_num_rows($cres) <= 0) $preports = array(0, (int)$res_orgunitno['no'], 0);
+        if(pg_num_rows($rres) <= 0) $rreports = array(0, (int)$res_orgunitno['no'], 0);
+
         //STKA data
         while($row = pg_fetch_array($res)) {
+
+            //resest arary;
 
             $reports[] = $row['receivedreports'];
             $reports[] = $row['expectedreports'];
             $reports[] = $row['rso'];
 
-            $wdata[] = array("NVP", "Adult", $row['a'], $row['aamc'], $row['au'], $row['an'], $row['am'], $row['ao'], abs($row['aa']), 'a');
-            $wdata[] = array("EFV", "Adult", $row['b'], $row['bamc'], $row['bu'], $row['bn'], $row['bm'], $row['bo'], abs($row['ba']), 'b');
-            $wdata[] = array("ABC", "Adult", $row['c'], $row['camc'], $row['cu'], $row['cn'], $row['cm'], $row['co'], abs($row['ca']), 'c');
-            $wdata[] = array("ETV", "Adult", $row['d'], $row['damc'], $row['du'], $row['dn'], $row['dm'], $row['do'], abs($row['da']), 'd');
-            $wdata[] = array("3TC", "Adult", $row['e'], $row['eamc'], $row['eu'], $row['en'], $row['em'], $row['eo'], abs($row['ea']), 'e');
-            $wdata[] = array("AZT", "Adult", $row['f'], $row['famc'], $row['fu'], $row['fn'], $row['fm'], $row['fo'], abs($row['fa']), 'f');
-            $wdata[] = array("RAL", "Adult", $row['g'], $row['gamc'], $row['gu'], $row['gn'], $row['gm'], $row['go'], abs($row['ga']), 'g');
-            $wdata[] = array("ATV", "Adult", $row['h'], $row['hamc'], $row['hu'], $row['hn'], $row['hm'], $row['ho'], abs($row['ha']), 'h');
-            $wdata[] = array("RTV", "Adult", $row['i'], $row['iamc'], $row['iu'], $row['in'], $row['im'], $row['io'], abs($row['ia']), 'i');
-            $wdata[] = array("Darunavir", "Adult", $row['j'], $row['jamc'], $row['ju'], $row['jn'], $row['jm'], $row['jo'], abs($row['ja']), 'j');
-            $wdata[] = array("ABC/3TC", "Adult", $row['k'], $row['kamc'], $row['ku'], $row['kn'], $row['km'], $row['ko'], abs($row['ka']), 'k');
-            $wdata[] = array("AZT/3TC", "Adult", $row['l'], $row['lamc'], $row['lu'], $row['ln'], $row['lm'], $row['lo'], abs($row['la']), 'l');
-            $wdata[] = array("TDF/3TC", "Adult", $row['m'], $row['mamc'], $row['mu'], $row['mn'], $row['mm'], $row['mo'], abs($row['ma']), 'm');
-            $wdata[] = array("LPV/r", "Adult", $row['n'], $row['namc'], $row['nu'], $row['nn'], $row['nm'], $row['no'], abs($row['na']), 'n');
-            $wdata[] = array("ATV/r", "Adult", $row['o'], $row['oamc'], $row['ou'], $row['on'], $row['om'], $row['oo'], abs($row['oa']), 'o');
-            $wdata[] = array("AZT/3TC/NVP", "Adult", $row['p'], $row['pamc'], $row['pu'], $row['pn'], $row['pm'], $row['po'], abs($row['pa']), 'p');
-            $wdata[] = array("TDF/3TC/EFV", "Adult", $row['q'], $row['qamc'], $row['qu'], $row['qn'], $row['qm'], $row['qo'], abs($row['qa']), 'q');
+            $wdata[] = array("NVP", "Adult", $row['a'], $row['aamc'], $row['au'], $row['an'], $row['am'], $row['ao'], abs($row['aa']), 'a', $row['receivedreports']);
+            $wdata[] = array("EFV", "Adult", $row['b'], $row['bamc'], $row['bu'], $row['bn'], $row['bm'], $row['bo'], abs($row['ba']), 'b', $row['receivedreports']);
+            $wdata[] = array("ABC", "Adult", $row['c'], $row['camc'], $row['cu'], $row['cn'], $row['cm'], $row['co'], abs($row['ca']), 'c', $row['receivedreports']);
+            $wdata[] = array("ETV", "Adult", $row['d'], $row['damc'], $row['du'], $row['dn'], $row['dm'], $row['do'], abs($row['da']), 'd', $row['receivedreports']);
+            $wdata[] = array("3TC", "Adult", $row['e'], $row['eamc'], $row['eu'], $row['en'], $row['em'], $row['eo'], abs($row['ea']), 'e', $row['receivedreports']);
+            $wdata[] = array("AZT", "Adult", $row['f'], $row['famc'], $row['fu'], $row['fn'], $row['fm'], $row['fo'], abs($row['fa']), 'f', $row['receivedreports']);
+            $wdata[] = array("RAL", "Adult", $row['g'], $row['gamc'], $row['gu'], $row['gn'], $row['gm'], $row['go'], abs($row['ga']), 'g', $row['receivedreports']);
+            $wdata[] = array("ATV", "Adult", $row['h'], $row['hamc'], $row['hu'], $row['hn'], $row['hm'], $row['ho'], abs($row['ha']), 'h', $row['receivedreports']);
+            $wdata[] = array("RTV", "Adult", $row['i'], $row['iamc'], $row['iu'], $row['in'], $row['im'], $row['io'], abs($row['ia']), 'i', $row['receivedreports']);
+            $wdata[] = array("Darunavir", "Adult", $row['j'], $row['jamc'], $row['ju'], $row['jn'], $row['jm'], $row['jo'], abs($row['ja']), 'j', $row['receivedreports']);
+            $wdata[] = array("ABC/3TC", "Adult", $row['k'], $row['kamc'], $row['ku'], $row['kn'], $row['km'], $row['ko'], abs($row['ka']), 'k', $row['receivedreports']);
+            $wdata[] = array("AZT/3TC", "Adult", $row['l'], $row['lamc'], $row['lu'], $row['ln'], $row['lm'], $row['lo'], abs($row['la']), 'l', $row['receivedreports']);
+            $wdata[] = array("TDF/3TC", "Adult", $row['m'], $row['mamc'], $row['mu'], $row['mn'], $row['mm'], $row['mo'], abs($row['ma']), 'm', $row['receivedreports']);
+            $wdata[] = array("LPV/r", "Adult", $row['n'], $row['namc'], $row['nu'], $row['nn'], $row['nm'], $row['no'], abs($row['na']), 'n', $row['receivedreports']);
+            $wdata[] = array("ATV/r", "Adult", $row['o'], $row['oamc'], $row['ou'], $row['on'], $row['om'], $row['oo'], abs($row['oa']), 'o', $row['receivedreports']);
+            $wdata[] = array("AZT/3TC/NVP", "Adult", $row['p'], $row['pamc'], $row['pu'], $row['pn'], $row['pm'], $row['po'], abs($row['pa']), 'p', $row['receivedreports']);
+            $wdata[] = array("TDF/3TC/EFV", "Adult", $row['q'], $row['qamc'], $row['qu'], $row['qn'], $row['qm'], $row['qo'], abs($row['qa']), 'q', $row['receivedreports']);
             //$wdata[] = array("TDF/3TC + NVP", "Adult", $row['r'], $row['ramc'], $row['ru'], $row['rn'], $row['rm'], $row['ro'], abs($row['ra']), 'r');
-            $wdata[] = array("DTG", "Adult", $row['s'], $row['samc'], $row['su'], $row['sn'], $row['sm'], $row['so'], abs($row['sa']), 's');
-            $wdata[] = array("TDF/3TC/DTG", "Adult", $row['t'], $row['tamc'], $row['tu'], $row['tn'], $row['tm'], $row['to'], abs($row['ta']), 't');
-            $wdata[] = array("DRV 600mg", "Adult", $row['u'], $row['uamc'], $row['uu'], $row['un'], $row['um'], $row['uo'], abs($row['ua']), 'u');
-            $wdata[] = array("DRV 150mg", "Adult", $row['v'], $row['vamc'], $row['vu'], $row['vn'], $row['vm'], $row['vo'], abs($row['va']), 'v');
+            $wdata[] = array("DTG", "Adult", $row['s'], $row['samc'], $row['su'], $row['sn'], $row['sm'], $row['so'], abs($row['sa']), 's', $row['receivedreports']);
+            $wdata[] = array("TDF/3TC/DTG", "Adult", $row['t'], $row['tamc'], $row['tu'], $row['tn'], $row['tm'], $row['to'], abs($row['ta']), 't', $row['receivedreports']);
+            $wdata[] = array("DRV 600mg", "Adult", $row['u'], $row['uamc'], $row['uu'], $row['un'], $row['um'], $row['uo'], abs($row['ua']), 'u', $row['receivedreports']);
+            $wdata[] = array("DRV 150mg", "Adult", $row['v'], $row['vamc'], $row['vu'], $row['vn'], $row['vm'], $row['vo'], abs($row['va']), 'v', $row['receivedreports']);
 
         }
-
+        //print_r($reports)
         //STKC data
         while($crow = pg_fetch_array($cres)) {
 
@@ -1138,25 +1231,25 @@ function stock_status(){
             $preports[] = $crow['expectedreports'];
             $preports[] = $crow['rso'];
 
-            $wdata[] = array("NVP 50mg", "Paediatric", $crow['a'], $crow['aamc'], $crow['au'], $crow['an'], $crow['am'], $crow['ao'], abs($crow['aa']), 'a');
-            $wdata[] = array("NVP 10mg/ml (240ml)", "Paediatric", $crow['b'], $crow['bamc'], $crow['bu'], $crow['bn'], $crow['bm'], $crow['bo'], abs($crow['ba']), 'b');
-            $wdata[] = array("NVP 10mg/ml (100ml)", "Paediatric", $crow['c'], $crow['camc'], $crow['cu'], $crow['cn'], $crow['cm'], $crow['co'], abs($crow['ca']), 'c');
-            $wdata[] = array("EFV 200mg", "Paediatric", $crow['d'], $crow['damc'], $crow['du'], $crow['dn'], $crow['dm'], $crow['do'], abs($crow['da']), 'd');
-            $wdata[] = array("EFV 50mg", "Paediatric", $crow['e'], $crow['eamc'], $crow['eu'], $crow['en'], $crow['em'], $crow['eo'], abs($crow['ea']), 'e');
-            $wdata[] = array("ABC 60mg", "Paediatric", $crow['f'], $crow['famc'], $crow['fu'], $crow['fn'], $crow['fm'], $crow['fo'], abs($crow['fa']), 'f');
-            $wdata[] = array("ABC 20mg/ml", "Paediatric", $crow['g'], $crow['gamc'], $crow['gu'], $crow['gn'], $crow['gm'], $crow['go'], abs($crow['ga']), 'g');
-            $wdata[] = array("AZT 100mg", "Paediatric", $crow['h'], $crow['hamc'], $crow['hu'], $crow['hn'], $crow['hm'], $crow['ho'], abs($crow['ha']), 'h');
-            $wdata[] = array("AZT 60mg", "Paediatric", $crow['i'], $crow['iamc'], $crow['iu'], $crow['in'], $crow['im'], $crow['io'], abs($crow['ia']), 'i');
-            $wdata[] = array("ABC/3TC 120/60mg", "Paediatric", $crow['j'], $crow['jamc'], $crow['ju'], $crow['jn'], $crow['jm'], $crow['jo'], abs($crow['ja']), 'j');
-            $wdata[] = array("ABC/3TC 60/30mg", "Paediatric", $crow['k'], $crow['kamc'], $crow['ku'], $crow['kn'], $crow['km'], $crow['ko'], abs($crow['ka']), 'k');
-            $wdata[] = array("AZT/3TC 60/30mg", "Paediatric", $crow['l'], $crow['lamc'], $crow['lu'], $crow['ln'], $crow['lm'], $crow['lo'], abs($crow['la']), 'l');
-            $wdata[] = array("LPV/r 100/25mg", "Paediatric", $crow['m'], $crow['mamc'], $crow['mu'], $crow['mn'], $crow['mm'], $crow['mo'], abs($crow['ma']), 'm');
-            $wdata[] = array("LPV/r 80/20mg (300ml)", "Paediatric", $crow['n'], $crow['namc'], $crow['nu'], $crow['nn'], $crow['nm'], $crow['no'], abs($crow['na']), 'n');
-            $wdata[] = array("LPV/r 40/10mg (Oral Pellets)", "Paediatric", $crow['o'], $crow['oamc'], $crow['ou'], $crow['on'], $crow['om'], $crow['oo'], abs($crow['oa']), 'o');
-            $wdata[] = array("AZT/3TC/NVP", "Paediatric", $crow['p'], $crow['pamc'], $crow['pu'], $crow['pn'], $crow['pm'], $crow['po'], abs($crow['pa']), 'p');
-            $wdata[] = array("DRV 75mg", "Paediatric", $crow['q'], $crow['qamc'], $crow['qu'], $crow['qn'], $crow['qm'], $crow['qo'], abs($crow['qa']), 'q');
-            $wdata[] = array("RAL 100mg", "Paediatric", $crow['r'], $crow['ramc'], $crow['ru'], $crow['rn'], $crow['rm'], $crow['ro'], abs($crow['ra']), 'r');
-            $wdata[] = array("ETV 25mg", "Paediatric", $crow['s'], $crow['samc'], $crow['su'], $crow['sn'], $crow['sm'], $crow['so'], abs($crow['sa']), 's');
+            $wdata[] = array("NVP 50mg", "Paediatric", $crow['a'], $crow['aamc'], $crow['au'], $crow['an'], $crow['am'], $crow['ao'], abs($crow['aa']), 'a', $crow['receivedreports']);
+            $wdata[] = array("NVP 10mg/ml (240ml)", "Paediatric", $crow['b'], $crow['bamc'], $crow['bu'], $crow['bn'], $crow['bm'], $crow['bo'], abs($crow['ba']), 'b', $crow['receivedreports']);
+            $wdata[] = array("NVP 10mg/ml (100ml)", "Paediatric", $crow['c'], $crow['camc'], $crow['cu'], $crow['cn'], $crow['cm'], $crow['co'], abs($crow['ca']), 'c', $crow['receivedreports']);
+            $wdata[] = array("EFV 200mg", "Paediatric", $crow['d'], $crow['damc'], $crow['du'], $crow['dn'], $crow['dm'], $crow['do'], abs($crow['da']), 'd', $crow['receivedreports']);
+            $wdata[] = array("EFV 50mg", "Paediatric", $crow['e'], $crow['eamc'], $crow['eu'], $crow['en'], $crow['em'], $crow['eo'], abs($crow['ea']), 'e', $crow['receivedreports']);
+            $wdata[] = array("ABC 60mg", "Paediatric", $crow['f'], $crow['famc'], $crow['fu'], $crow['fn'], $crow['fm'], $crow['fo'], abs($crow['fa']), 'f', $crow['receivedreports']);
+            $wdata[] = array("ABC 20mg/ml", "Paediatric", $crow['g'], $crow['gamc'], $crow['gu'], $crow['gn'], $crow['gm'], $crow['go'], abs($crow['ga']), 'g', $crow['receivedreports']);
+            $wdata[] = array("AZT 100mg", "Paediatric", $crow['h'], $crow['hamc'], $crow['hu'], $crow['hn'], $crow['hm'], $crow['ho'], abs($crow['ha']), 'h', $crow['receivedreports']);
+            $wdata[] = array("AZT 60mg", "Paediatric", $crow['i'], $crow['iamc'], $crow['iu'], $crow['in'], $crow['im'], $crow['io'], abs($crow['ia']), 'i', $crow['receivedreports']);
+            $wdata[] = array("ABC/3TC 120/60mg", "Paediatric", $crow['j'], $crow['jamc'], $crow['ju'], $crow['jn'], $crow['jm'], $crow['jo'], abs($crow['ja']), 'j', $crow['receivedreports']);
+            $wdata[] = array("ABC/3TC 60/30mg", "Paediatric", $crow['k'], $crow['kamc'], $crow['ku'], $crow['kn'], $crow['km'], $crow['ko'], abs($crow['ka']), 'k', $crow['receivedreports']);
+            $wdata[] = array("AZT/3TC 60/30mg", "Paediatric", $crow['l'], $crow['lamc'], $crow['lu'], $crow['ln'], $crow['lm'], $crow['lo'], abs($crow['la']), 'l', $crow['receivedreports']);
+            $wdata[] = array("LPV/r 100/25mg", "Paediatric", $crow['m'], $crow['mamc'], $crow['mu'], $crow['mn'], $crow['mm'], $crow['mo'], abs($crow['ma']), 'm', $crow['receivedreports']);
+            $wdata[] = array("LPV/r 80/20mg (300ml)", "Paediatric", $crow['n'], $crow['namc'], $crow['nu'], $crow['nn'], $crow['nm'], $crow['no'], abs($crow['na']), 'n', $crow['receivedreports']);
+            $wdata[] = array("LPV/r 40/10mg (Oral Pellets)", "Paediatric", $crow['o'], $crow['oamc'], $crow['ou'], $crow['on'], $crow['om'], $crow['oo'], abs($crow['oa']), 'o', $crow['receivedreports']);
+            $wdata[] = array("AZT/3TC/NVP", "Paediatric", $crow['p'], $crow['pamc'], $crow['pu'], $crow['pn'], $crow['pm'], $crow['po'], abs($crow['pa']), 'p', $crow['receivedreports']);
+            $wdata[] = array("DRV 75mg", "Paediatric", $crow['q'], $crow['qamc'], $crow['qu'], $crow['qn'], $crow['qm'], $crow['qo'], abs($crow['qa']), 'q', $crow['receivedreports']);
+            $wdata[] = array("RAL 100mg", "Paediatric", $crow['r'], $crow['ramc'], $crow['ru'], $crow['rn'], $crow['rm'], $crow['ro'], abs($crow['ra']), 'r', $crow['receivedreports']);
+            $wdata[] = array("ETV 25mg", "Paediatric", $crow['s'], $crow['samc'], $crow['su'], $crow['sn'], $crow['sm'], $crow['so'], abs($crow['sa']), 's', $crow['receivedreports']);
 
         }
 
@@ -1167,28 +1260,45 @@ function stock_status(){
             $rreports[] = $rrow['expectedreports'];
             $rreports[] = $rrow['rso'];
 
-            $wdata[] = array("Determine HIV 1/2 Test", "RTKS", $rrow['a'], "N/A", $rrow['au'], $rrow['an'], $rrow['am'], $rrow['ao'], "N/A", 'a');
-            $wdata[] = array("Stat-Pak HIV 1+2 Test", "RTKS", $rrow['b'], "N/A", $rrow['bu'], $rrow['bn'], $rrow['bm'], $rrow['bo'], "N/A", 'b');
-            $wdata[] = array("Serum cRAG Test kit", "RTKS", $rrow['c'], "N/A", $rrow['cu'], $rrow['cn'], $rrow['cm'], $rrow['co'], "N/A", 'c');
-            $wdata[] = array("SD Bioline HIV 1/2 Test", "RTKS", $rrow['d'], "N/A", $rrow['du'], $rrow['dn'], $rrow['dm'], $rrow['do'], "N/A", 'd');
+            $wdata[] = array("Determine HIV 1/2 Test", "RTKS", $rrow['a'], "N/A", $rrow['au'], $rrow['an'], $rrow['am'], $rrow['ao'], "N/A", 'a', $rrow['receivedreports']);
+            $wdata[] = array("Stat-Pak HIV 1+2 Test", "RTKS", $rrow['b'], "N/A", $rrow['bu'], $rrow['bn'], $rrow['bm'], $rrow['bo'], "N/A", 'b', $rrow['receivedreports']);
+            $wdata[] = array("Serum cRAG Test kit", "RTKS", $rrow['c'], "N/A", $rrow['cu'], $rrow['cn'], $rrow['cm'], $rrow['co'], "N/A", 'c', $rrow['receivedreports']);
+            $wdata[] = array("SD Bioline HIV 1/2 Test", "RTKS", $rrow['d'], "N/A", $rrow['du'], $rrow['dn'], $rrow['dm'], $rrow['do'], "N/A", 'd', $rrow['receivedreports']);
 
         }
 
-        //Populate Commodity Table on the dashboard.
+      /*
+        if (empty($wdata)){
+            //Initilize STKA data;
+            $wdata[] = array("NVP", "Adult", 0, 0, 0, 0, 0, 0, 0, 'a'); $wdata[] = array("EFV", "Adult", 0, 0, 0, 0, 0, 0, 0, 'b');
+            $wdata[] = array("ABC", "Adult", 0, 0, 0, 0, 0, 0, 0, 'c'); $wdata[] = array("ETV", "Adult", 0, 0, 0, 0, 0, 0, 0, 'd');
+            $wdata[] = array("3TC", "Adult", 0, 0, 0, 0, 0, 0, 0, 'e'); $wdata[] = array("AZT", "Adult", 0, 0, 0, 0, 0, 0, 0, 'f');
+            $wdata[] = array("RAL", "Adult", 0, 0, 0, 0, 0, 0, 0, 'g'); $wdata[] = array("ATV", "Adult", 0, 0, 0, 0, 0, 0, 0, 'h');
+            $wdata[] = array("RTV", "Adult", 0, 0, 0, 0, 0, 0, 0, 'i'); $wdata[] = array("Darunavir", "Adult", 0, 0, 0, 0, 0, 0, 0, 'j');
+            $wdata[] = array("ABC/3TC", "Adult", 0, 0, 0, 0, 0, 0, 0, 'k'); $wdata[] = array("AZT/3TC", "Adult", 0, 0, 0, 0, 0, 0, 0, 'l');
+            $wdata[] = array("TDF/3TC", "Adult", 0, 0, 0, 0, 0, 0, 0, 'm'); $wdata[] = array("LPV/r", "Adult", 0, 0, 0, 0, 0, 0, 0, 'n');
+            $wdata[] = array("ATV/r", "Adult", 0, 0, 0, 0, 0, 0, 0, 'o'); $wdata[] = array("AZT/3TC/NVP", "Adult", 0, 0, 0, 0, 0, 0, 0, 'p');
+            $wdata[] = array("TDF/3TC/EFV", "Adult", 0, 0, 0, 0, 0, 0, 0, 'q'); $wdata[] = array("DTG", "Adult", 0, 0, 0, 0, 0, 0, 0, 's');
+            $wdata[] = array("TDF/3TC/DTG", "Adult", 0, 0, 0, 0, 0, 0, 0, 't'); $wdata[] = array("DRV 600mg", "Adult", 0, 0, 0, 0, 0, 0, 0, 'u');
+            $wdata[] = array("DRV 150mg", "Adult", 0, 0, 0, 0, 0, 0, 0, 'v');
+        }
+      */
 
+        //Populate Commodity Table on the dashboard.
         $tr = "";
         foreach ($wdata as $item){
 
             $com = $item[9];
             $cat = $item[1];
+            $receivedreports = $item[10];
 
             $tr .= "<tr>";
             $tr .= "<td>" . $item[0] ."</td>";
             $tr .= "<td>" . $item[1] ."</td>";
-            $tr .= "<td><a href='#' class='show-hfs' data-cat = '". $cat ."' data-col = '". $com ."u' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $item[4] ."</a></td>";
-            $tr .= "<td><a href='#' class='show-hfs' data-cat = '". $cat ."' data-col = '". $com ."n' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $item[5] ."</a></td>";
-            $tr .= "<td><a href='#' class='show-hfs' data-cat = '". $cat ."' data-col = '". $com ."m' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $item[6] ."</a></td>";
-            $tr .= "<td><a href='#' class='show-hfs' data-cat = '". $cat ."' data-col = '". $com ."o' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $item[7] ."</a></td>";
+            $tr .= "<td><a href='#' class='show-hfs' data-cat = '". $cat ."' data-col = '". $com ."u' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $item[4] ."</a> (".round(($item[4]/(empty($receivedreports) ? 1 : $receivedreports))*100,1)."%)</td>";
+            $tr .= "<td><a href='#' class='show-hfs' data-cat = '". $cat ."' data-col = '". $com ."n' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $item[5] ."</a> (".round(($item[5]/(empty($receivedreports) ? 1 : $receivedreports))*100,1)."%)</td>";
+            $tr .= "<td><a href='#' class='show-hfs' data-cat = '". $cat ."' data-col = '". $com ."m' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $item[6] ."</a> (".round(($item[6]/(empty($receivedreports) ? 1 : $receivedreports))*100,1)."%)</td>";
+            $tr .= "<td><a href='#' class='show-hfs' data-cat = '". $cat ."' data-col = '". $com ."o' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $item[7] ."</a> (".round(($item[7]/(empty($receivedreports) ? 1 : $receivedreports))*100,1)."%)</td>";
             $tr .= "<td>" . $item[3] ."</td>";
             $tr .= "<td>" . $item[8] ."</td>";
             $tr .= "</tr>";
@@ -1349,14 +1459,24 @@ function stock_status(){
                 $stkouts = round(($arow['rso'] / $arow['receivedreports']) * 100, 1);
             else
                 $stkouts = 0;
+            //Reporting rates per week
+            if ($arow['expectedreports'] > 0)
+                $reportrates = round(($arow['receivedreports'] / $arow['expectedreports']) * 100, 1);
+            else
+                $reportrates = 0;
             //affected clients per week
-            $clients = $arow['aa'] + $arow['ba'] + $arow['ca'] + $arow['da'] + $arow['ea'] +
-                $arow['fa'] + $arow['ga'] + $arow['ha'] + $arow['ia'] + $arow['ja'] + $arow['ka'] +
+            $clients = $arow['aa'] + $arow['ba'] +
+                //$arow['ca'] +
+                $arow['da'] +
+                //$arow['ea'] +
+                $arow['fa'] + $arow['ga'] +
+                //$arow['ha'] + $arow['ia'] + $arow['ja'] +
+                $arow['ka'] +
                 $arow['la'] + $arow['ma'] + $arow['na'] + $arow['oa'] + $arow['pa'] + $arow['qa'] +
                 $arow['ra'];
 
-            $atrends[] = array($arow['week'], (float)$stkouts, (int)$clients, (int)$arow['receivedreports'],
-                        (int)$arow['expectedreports']);
+            $atrends[] = array($arow['wk'], (float)$stkouts, (int)$clients, (int)$arow['receivedreports'],
+                        (int)$arow['expectedreports'], (float)$reportrates);
 
         }
 
@@ -1367,30 +1487,48 @@ function stock_status(){
                 $stkouts = round(($prow['rso'] / $prow['receivedreports']) * 100, 1);
             else
                 $stkouts = 0;
+            //Reporting rates per week
+            if ($prow['expectedreports'] > 0)
+                $reportrates = round(($prow['receivedreports'] / $prow['expectedreports']) * 100, 1);
+            else
+                $reportrates = 0;
             //affected clients per week
-            $clients = $prow['aa'] + $prow['ba'] + $prow['ca'] + $prow['da'] + $prow['ea'] +
-                $prow['fa'] + $prow['ga'] + $prow['ha'] + $prow['ia'] + $prow['ja'] + $prow['ka'] +
-                $prow['la'] + $prow['ma'] + $prow['na'] + $prow['oa'] + $prow['pa'];
+            $clients = $prow['aa'] + $prow['ba'] + $prow['ca'] + $prow['da'] +
+                //$prow['ea'] +
+                $prow['fa'] +
+               // $prow['ga'] + $prow['ha'] + $prow['ia'] +
+                $prow['ja'] +
+                //$prow['ka'] +
+                $prow['la'] + $prow['ma'] +
+                //$prow['na'] +
+                $prow['oa'] + $prow['pa'];
 
-            $ptrends[] = array($prow['week'], (float)$stkouts, (int)$clients, (int)$prow['receivedreports'],
-                (int)$prow['expectedreports']);
+            $ptrends[] = array($prow['wk'], (float)$stkouts, (int)$clients, (int)$prow['receivedreports'],
+                (int)$prow['expectedreports'], (float)$reportrates);
 
         }
 
         //RTK Trends
+        //$rtrends = array('', 0, 0, 0, 0);
         while($rrow = pg_fetch_array($rtkres)){
-            //stock outs per week
+            //stock out rates per week
             if ($rrow['receivedreports'] > 0)
                 $stkouts = round(($rrow['rso'] / $rrow['receivedreports']) * 100, 1);
             else
                 $stkouts = 0;
+            //Reporting rates per week
+            if ($rrow['expectedreports'] > 0)
+                $reportrates = round(($rrow['receivedreports'] / $rrow['expectedreports']) * 100, 1);
+            else
+                $reportrates = 0;
             //affected clients per week
             $clients = 0;
 
-            $rtrends[] = array($rrow['week'], (float)$stkouts, (int)$clients, (int)$rrow['receivedreports'],
-                (int)$rrow['expectedreports']);
+            $rtrends[] = array($rrow['wk'], (float)$stkouts, (int)$clients, (int)$rrow['receivedreports'],
+                (int)$rrow['expectedreports'], (float)$reportrates);
 
         }
+        //print_r($rtrends);
 
         //Stockout/Reporting Rates -STKA
         $snum = $reports[2]; $sden = $reports[0];
@@ -1497,7 +1635,33 @@ function stock_status(){
                 array($rcsrate, $rsnum, $rsden, $rsimg, $rcrrate, $rrnum, $rrden, $rrimg)
         );
 
-        pg_close($db);
+        //Org Summaries
+
+        $res_orgsmry_a = pg_query($db, $qry_orgsmry_a);
+        $res_orgsmry_c = pg_query($db, $qry_orgsmry_c);
+        $res_orgsmry_r = pg_query($db, $qry_orgsmry_r);
+
+        $org_smry_tr_a = "";
+        //Load STKAs
+        while($row = pg_fetch_array($res_orgsmry_a)){
+            $org_smry_tr_a .= "<tr><td>STKA</td><td>$row[level]</td><td>$row[num]</td>" .
+                            "<td>$row[pnfp]</td><td>$row[pfp]</td>".
+                            "<td>$row[govt]</td><td>$row[ngo]</td></tr>";
+        }
+        //Load STKcs
+        while($row = pg_fetch_array($res_orgsmry_c)){
+            $org_smry_tr_a .= "<tr><td>STKC</td><td>$row[level]</td><td>$row[num]</td>" .
+                "<td>$row[pnfp]</td><td>$row[pfp]</td>".
+                "<td>$row[govt]</td><td>$row[ngo]</td></tr>";
+        }
+        //Load RTKs
+        while($row = pg_fetch_array($res_orgsmry_r)){
+            $org_smry_tr_a .= "<tr><td>RTK</td><td>$row[level]</td><td>$row[num]</td>" .
+                "<td>$row[pnfp]</td><td>$row[pfp]</td>".
+                "<td>$row[govt]</td><td>$row[ngo]</td></tr>";
+        }
+
+    pg_close($db);
     ?>
     <!--
     <article class="content charts-flot-page">
@@ -1644,6 +1808,8 @@ function stock_status(){
                                         <input type="hidden" value='<?php echo json_encode($atrends); ?>' id="atrends" name="atrends" />
                                         <input type="hidden" value='<?php echo json_encode($ptrends); ?>' id="ptrends" name="ptrends" />
                                         <input type="hidden" value='<?php echo json_encode($rtrends); ?>' id="rtrends" name="rtrends" />
+                                        <input type="hidden" value='<?php echo json_encode($orgunits); ?>' id="orgunits" name="orgunits" />
+                                        <input type="hidden" value='<?php echo $ol; ?>' id="ol" name="ol" />
                                         <!-- <img src="assets/images/up-small.png" />
                                         <img src="assets/images/down-small.png" /> <a href="#">35</a>
                                         -->
@@ -1655,6 +1821,47 @@ function stock_status(){
                 </div>
             </div>
         </section>
+
+        <section class="section">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-block">
+                            <div class="card-title-block">
+                                <h3 class="title">Org Unit Summary [Reports]</h3>
+                            </div>
+                            <section class="">
+                                <div class="">
+                                    <div class="table-responsive">
+                                        <!--class="table table-striped table-bordered table-hover"-->
+                                        <table id = "orgsmry" class="display" cellspacing="0" >
+                                            <thead>
+                                            <tr>
+                                                <th>Report</th>
+                                                <th>Level of Care</th>
+                                                <th>Number</th>
+                                                <th>GOVT</th>
+                                                <th>PNFP</th>
+                                                <th>PFP</th>
+                                                <th>NGO</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+                                            echo $org_smry_tr_a;
+                                            ?>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </article>
 
 <?php
