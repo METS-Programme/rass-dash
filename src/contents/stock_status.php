@@ -1101,7 +1101,7 @@ function stock_status(){
                                 FROM
                                 (
                                 SELECT level, ouid, count(*) FROM staging.weekly_data_smry_a 
-                                WHERE weekno = $wk and yr = $yr GROUP BY level, ouid ORDER BY level
+                                WHERE weekno = $wk and yr = $yr AND (cuid = '$org' OR ruid = '$org' OR duid = '$org') GROUP BY level, ouid ORDER BY level
                                 )tbl
                                 GROUP BY level";
         $qry_orgsmry_c = "SELECT
@@ -1122,7 +1122,7 @@ function stock_status(){
                                 FROM
                                 (
                                 SELECT level, ouid, count(*) FROM staging.weekly_data_smry_c 
-                                WHERE weekno = $wk and yr = $yr GROUP BY level, ouid ORDER BY level
+                                WHERE weekno = $wk and yr = $yr AND (cuid = '$org' OR ruid = '$org' OR duid = '$org') GROUP BY level, ouid ORDER BY level
                                 )tbl
                                 GROUP BY level";
         $qry_orgsmry_r = "SELECT
@@ -1143,7 +1143,7 @@ function stock_status(){
                                 FROM
                                 (
                                 SELECT level, ouid, count(*) FROM staging.weekly_data_smry_rtks 
-                                WHERE weekno = $wk and yr = $yr GROUP BY level, ouid ORDER BY level
+                                WHERE weekno = $wk and yr = $yr AND (cuid = '$org' OR ruid = '$org' OR duid = '$org') GROUP BY level, ouid ORDER BY level
                                 )tbl
                                 GROUP BY level";
 
