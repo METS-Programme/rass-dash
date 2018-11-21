@@ -1031,7 +1031,7 @@ function stock_status(){
 
         //$orgunits = array();
         //All RASS orgunits
-        $org_qry  = "SELECT * FROM staging.rass_reporting_orgs ORDER BY region, district, subcounty, hf;";
+        $org_qry  = "SELECT * FROM staging.rass_reporting_orgs_m ORDER BY region, district, subcounty, hf;";
         $res_org = pg_query($db, $org_qry);
 
         while($orgs = pg_fetch_array($res_org)) {
