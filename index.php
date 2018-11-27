@@ -310,12 +310,22 @@ requireFiles("src/contents");
 
             $(document).on('click', '.show-hfs', function(){
 
+                var tr = $(this).parents('tr');
+                //alert(tr.children('td').eq(0).html());
+                var tblid = $(this).parents('table').attr('id');
+
                 var cat = $(this).attr("data-cat");
                 var col = $(this).attr("data-col");
                 var o = $('#rsmry').attr("data-o");
                 var wn = $('#rsmry').attr("data-wn");
                 var on = $('#rsmry').attr("data-on");
                 var yr = $('#rsmry').attr("data-yr");
+                //Ownership category
+                var ownership = '';
+                var level = '';
+
+                if (tblid == 'orgsmry')  ownership = $(this).attr("data-ownership"); else ownership = ownership;
+                if (tblid == 'orgsmry')  level = tr.children('td').eq(1).html(); else level = level;
 
                 //alert (cat + " " + col + " " + on);
 
@@ -331,7 +341,9 @@ requireFiles("src/contents");
                         cat: cat,
                         col: col,
                         on: on,
-                        yr: yr
+                        yr: yr,
+                        ownership: ownership,
+                        level: level
                     },
                     function(data, status){
 

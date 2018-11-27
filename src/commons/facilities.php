@@ -14,6 +14,8 @@ $cat = $_POST['cat'];
 $col = $_POST['col'];
 $on  = $_POST['on'];
 $yr = $_POST['yr'];
+$ownership = $_POST['ownership'];
+$level = $_POST['level'];
 
 if ($cat == "Adult"){
 
@@ -47,11 +49,20 @@ if ($col == "aso"){//Facilities reporting stockouts
 }elseif($col == "areports"){//Facilities Reported
     $sql = "SELECT uid, region, district, subcounty, hf FROM $tbl WHERE weekno = $wn AND yr = $yr AND (cuid = '$o' OR ruid = '$o' OR duid = '$o') AND uid <> '$o'";
 }elseif($col == "atotal"){//Total registered facilities
-    $sql = "SELECT uid, region, district, subcounty, hf FROM staging.rass_reporting_orgs WHERE country = '$on' OR region = '$on' OR district = '$on'";
+    $sql = "SELECT uid, region, district, subcounty, hf FROM staging.rass_reporting_orgs_m WHERE country = '$on' OR region = '$on' OR district = '$on'";
 }elseif($col == "missing"){//Facilities missing reports for the selected period
-    $sql = "SELECT uid, country, region, district, subcounty, hf FROM staging.rass_reporting_orgs 
+    $sql = "SELECT uid, country, region, district, subcounty, hf FROM staging.rass_reporting_orgs_m 
             WHERE uid NOT IN (SELECT uid FROM $tbl  WHERE yr = $yr AND weekno = $wn)
             AND (country = '$on' OR region = '$on' OR district = '$on')";
+}elseif($col == "ownership"){//Facilities categorized under ownership
+
+    $level_filter = ""; $ownership_filter = "";
+
+    if ($level == "") $level_filter = "level ISNULL"; else $level_filter = "level = '$level'";
+    if ($ownership == "all") $ownership_filter = ""; else $ownership_filter = " AND ouid = '$ownership'";
+
+    $sql = "SELECT uid, country, region, district, subcounty, hf FROM $tbl 
+            WHERE (" . $level_filter . $ownership_filter . ") AND weekno = $wn AND yr = $yr AND (country = '$on' OR region = '$on' OR district = '$on')";
 }
 
 $res = pg_query($db, $sql);

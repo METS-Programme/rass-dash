@@ -800,6 +800,22 @@ function stock_status(){
                                         "downloadCSV"
                                         //"viewData",
                                         //"openInCloud"
+                                        /*
+                                        {
+                                            textKey: 'downloadJPEG',
+                                            onclick: function () {
+                                                alert('Hey');
+                                                this.exportChart({
+                                                    //type: 'image/jpeg'
+                                                    //type: 'application/pdf'
+                                                    //this.downloadCSV();
+                                                    //this.downloadXLS();
+                                                    //this.print();
+                                                    //this.exportChart();//defaults to png
+                                                });
+                                            }
+                                        }
+                                        */
                                     ]
                                 }
                             }
@@ -1295,10 +1311,10 @@ function stock_status(){
             $tr .= "<tr>";
             $tr .= "<td>" . $item[0] ."</td>";
             $tr .= "<td>" . $item[1] ."</td>";
-            $tr .= "<td><a href='#' class='show-hfs' data-cat = '". $cat ."' data-col = '". $com ."u' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $item[4] ."</a> (".round(($item[4]/(empty($receivedreports) ? 1 : $receivedreports))*100,1)."%)</td>";
-            $tr .= "<td><a href='#' class='show-hfs' data-cat = '". $cat ."' data-col = '". $com ."n' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $item[5] ."</a> (".round(($item[5]/(empty($receivedreports) ? 1 : $receivedreports))*100,1)."%)</td>";
-            $tr .= "<td><a href='#' class='show-hfs' data-cat = '". $cat ."' data-col = '". $com ."m' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $item[6] ."</a> (".round(($item[6]/(empty($receivedreports) ? 1 : $receivedreports))*100,1)."%)</td>";
-            $tr .= "<td><a href='#' class='show-hfs' data-cat = '". $cat ."' data-col = '". $com ."o' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $item[7] ."</a> (".round(($item[7]/(empty($receivedreports) ? 1 : $receivedreports))*100,1)."%)</td>";
+            $tr .= "<td><a href='#' class='show-hfs' data-cat = '". $cat ."' data-col = '". $com ."u' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $item[4] ."</a> <!--(".round(($item[4]/(empty($receivedreports) ? 1 : $receivedreports))*100,1)."%)--></td>";
+            $tr .= "<td><a href='#' class='show-hfs' data-cat = '". $cat ."' data-col = '". $com ."n' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $item[5] ."</a> <!--(".round(($item[5]/(empty($receivedreports) ? 1 : $receivedreports))*100,1)."%)--></td>";
+            $tr .= "<td><a href='#' class='show-hfs' data-cat = '". $cat ."' data-col = '". $com ."m' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $item[6] ."</a> <!--(".round(($item[6]/(empty($receivedreports) ? 1 : $receivedreports))*100,1)."%)--></td>";
+            $tr .= "<td><a href='#' class='show-hfs' data-cat = '". $cat ."' data-col = '". $com ."o' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $item[7] ."</a> <!--(".round(($item[7]/(empty($receivedreports) ? 1 : $receivedreports))*100,1)."%)--></td>";
             $tr .= "<td>" . $item[3] ."</td>";
             $tr .= "<td>" . $item[8] ."</td>";
             $tr .= "</tr>";
@@ -1644,21 +1660,42 @@ function stock_status(){
         $org_smry_tr_a = "";
         //Load STKAs
         while($row = pg_fetch_array($res_orgsmry_a)){
-            $org_smry_tr_a .= "<tr><td>STKA</td><td>$row[level]</td><td>$row[num]</td>" .
-                            "<td>$row[pnfp]</td><td>$row[pfp]</td>".
-                            "<td>$row[govt]</td><td>$row[ngo]</td></tr>";
+
+            //$cat = $row['level'];
+
+            $org_smry_tr_a .= "<tr>".
+                "<td>STKA</td>".
+                "<td>$row[level]</td>".
+                "<td><a href='#' class='show-hfs' data-cat = 'akpi' data-col = 'ownership' data-ownership = 'all' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $row['num'] . "</a></td>".
+                "<td><a href='#' class='show-hfs' data-cat = 'akpi' data-col = 'ownership' data-ownership = 'uzg9rPxGZgq' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>".$row['govt']."</a></td>".
+                "<td><a href='#' class='show-hfs' data-cat = 'akpi' data-col = 'ownership' data-ownership = 'sIbY5kh15sT' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>".$row['pnfp']."</a></td>".
+                "<td><a href='#' class='show-hfs' data-cat = 'akpi' data-col = 'ownership' data-ownership = '2JWKwteWFo3' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>".$row['pfp']."</a></td>".
+                "<td><a href='#' class='show-hfs' data-cat = 'akpi' data-col = 'ownership' data-ownership = 'VgJIIy7pbvE' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>".$row['ngo']."</a></td>".
+                "</tr>";
         }
         //Load STKcs
         while($row = pg_fetch_array($res_orgsmry_c)){
-            $org_smry_tr_a .= "<tr><td>STKC</td><td>$row[level]</td><td>$row[num]</td>" .
-                "<td>$row[pnfp]</td><td>$row[pfp]</td>".
-                "<td>$row[govt]</td><td>$row[ngo]</td></tr>";
+            $org_smry_tr_a .= "<tr>".
+                "<td>STKC</td>".
+                "<td>$row[level]</td>".
+                "<td><a href='#' class='show-hfs' data-cat = 'pkpi' data-col = 'ownership' data-ownership = 'all' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $row['num'] . "</a></td>".
+                "<td><a href='#' class='show-hfs' data-cat = 'pkpi' data-col = 'ownership' data-ownership = 'uzg9rPxGZgq' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>".$row['govt']."</a></td>".
+                "<td><a href='#' class='show-hfs' data-cat = 'pkpi' data-col = 'ownership' data-ownership = 'sIbY5kh15sT' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>".$row['pnfp']."</a></td>".
+                "<td><a href='#' class='show-hfs' data-cat = 'pkpi' data-col = 'ownership' data-ownership = '2JWKwteWFo3' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>".$row['pfp']."</a></td>".
+                "<td><a href='#' class='show-hfs' data-cat = 'pkpi' data-col = 'ownership' data-ownership = 'VgJIIy7pbvE' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>".$row['ngo']."</a></td>".
+                "</tr>";
         }
         //Load RTKs
         while($row = pg_fetch_array($res_orgsmry_r)){
-            $org_smry_tr_a .= "<tr><td>RTK</td><td>$row[level]</td><td>$row[num]</td>" .
-                "<td>$row[pnfp]</td><td>$row[pfp]</td>".
-                "<td>$row[govt]</td><td>$row[ngo]</td></tr>";
+            $org_smry_tr_a .= "<tr>".
+                "<td>RTK</td>".
+                "<td>$row[level]</td>".
+                "<td><a href='#' class='show-hfs' data-cat = 'rkpi' data-col = 'ownership' data-ownership = 'all' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $row['num'] . "</a></td>".
+                "<td><a href='#' class='show-hfs' data-cat = 'rkpi' data-col = 'ownership' data-ownership = 'uzg9rPxGZgq' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>".$row['govt']."</a></td>".
+                "<td><a href='#' class='show-hfs' data-cat = 'rkpi' data-col = 'ownership' data-ownership = 'sIbY5kh15sT' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>".$row['pnfp']."</a></td>".
+                "<td><a href='#' class='show-hfs' data-cat = 'rkpi' data-col = 'ownership' data-ownership = '2JWKwteWFo3' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>".$row['pfp']."</a></td>".
+                "<td><a href='#' class='show-hfs' data-cat = 'rkpi' data-col = 'ownership' data-ownership = 'VgJIIy7pbvE' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>".$row['ngo']."</a></td>".
+                "</tr>";
         }
 
     pg_close($db);
@@ -1839,7 +1876,7 @@ function stock_status(){
                                             <tr>
                                                 <th>Report</th>
                                                 <th>Level of Care</th>
-                                                <th>Number</th>
+                                                <th>Total</th>
                                                 <th>GOVT</th>
                                                 <th>PNFP</th>
                                                 <th>PFP</th>
