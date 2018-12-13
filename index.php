@@ -430,8 +430,9 @@ requireFiles("src/contents");
 
             function GetFormattedDate(d) {
                 var date = new Date(d);
-                var month = format(date.getMonth() + 1);
-                var day = format(date.getDate() - 1);//Day from provided date - 1
+                date.setDate(date.getDate() + 6);
+                var month = (format(date.getMonth() + 1) <= 9) ? '0' + format(date.getMonth() + 1) : format(date.getMonth() + 1);
+                var day = (format(date.getDate()) <= 9) ? '0' + format(date.getDate()) : format(date.getDate());
                 var year = format(date.getFullYear());
 
                 if (day == 0)
@@ -535,8 +536,6 @@ requireFiles("src/contents");
                 generatePeriods(new Date());
 
             });
-
-
 
 
         });
