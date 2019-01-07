@@ -430,15 +430,23 @@ requireFiles("src/contents");
 
             function GetFormattedDate(d) {
                 var date = new Date(d);
+                //var orgdate = format(date.getDate());
+                //alert(date);
                 date.setDate(date.getDate() + 6);
+                //alert(date);
                 var month = (format(date.getMonth() + 1) <= 9) ? '0' + format(date.getMonth() + 1) : format(date.getMonth() + 1);
-                var day = (format(date.getDate()) <= 9) ? '0' + format(date.getDate()) : format(date.getDate());
                 var year = format(date.getFullYear());
+                if (year == 2019){
+                    var day = (format(date.getDate()) <= 9) ? '0' + (format(date.getDate()) - 1)  : (format(date.getDate()) - 1);
+                }else{
+                    var day = (format(date.getDate()) <= 9) ? '0' + format(date.getDate()) : format(date.getDate());
+                }
 
-                if (day == 0)
+                if (day == 0) {
                     return "31-12-" + (year - 1);
-                else
+                }else {
                     return day + "-" + month + "-" + year;
+                }
             }
 
             //alert(GetFormattedDate(getDateOfWeek(53, '2018')));
@@ -450,11 +458,14 @@ requireFiles("src/contents");
             function generatePeriods(dateObj) {
 
                 var weekNumber, yr = dateObj.getFullYear();
+                //alert(yr);
                 //Check if current year
                 if (yr == new Date().getFullYear())
                     weekNumber = dateObj.getWeekNumber() - 1;
                 else
                     weekNumber = dateObj.getWeekNumber();
+
+                //alert (weekNumber);
 
                 $('.wk').html(yr + "W" + weekNumber);
                 var options = $("#operiod");
@@ -482,7 +493,7 @@ requireFiles("src/contents");
                 clicks = clicks - 1
                 var prevYear = currYear + clicks;
                 //Period date
-                var pDate = prevYear + '-12-31';
+                var pDate = prevYear + '-12-30';
                 //alert(pDate);
                 //End on 2016
                 if (prevYear >= 2016) {
@@ -529,6 +540,7 @@ requireFiles("src/contents");
             var clicks = 0;
 
             $('#filter-btn').click(function () {
+                //alert(getDateOfWeek(52, 2018));
                 //Reset clicks to zero
                 clicks = 0;
 
