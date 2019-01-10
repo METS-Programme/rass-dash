@@ -1023,11 +1023,18 @@ function stock_status(){
 
         if(isset($_GET['w']) && isset($_GET['o'])){
 
+            $per = "";
+            //Current Week
+            $cwk = pg_escape_string($_GET['cw']);
+
+            $wk = pg_escape_string($_GET['wn']);
             $org = pg_escape_string($_GET['o']);
             $per = pg_escape_string($_GET['w']);
-            $wk = pg_escape_string($_GET['wn']);
             $ol = pg_escape_string($_GET['ol']);
             $yr = date('Y');
+            if($per == $cwk){
+                $per = $yr . "W". $wk;
+            }
 
         }else{
 
@@ -1039,7 +1046,11 @@ function stock_status(){
             $onerow = pg_fetch_array(pg_query($db, $cur));
 
             $org = 'akV6429SUqu'; $orgname = 'Uganda';
+
             $per = $onerow['yr'] . 'W' . $onerow['weekno'];
+            //For displaying current week (w) but data is for previous week (w-1)
+            $cper = $onerow['yr'] . 'W' . ($onerow['weekno'] + 1);
+
             $yr = $onerow['yr'];
             $wk = $onerow['weekno'];
             $ol = "National";
@@ -1730,7 +1741,7 @@ function stock_status(){
                             <div class="card-block">
                                 <input type="hidden" value='<?php echo json_encode($report_smry); ?>'  id="rsmry" name="rsmry" data-wn="<?php echo isset($_GET['wn']) ? $_GET['wn']:$wk ; ?>" data-o="<?php echo isset($_GET['o']) ? $_GET['o']:$org ; ?>" data-on="<?php echo isset($_GET['o']) ? $_GET['on']:$orgname ; ?>" data-yr="<?php echo $yr; ?>"/>
                                 <div class="card-title-block">
-                                    <h3 class="title"><span>Stock Out Rate: </span><span id = "w"><?php echo isset($_GET['w']) ? $_GET['w']:$per ; ?></span> (<span id = "o"><?php echo isset($_GET['o']) ? $_GET['on']:$orgname ; ?></span>)</h3>
+                                    <h3 class="title"><span>Stock Out Rate: </span><span id = "w"><?php echo isset($_GET['w']) ? $_GET['w']:$cper ; ?></span> (<span id = "o"><?php echo isset($_GET['o']) ? $_GET['on']:$orgname ; ?></span>)</h3>
                                 </div>
 
                                 <section class="">
@@ -1748,7 +1759,7 @@ function stock_status(){
                             <div class="card-block">
 
                                 <div class="card-title-block">
-                                    <h3 class="title"><span>Reporting Rate: <?php if (isset($w))echo $w; ?></span><span class = ""><?php echo isset($_GET['w']) ? $_GET['w']:$per ; ?></span> (<span><?php echo isset($_GET['o']) ? $_GET['on']:$orgname ; ?></span>)</h3>
+                                    <h3 class="title"><span>Reporting Rate: <?php if (isset($w))echo $w; ?></span><span class = ""><?php echo isset($_GET['w']) ? $_GET['w']:$cper ; ?></span> (<span><?php echo isset($_GET['o']) ? $_GET['on']:$orgname ; ?></span>)</h3>
                                 </div>
 
                                 <section class="">

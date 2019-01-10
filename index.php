@@ -287,10 +287,22 @@ requireFiles("src/contents");
 
             $('#sel').click(function () {
 
+                //Current Week
+
+                var cwk = new Date().getFullYear() + "W" + new Date().getWeekNumber();
+
+                //alert (cwk);
+
                 //location.reload();
 
                 var wk = $('#operiod option:selected').val();
-                var wkno = $('#operiod option:selected').val().substring(5);
+
+                if (wk == cwk) {
+                    var wkno = ($('#operiod option:selected').val().substring(5) - 1);
+                }else {
+                    var wkno = $('#operiod option:selected').val().substring(5);
+                }
+
                 var org = $('#ounit option:selected').val();
                 var on = $('#ounit option:selected').text();
                 var ol = $('#ol').val();
@@ -298,7 +310,7 @@ requireFiles("src/contents");
                 //$('.wk').html(wk);
                 //$('.org').html(org);
                 if ($('#ounit option:selected').val() != 0 || $('#operiod option:selected').val() != 0)
-                    window.location.href = "?o=" + org + "&w=" + wk + "&wn=" + wkno + "&on=" + on + "&ol=" + ol;
+                    window.location.href = "?o=" + org + "&w=" + wk + "&wn=" + wkno + "&on=" + on + "&ol=" + ol + "&cw=" + cwk;
 
             });
             /*
@@ -461,7 +473,7 @@ requireFiles("src/contents");
                 //alert(yr);
                 //Check if current year
                 if (yr == new Date().getFullYear())
-                    weekNumber = dateObj.getWeekNumber() - 1;
+                    weekNumber = dateObj.getWeekNumber();
                 else
                     weekNumber = dateObj.getWeekNumber();
 
