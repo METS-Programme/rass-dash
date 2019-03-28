@@ -281,7 +281,8 @@ function stock_status(){
 
             drawBarChart(obj1, obj2, 16);
 
-            //alert(orgn);
+            alert(ol);
+            alert(orgn);
 
             function drawBarChart(obj1, obj2, count) {
 
@@ -901,7 +902,7 @@ function stock_status(){
 
                     } else if(ol == "District"){
 
-                        if (disn.split("-")[0] = orgn){
+                        if (disn.split("-")[0] == orgn){
                             if (typeof obj2[disn.split("-")[0]] !== 'undefined')
                                 data.push([disn.split("-")[0], (typeof obj2[disn.split("-")[0]] === 'undefined') ? 0 : obj2[disn.split("-")[0]][0][2]]);
                             if (typeof cobj2[disn.split("-")[0]] !== 'undefined')
