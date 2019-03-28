@@ -281,8 +281,8 @@ function stock_status(){
 
             drawBarChart(obj1, obj2, 16);
 
-            alert(ol);
-            alert(orgn);
+            //alert(ol);
+            //alert(orgn);
 
             function drawBarChart(obj1, obj2, count) {
 
