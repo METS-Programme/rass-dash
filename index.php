@@ -46,6 +46,9 @@ requireFiles("src/contents");
     <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
 
     <script src="assets/js/jquery-3.2.1.min.js" type="text/javascript"></script> <!--1.12.4 -->
+    <!-- Start of mets Zendesk Widget script -->
+    <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=ae98ab2b-b116-40c6-a092-128038209c3c"> </script>
+    <!-- End of mets Zendesk Widget script -->
 
     <style>
 
@@ -448,7 +451,7 @@ requireFiles("src/contents");
                 //alert(date);
                 var month = (format(date.getMonth() + 1) <= 9) ? '0' + format(date.getMonth() + 1) : format(date.getMonth() + 1);
                 var year = format(date.getFullYear());
-                if (year == 2019){
+                if (year == 2020){
                     var day = (format(date.getDate()) <= 9) ? '0' + (format(date.getDate()) - 1)  : (format(date.getDate()) - 1);
                 }else{
                     var day = (format(date.getDate()) <= 9) ? '0' + format(date.getDate()) : format(date.getDate());
@@ -505,7 +508,7 @@ requireFiles("src/contents");
                 clicks = clicks - 1
                 var prevYear = currYear + clicks;
                 //Period date
-                var pDate = prevYear + '-12-30';
+                var pDate = prevYear + '-12-29';
                 //alert(pDate);
                 //End on 2016
                 if (prevYear >= 2016) {
@@ -533,7 +536,7 @@ requireFiles("src/contents");
                 clicks = clicks + 1
                 var nxtYear = currYear + clicks;
                 //Period date
-                var nDate = nxtYear + '-12-31';
+                var nDate = nxtYear + '-12-29';
                 //alert(nxtYear + '=' + currYear);
                 //Make sure next years don't point to future years
                 if (nxtYear < currYear) {
@@ -555,6 +558,13 @@ requireFiles("src/contents");
                 //alert(getDateOfWeek(52, 2018));
                 //Reset clicks to zero
                 clicks = 0;
+
+                //Clear periods before populating with new periods
+                $('#operiod option').each(function() {
+                    if ( $(this).val() != '0' ) {
+                        $(this).remove();
+                    }
+                });
 
                 //Default periods - Current year
                 generatePeriods(new Date());
@@ -1029,6 +1039,7 @@ requireFiles("src/contents");
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- <script src="assets/js/bootstrap.min.js" type="text/javascript"></script> -->
+
 </body>
 
 </html>
