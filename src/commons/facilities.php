@@ -29,6 +29,10 @@ if ($cat == "Adult"){
 
     $sql = "SELECT region, district, subcounty, hf FROM staging.weekly_data_smry_rtks WHERE \"$col\" = 1 AND weekno = $wn AND yr = $yr AND (cuid = '$o' OR ruid = '$o' OR duid = '$o')";
 
+}elseif ($cat == "RDTS"){
+
+    $sql = "SELECT region, district, subcounty, hf FROM staging.stk WHERE \"$col\" = 1 AND weekno = $wn AND yr = $yr AND (cuid = '$o' OR ruid = '$o' OR duid = '$o')";
+
 }
 
 if ($cat == "akpi") {//KPIs for Adults
@@ -43,6 +47,10 @@ if ($cat == "rkpi") {//KPIs for RTKS
     $tbl = 'staging.weekly_data_smry_rtks';
     //$tbl1 = 'staging.rass_no_reports_rtks';
 }
+if ($cat == "rdkpi") {//KPIs for RDTS
+    $tbl = 'staging.stk';
+    //$tbl1 = 'staging.rass_no_reports_rtks';
+}
 
 if ($col == "aso"){//Facilities reporting stockouts
     $sql = "SELECT smry.uid, smry.region, smry.district, smry.subcounty, smry.hf FROM $tbl smry 
@@ -50,7 +58,7 @@ if ($col == "aso"){//Facilities reporting stockouts
             WHERE smry.rso = 1 AND smry.weekno = $wn AND smry.yr = $yr 
             AND (smry.cuid = '$o' OR smry.ruid = '$o' OR smry.duid = '$o') AND smry.uid <> '$o'";
 }elseif($col == "areports"){//Facilities Reported
-    $sql = "SELECT smry.uid, smry.region, smry.district, smry.subcounty, smry.hf FROM $tbl smry 
+    $sql = "SELECT smry.uid, smry.region, smry.district, smry.subcounty, smry.hf FROM $tbl smry  
             JOIN staging.rass_reporting_orgs_m org ON smry.uid = org.uid
             WHERE smry.weekno = $wn AND smry.yr = $yr 
             AND (smry.cuid = '$o' OR smry.ruid = '$o' OR smry.duid = '$o') AND smry.uid <> '$o'";

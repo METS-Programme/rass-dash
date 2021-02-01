@@ -423,7 +423,40 @@ requireFiles("src/contents");
                 else {
                     // Open this row
                     //row.child( format(row.data()[1]) ).show();
-                    row.child( format(tr.attr('data-fid')) ).show();
+                    //row.child( format(tr.attr('data-fid')) ).show();
+
+                    var tr = $(this).parents('tr');
+                    //alert(tr.children('td').eq(0).html());
+                    var tblid = $(this).parents('table').attr('id');
+
+                    var cat = $(this).parents('table').attr("data-ccat");
+                    var o = format(tr.attr('data-fid'));
+                    var wn = $('#rsmry').attr("data-wn");
+                    var yr = $('#rsmry').attr("data-yr");
+
+                    if (cat == 'rdkpi'){
+
+                        $.post(
+                        "src/commons/reports.php",
+                        {
+                            o: o,
+                            wn: wn,
+                            cat: cat,
+                            yr: yr
+                        },
+                        function(data, status){
+                            //alert(data + " " + status);
+                            if (status === "success") {
+                                //$('#fc').removeClass("center");
+                                //$('#fc').html(data);
+                                row.child( data ).show();
+                            }
+                        }
+                        );
+                    } else {
+                        row.child( format(tr.attr('data-fid')) ).show();
+                    }            
+                    //var content = format(tr.attr('data-fid'))
                     tr.addClass('shown');
                 }
             } );
@@ -451,7 +484,9 @@ requireFiles("src/contents");
                 //alert(date);
                 var month = (format(date.getMonth() + 1) <= 9) ? '0' + format(date.getMonth() + 1) : format(date.getMonth() + 1);
                 var year = format(date.getFullYear());
-                if (year == 2020){
+                //alert(date.getMonth());
+                //alert(date.getDate());
+                if (year == 2021){
                     var day = (format(date.getDate()) <= 9) ? '0' + (format(date.getDate()) - 1)  : (format(date.getDate()) - 1);
                 }else{
                     var day = (format(date.getDate()) <= 9) ? '0' + format(date.getDate()) : format(date.getDate());
@@ -567,6 +602,10 @@ requireFiles("src/contents");
                 });
 
                 //Default periods - Current year
+                //alert(new Date())
+                //alert(GetFormattedDate(getDateOfWeek(5, '2021')));
+                //alert(getDateOfWeek(53, '2020'));
+                //alert(new Date(2020, 0, 366))
                 generatePeriods(new Date());
 
             });
@@ -757,6 +796,7 @@ requireFiles("src/contents");
                             <li>Adults</li>
                             <li>Paediatrics</li>
                             <li>RTKS</li>
+                            <li>CVD-19</li>
                         </ul>
                     </div>
                     <div class="pull-right">

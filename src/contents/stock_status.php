@@ -56,16 +56,18 @@ function stock_status(){
             var atrends = $('#atrends').val();
             var ptrends = $('#ptrends').val();
             var rtrends = $('#rtrends').val();
+            var rdtrends = $('#rdtrends').val();
             //alert(jtext);
             //var obj = JSON.parse();
             var aobj = JSON.parse(atrends);
             var pobj = JSON.parse(ptrends);
             var rtksobj = JSON.parse(rtrends);
+            var rdtsobj = JSON.parse(rdtrends);
 
             //alert (aobj[0][0]);
 
             //Trends data variables
-            var at, pt, rt;
+            var at, pt, rt, rdt;
 
             at = [
 
@@ -245,7 +247,7 @@ function stock_status(){
                     series: trendData
                 });
             }
-            //Data objects - data from hidden inpu fields
+            //Data objects - data from hidden input fields
             // Create the chart
             //Adults
             var reg = $('#reg').val();
@@ -267,6 +269,13 @@ function stock_status(){
 
             var rtkobj1 = JSON.parse(rreg);
             var rtkobj2 = JSON.parse(rdis);
+
+            //RDTS
+            var rdreg = $('#rdreg').val();
+            var rddis = $('#rddis').val();
+
+            var rdtobj1 = JSON.parse(rdreg);
+            var rdtobj2 = JSON.parse(rddis);
 
             //OrgUnits
             var orgunits = $('#orgunits').val();
@@ -308,8 +317,9 @@ function stock_status(){
 
                 });
 
-                //console.log (rassDis);
+                //alert (obj1);
                 //alert (rassDis);
+                //console.log (rassReg);
 
                 //Regional bar graphs
                 var regData = [];
@@ -324,9 +334,14 @@ function stock_status(){
                                 $.each(rassReg, function (key, val) {
                                     data.push(
                                         {
-                                            name: (val === 'West Nile Region') ? "West Nile" : val.split(" ")[0],
+                                            name: val,
                                             y: (typeof obj1[val] === 'undefined') ? 0 : obj1[val][0],
-                                            drilldown: (val === 'West Nile Region') ? "West Nile" : val.split(" ")[0]
+                                            drilldown: val
+                                            /*
+                                             name: (val === 'West Nile Region') ? "West Nile" : val.split(" ")[0],
+                                             y: (typeof obj1[val] === 'undefined') ? 0 : obj1[val][0],
+                                             drilldown: (val === 'West Nile Region') ? "West Nile" : val.split(" ")[0]
+                                            */
                                         }
                                     );
                                 });
@@ -341,9 +356,14 @@ function stock_status(){
                                 $.each(rassReg, function (key, val) {
                                     data.push(
                                         {
-                                            name: (val === 'West Nile Region') ? "West Nile" : val.split(" ")[0],
+                                            name: val,
                                             y: (typeof obj1[val] === 'undefined') ? 0 : obj1[val][1],
-                                            drilldown: (val === 'West Nile Region') ? "aaWest Nile" : "aa" + val.split(" ")[0]
+                                            drilldown: "aa" + val
+                                            /*
+                                             name: (val === 'West Nile Region') ? "West Nile" : val.split(" ")[0],
+                                             y: (typeof obj1[val] === 'undefined') ? 0 : obj1[val][1],
+                                             drilldown: (val === 'West Nile Region') ? "aaWest Nile" : "aa" + val.split(" ")[0]
+                                            */
                                         }
                                     );
                                 });
@@ -418,7 +438,8 @@ function stock_status(){
                             //District bar graphs - Stockouts
                             {
                                 name: 'Stockouts',
-                                id: (k.split("-")[0] === 'West Nile Region') ? "West Nile" : k.split("-")[0].split(" ")[0],
+                                id: k.split("-")[0],
+                                //id: (k.split("-")[0] === 'West Nile Region') ? "West Nile" : k.split("-")[0].split(" ")[0],
                                 data: (function(){
                                     var data = [], i;
                                     $.each(v, function( key, val ) {
@@ -436,7 +457,8 @@ function stock_status(){
                             //District bar graphs -  Clients at risk
                             {
                                 name: 'Clients at risk (x100)',
-                                id: (k.split("-")[0] === 'West Nile Region') ? "aaWest Nile" : "aa" + k.split("-")[0].split(" ")[0],
+                                id: "aa" + k.split("-")[0],
+                                //id: (k.split("-")[0] === 'West Nile Region') ? "aaWest Nile" : "aa" + k.split("-")[0].split(" ")[0],
                                 data:
                                     (function(){
                                         var data = [], i;
@@ -875,6 +897,8 @@ function stock_status(){
             var cdata = [];
             //RTK data
             var rdata = [];
+            //RDT data
+            var rddata = [];
 
             $.each(orgobj, function( reg, dis ) {
 
@@ -888,6 +912,8 @@ function stock_status(){
                             cdata.push([disn.split("-")[0], (typeof cobj2[disn.split("-")[0]] === 'undefined') ? 0 : cobj2[disn.split("-")[0]][0][2]]);
                         if (typeof rtkobj2[disn.split("-")[0]] !== 'undefined')
                             rdata.push([disn.split("-")[0], (typeof rtkobj2[disn.split("-")[0]] === 'undefined') ? 0 : rtkobj2[disn.split("-")[0]][0][2]]);
+                        if (typeof rdtobj2[disn.split("-")[0]] !== 'undefined')
+                            rddata.push([disn.split("-")[0], (typeof rdtobj2[disn.split("-")[0]] === 'undefined') ? 0 : rdtobj2[disn.split("-")[0]][0][2]]);
 
                     } else if(ol == "Regional"){
 
@@ -898,6 +924,8 @@ function stock_status(){
                                 cdata.push([disn.split("-")[0], (typeof cobj2[disn.split("-")[0]] === 'undefined') ? 0 : cobj2[disn.split("-")[0]][0][2]]);
                             if (typeof rtkobj2[disn.split("-")[0]] !== 'undefined')
                                 rdata.push([disn.split("-")[0], (typeof rtkobj2[disn.split("-")[0]] === 'undefined') ? 0 : rtkobj2[disn.split("-")[0]][0][2]]);
+                            if (typeof rdtobj2[disn.split("-")[0]] !== 'undefined')
+                                rddata.push([disn.split("-")[0], (typeof rdtobj2[disn.split("-")[0]] === 'undefined') ? 0 : rdtobj2[disn.split("-")[0]][0][2]]);
                         }
 
                     } else if(ol == "District"){
@@ -909,6 +937,8 @@ function stock_status(){
                                 cdata.push([disn.split("-")[0], (typeof cobj2[disn.split("-")[0]] === 'undefined') ? 0 : cobj2[disn.split("-")[0]][0][2]]);
                             if (typeof rtkobj2[disn.split("-")[0]] !== 'undefined')
                                 rdata.push([disn.split("-")[0], (typeof rtkobj2[disn.split("-")[0]] === 'undefined') ? 0 : rtkobj2[disn.split("-")[0]][0][2]]);
+                            if (typeof rdtobj2[disn.split("-")[0]] !== 'undefined')
+                                rddata.push([disn.split("-")[0], (typeof rdtobj2[disn.split("-")[0]] === 'undefined') ? 0 : rdtobj2[disn.split("-")[0]][0][2]]);
                         }
 
                     } else if(ol == "Subcounty"){
@@ -978,8 +1008,7 @@ function stock_status(){
 
             });
 
-
-            $('.select li').last().click(function(){
+            $('.select li:nth-child(3)').click(function(){
                 //alert('Last');
 
                 cat = 'RTKS';
@@ -1007,6 +1036,33 @@ function stock_status(){
 
             });
 
+            $('.select li').last().click(function(){
+                //alert('Last');
+                
+                cat = 'RDTS';
+
+                var rdtobj = rdtsobj;
+                //var colname = 'Clients (at risk) - RDTS';
+                var linename = 'RDTS';
+
+                $('#sn a').attr('data-cat', 'rdkpi');
+                $('#sd a').attr('data-cat', 'rdkpi');
+                $('#rn a').attr('data-cat', 'rdkpi');
+                $('#rd a').attr('data-cat', 'rdkpi');
+                $('#rm a').attr('data-cat', 'rdkpi');
+
+                $('#sr').html(robj[3][0]); $('#sn a').html(robj[3][1]); $('#sd a').html(robj[3][2]); $('#si').html(robj[3][3]);
+                $('#rr').html(robj[3][4]); $('#rn a').html(robj[3][5]); $('#rd a').html(robj[3][6]); $('#ri').html(robj[3][7]);
+
+                $('.arrow-img').tooltip();
+
+                drawBarChart(rdtobj1, rdtobj2, 12); //12 commodities + 6 Results data
+                drawMap(rddata);
+                plotTrends(rdtobj, colname, linename, "RDTS");
+                dtable.column(1).data().search("RDTS").draw();
+                orgsmrytable.column(0).data().search("RDT").draw();
+                
+            });
         });
 
     </script>
@@ -1099,6 +1155,15 @@ function stock_status(){
         //District Level
         $rsql2 = "SELECT * FROM staging.rass_kpi_rtks_w WHERE level = 'District' AND  week = '$per' ORDER BY entity;";
 
+        //RDT KPIs
+
+        //National Level
+        $rdsql = "SELECT * FROM staging.rass_kpi_stk_w WHERE uid = '$org' AND week = '$per';";
+        //Regional Level
+        $rdsql1 = "SELECT * FROM staging.rass_kpi_stk_w WHERE level = 'Regional' AND week = '$per' ORDER BY entity;";
+        //District Level
+        $rdsql2 = "SELECT * FROM staging.rass_kpi_stk_w WHERE level = 'District' AND  week = '$per' ORDER BY entity;";
+
         //Trends Data
         //Adults
         $asql = "SELECT lw.week as wk, * FROM staging.last_12_wks (". $yr . ", " . $wk . ") lw LEFT JOIN staging.rass_kpi_stka_w w
@@ -1108,6 +1173,9 @@ function stock_status(){
                 ON w.week = lw.week  AND uid = '$org' OR entity IS NULL ORDER BY lw.id;";
         //RTKs
         $rtksql = "SELECT lw.week as wk, * FROM staging.last_12_wks (" . $yr . ", " . $wk . ") lw LEFT JOIN staging.rass_kpi_rtks_w w
+                    ON w.week = lw.week  AND uid = '$org' OR entity IS NULL ORDER BY lw.id;";
+        //RDTs
+        $rdtsql = "SELECT lw.week as wk, * FROM staging.last_12_wks (" . $yr . ", " . $wk . ") lw LEFT JOIN staging.rass_kpi_stk_w w
                     ON w.week = lw.week  AND uid = '$org' OR entity IS NULL ORDER BY lw.id;";
 
         //Retrieve Org Summaries
@@ -1174,22 +1242,70 @@ function stock_status(){
                                 WHERE weekno = $wk and yr = $yr AND (cuid = '$org' OR ruid = '$org' OR duid = '$org') GROUP BY level, ouid ORDER BY level
                                 )tbl
                                 GROUP BY level";
+                $qry_orgsmry_r = "SELECT
+                                level,
+                                SUM(count) As num,
+                                MAX(
+                                CASE WHEN ouid = 'sIbY5kh15sT' THEN count ELSE 0 END
+                                ) AS pnfp,
+                                MAX(
+                                CASE WHEN ouid = '2JWKwteWFo3' THEN count ELSE 0 END
+                                ) AS pfp,
+                                MAX(
+                                CASE WHEN ouid = 'uzg9rPxGZgq' THEN count ELSE 0 END
+                                ) AS govt,
+                                MAX(
+                                CASE WHEN ouid = 'VgJIIy7pbvE' THEN count ELSE 0 END
+                                ) AS ngo
+                                FROM
+                                (
+                                SELECT level, ouid, count(*) FROM staging.weekly_data_smry_rtks 
+                                WHERE weekno = $wk and yr = $yr AND (cuid = '$org' OR ruid = '$org' OR duid = '$org') GROUP BY level, ouid ORDER BY level
+                                )tbl
+                                GROUP BY level";
+                $qry_orgsmry_rd = "SELECT
+                                level,
+                                SUM(count) As num,
+                                MAX(
+                                CASE WHEN ouid = 'sIbY5kh15sT' THEN count ELSE 0 END
+                                ) AS pnfp,
+                                MAX(
+                                CASE WHEN ouid = '2JWKwteWFo3' THEN count ELSE 0 END
+                                ) AS pfp,
+                                MAX(
+                                CASE WHEN ouid = 'uzg9rPxGZgq' THEN count ELSE 0 END
+                                ) AS govt,
+                                MAX(
+                                CASE WHEN ouid = 'VgJIIy7pbvE' THEN count ELSE 0 END
+                                ) AS ngo
+                                FROM
+                                (
+                                SELECT level, ouid, count(*) FROM staging.stk 
+                                WHERE weekno = $wk and yr = $yr AND (cuid = '$org' OR ruid = '$org' OR duid = '$org') GROUP BY level, ouid ORDER BY level
+                                )tbl
+                                GROUP BY level";
 
+        //Adults national, regional and district data queries
         $res = pg_query($db, $sql);
         $res1 = pg_query($db, $sql1);
         $res2 = pg_query($db, $sql2);
-
+        //Paeds national, regional and district data queries                            
         $cres = pg_query($db, $csql);
         $cres1 = pg_query($db, $csql1);
         $cres2 = pg_query($db, $csql2);
-
+        //RTK national, regional and district data queries
         $rres = pg_query($db, $rsql);
         $rres1 = pg_query($db, $rsql1);
         $rres2 = pg_query($db, $rsql2);
-
+        //RDT national, regional and district data queries
+        $rdres = pg_query($db, $rdsql);
+        $rdres1 = pg_query($db, $rdsql1);
+        $rdres2 = pg_query($db, $rdsql2);
+        //Trends data queries, Adults, Paeds, RTKs and RDTs
         $ares = pg_query($db, $asql);
         $pres = pg_query($db, $psql);
         $rtkres = pg_query($db, $rtksql);
+        $rdtres = pg_query($db, $rdtsql);
 
         if(!$res) {
             echo pg_last_error($db);
@@ -1208,47 +1324,52 @@ function stock_status(){
         //RTKS
         $rreg = array();
         $rdis = array();
+        //RDTs
+        $rdreg = array();
+        $rddis = array();
 
         //(int)$res_orgunitno['no'], array(0, (int)$res_orgunitno['no'], 0)
         $reports = array(); //Adult report indicators
         $preports = array(); //Paediatric report indicators
         $rreports = array(); //RTK report indicators
-
+        $rdreports = array(); //RDT report indicators
+        //Initialize the reports arrays with number of expected reports
         if(pg_num_rows($res) <= 0) $reports = array(0, (int)$res_orgunitno['no'], 0);
         if(pg_num_rows($cres) <= 0) $preports = array(0, (int)$res_orgunitno['no'], 0);
         if(pg_num_rows($rres) <= 0) $rreports = array(0, (int)$res_orgunitno['no'], 0);
+        if(pg_num_rows($rdres) <= 0) $rdreports = array(0, (int)$res_orgunitno['no'], 0);
 
         //STKA data
         while($row = pg_fetch_array($res)) {
 
-            //resest arary;
+            //reset arary;
 
             $reports[] = $row['receivedreports'];
             $reports[] = $row['expectedreports'];
             $reports[] = $row['rso'];
 
-            $wdata[] = array("NVP", "Adult", $row['a'], $row['aamc'], $row['au'], $row['an'], $row['am'], $row['ao'], abs($row['aa']), 'a', $row['receivedreports']);
-            $wdata[] = array("EFV", "Adult", $row['b'], $row['bamc'], $row['bu'], $row['bn'], $row['bm'], $row['bo'], abs($row['ba']), 'b', $row['receivedreports']);
-            $wdata[] = array("ABC", "Adult", $row['c'], $row['camc'], $row['cu'], $row['cn'], $row['cm'], $row['co'], abs($row['ca']), 'c', $row['receivedreports']);
-            $wdata[] = array("ETV", "Adult", $row['d'], $row['damc'], $row['du'], $row['dn'], $row['dm'], $row['do'], abs($row['da']), 'd', $row['receivedreports']);
-            $wdata[] = array("3TC", "Adult", $row['e'], $row['eamc'], $row['eu'], $row['en'], $row['em'], $row['eo'], abs($row['ea']), 'e', $row['receivedreports']);
-            $wdata[] = array("AZT", "Adult", $row['f'], $row['famc'], $row['fu'], $row['fn'], $row['fm'], $row['fo'], abs($row['fa']), 'f', $row['receivedreports']);
-            $wdata[] = array("RAL", "Adult", $row['g'], $row['gamc'], $row['gu'], $row['gn'], $row['gm'], $row['go'], abs($row['ga']), 'g', $row['receivedreports']);
-            $wdata[] = array("ATV", "Adult", $row['h'], $row['hamc'], $row['hu'], $row['hn'], $row['hm'], $row['ho'], abs($row['ha']), 'h', $row['receivedreports']);
-            $wdata[] = array("RTV", "Adult", $row['i'], $row['iamc'], $row['iu'], $row['in'], $row['im'], $row['io'], abs($row['ia']), 'i', $row['receivedreports']);
-            $wdata[] = array("Darunavir", "Adult", $row['j'], $row['jamc'], $row['ju'], $row['jn'], $row['jm'], $row['jo'], abs($row['ja']), 'j', $row['receivedreports']);
-            $wdata[] = array("ABC/3TC", "Adult", $row['k'], $row['kamc'], $row['ku'], $row['kn'], $row['km'], $row['ko'], abs($row['ka']), 'k', $row['receivedreports']);
-            $wdata[] = array("AZT/3TC", "Adult", $row['l'], $row['lamc'], $row['lu'], $row['ln'], $row['lm'], $row['lo'], abs($row['la']), 'l', $row['receivedreports']);
-            $wdata[] = array("TDF/3TC", "Adult", $row['m'], $row['mamc'], $row['mu'], $row['mn'], $row['mm'], $row['mo'], abs($row['ma']), 'm', $row['receivedreports']);
-            $wdata[] = array("LPV/r", "Adult", $row['n'], $row['namc'], $row['nu'], $row['nn'], $row['nm'], $row['no'], abs($row['na']), 'n', $row['receivedreports']);
-            $wdata[] = array("ATV/r", "Adult", $row['o'], $row['oamc'], $row['ou'], $row['on'], $row['om'], $row['oo'], abs($row['oa']), 'o', $row['receivedreports']);
-            $wdata[] = array("AZT/3TC/NVP", "Adult", $row['p'], $row['pamc'], $row['pu'], $row['pn'], $row['pm'], $row['po'], abs($row['pa']), 'p', $row['receivedreports']);
-            $wdata[] = array("TDF/3TC/EFV", "Adult", $row['q'], $row['qamc'], $row['qu'], $row['qn'], $row['qm'], $row['qo'], abs($row['qa']), 'q', $row['receivedreports']);
+            $wdata[] = array("Nevirapine (NVP)", "Adult", $row['a'], $row['aamc'], $row['au'], $row['an'], $row['am'], $row['ao'], abs($row['aa']), 'a', $row['receivedreports']);
+            $wdata[] = array("Efavirenz (EFV)", "Adult", $row['b'], $row['bamc'], $row['bu'], $row['bn'], $row['bm'], $row['bo'], abs($row['ba']), 'b', $row['receivedreports']);
+            $wdata[] = array("Abacavir (ABC)", "Adult", $row['c'], $row['camc'], $row['cu'], $row['cn'], $row['cm'], $row['co'], abs($row['ca']), 'c', $row['receivedreports']);
+            $wdata[] = array("Etravirine (ETV)", "Adult", $row['d'], $row['damc'], $row['du'], $row['dn'], $row['dm'], $row['do'], abs($row['da']), 'd', $row['receivedreports']);
+            $wdata[] = array("Lamivudine (3TC)", "Adult", $row['e'], $row['eamc'], $row['eu'], $row['en'], $row['em'], $row['eo'], abs($row['ea']), 'e', $row['receivedreports']);
+            $wdata[] = array("Zidovudine (AZT)", "Adult", $row['f'], $row['famc'], $row['fu'], $row['fn'], $row['fm'], $row['fo'], abs($row['fa']), 'f', $row['receivedreports']);
+            $wdata[] = array("Raltegravir (RAL)", "Adult", $row['g'], $row['gamc'], $row['gu'], $row['gn'], $row['gm'], $row['go'], abs($row['ga']), 'g', $row['receivedreports']);
+            $wdata[] = array("Atazanavir (ATV)", "Adult", $row['h'], $row['hamc'], $row['hu'], $row['hn'], $row['hm'], $row['ho'], abs($row['ha']), 'h', $row['receivedreports']);
+            $wdata[] = array("Ritonavir (RTV)", "Adult", $row['i'], $row['iamc'], $row['iu'], $row['in'], $row['im'], $row['io'], abs($row['ia']), 'i', $row['receivedreports']);
+            $wdata[] = array("Darunavir (DRV) 300mg", "Adult", $row['j'], $row['jamc'], $row['ju'], $row['jn'], $row['jm'], $row['jo'], abs($row['ja']), 'j', $row['receivedreports']);
+            $wdata[] = array("Abacavir/Lamivudine (ABC/3TC)", "Adult", $row['k'], $row['kamc'], $row['ku'], $row['kn'], $row['km'], $row['ko'], abs($row['ka']), 'k', $row['receivedreports']);
+            $wdata[] = array("Zidovudine/Lamivudine (AZT/3TC)", "Adult", $row['l'], $row['lamc'], $row['lu'], $row['ln'], $row['lm'], $row['lo'], abs($row['la']), 'l', $row['receivedreports']);
+            $wdata[] = array("Tenovofir/ Lamivudine (TDF/3TC)", "Adult", $row['m'], $row['mamc'], $row['mu'], $row['mn'], $row['mm'], $row['mo'], abs($row['ma']), 'm', $row['receivedreports']);
+            $wdata[] = array("Lopinavir/Ritonavir (LPV/r)", "Adult", $row['n'], $row['namc'], $row['nu'], $row['nn'], $row['nm'], $row['no'], abs($row['na']), 'n', $row['receivedreports']);
+            $wdata[] = array("Atazanavir/Ritonavir (ATV/r)", "Adult", $row['o'], $row['oamc'], $row['ou'], $row['on'], $row['om'], $row['oo'], abs($row['oa']), 'o', $row['receivedreports']);
+            $wdata[] = array("Zidovudine/Lamivudine/Nevirapine (AZT/3TC/NVP)", "Adult", $row['p'], $row['pamc'], $row['pu'], $row['pn'], $row['pm'], $row['po'], abs($row['pa']), 'p', $row['receivedreports']);
+            $wdata[] = array("Tenovofir/Lamivudine/Efavirenz (TDF/3TC/EFV)", "Adult", $row['q'], $row['qamc'], $row['qu'], $row['qn'], $row['qm'], $row['qo'], abs($row['qa']), 'q', $row['receivedreports']);
             //$wdata[] = array("TDF/3TC + NVP", "Adult", $row['r'], $row['ramc'], $row['ru'], $row['rn'], $row['rm'], $row['ro'], abs($row['ra']), 'r');
-            $wdata[] = array("DTG", "Adult", $row['s'], $row['samc'], $row['su'], $row['sn'], $row['sm'], $row['so'], abs($row['sa']), 's', $row['receivedreports']);
-            $wdata[] = array("TDF/3TC/DTG", "Adult", $row['t'], $row['tamc'], $row['tu'], $row['tn'], $row['tm'], $row['to'], abs($row['ta']), 't', $row['receivedreports']);
-            $wdata[] = array("DRV 600mg", "Adult", $row['u'], $row['uamc'], $row['uu'], $row['un'], $row['um'], $row['uo'], abs($row['ua']), 'u', $row['receivedreports']);
-            $wdata[] = array("DRV 150mg", "Adult", $row['v'], $row['vamc'], $row['vu'], $row['vn'], $row['vm'], $row['vo'], abs($row['va']), 'v', $row['receivedreports']);
+            $wdata[] = array("Dolutegravir (DTG)", "Adult", $row['s'], $row['samc'], $row['su'], $row['sn'], $row['sm'], $row['so'], abs($row['sa']), 's', $row['receivedreports']);
+            $wdata[] = array("Tenofovir/Lamivudine/Dolutegravir (TDF/3TC/DTG)", "Adult", $row['t'], $row['tamc'], $row['tu'], $row['tn'], $row['tm'], $row['to'], abs($row['ta']), 't', $row['receivedreports']);
+            $wdata[] = array("Darunavir (DRV) 600mg", "Adult", $row['u'], $row['uamc'], $row['uu'], $row['un'], $row['um'], $row['uo'], abs($row['ua']), 'u', $row['receivedreports']);
+            $wdata[] = array("Darunavir (DRV) 150mg", "Adult", $row['v'], $row['vamc'], $row['vu'], $row['vn'], $row['vm'], $row['vo'], abs($row['va']), 'v', $row['receivedreports']);
 
         }
         //print_r($reports)
@@ -1259,25 +1380,25 @@ function stock_status(){
             $preports[] = $crow['expectedreports'];
             $preports[] = $crow['rso'];
 
-            $wdata[] = array("NVP 50mg", "Paediatric", $crow['a'], $crow['aamc'], $crow['au'], $crow['an'], $crow['am'], $crow['ao'], abs($crow['aa']), 'a', $crow['receivedreports']);
-            $wdata[] = array("NVP 10mg/ml (240ml)", "Paediatric", $crow['b'], $crow['bamc'], $crow['bu'], $crow['bn'], $crow['bm'], $crow['bo'], abs($crow['ba']), 'b', $crow['receivedreports']);
-            $wdata[] = array("NVP 10mg/ml (100ml)", "Paediatric", $crow['c'], $crow['camc'], $crow['cu'], $crow['cn'], $crow['cm'], $crow['co'], abs($crow['ca']), 'c', $crow['receivedreports']);
-            $wdata[] = array("EFV 200mg", "Paediatric", $crow['d'], $crow['damc'], $crow['du'], $crow['dn'], $crow['dm'], $crow['do'], abs($crow['da']), 'd', $crow['receivedreports']);
-            $wdata[] = array("EFV 50mg", "Paediatric", $crow['e'], $crow['eamc'], $crow['eu'], $crow['en'], $crow['em'], $crow['eo'], abs($crow['ea']), 'e', $crow['receivedreports']);
-            $wdata[] = array("ABC 60mg", "Paediatric", $crow['f'], $crow['famc'], $crow['fu'], $crow['fn'], $crow['fm'], $crow['fo'], abs($crow['fa']), 'f', $crow['receivedreports']);
-            $wdata[] = array("ABC 20mg/ml", "Paediatric", $crow['g'], $crow['gamc'], $crow['gu'], $crow['gn'], $crow['gm'], $crow['go'], abs($crow['ga']), 'g', $crow['receivedreports']);
-            $wdata[] = array("AZT 100mg", "Paediatric", $crow['h'], $crow['hamc'], $crow['hu'], $crow['hn'], $crow['hm'], $crow['ho'], abs($crow['ha']), 'h', $crow['receivedreports']);
-            $wdata[] = array("AZT 60mg", "Paediatric", $crow['i'], $crow['iamc'], $crow['iu'], $crow['in'], $crow['im'], $crow['io'], abs($crow['ia']), 'i', $crow['receivedreports']);
-            $wdata[] = array("ABC/3TC 120/60mg", "Paediatric", $crow['j'], $crow['jamc'], $crow['ju'], $crow['jn'], $crow['jm'], $crow['jo'], abs($crow['ja']), 'j', $crow['receivedreports']);
-            $wdata[] = array("ABC/3TC 60/30mg", "Paediatric", $crow['k'], $crow['kamc'], $crow['ku'], $crow['kn'], $crow['km'], $crow['ko'], abs($crow['ka']), 'k', $crow['receivedreports']);
-            $wdata[] = array("AZT/3TC 60/30mg", "Paediatric", $crow['l'], $crow['lamc'], $crow['lu'], $crow['ln'], $crow['lm'], $crow['lo'], abs($crow['la']), 'l', $crow['receivedreports']);
-            $wdata[] = array("LPV/r 100/25mg", "Paediatric", $crow['m'], $crow['mamc'], $crow['mu'], $crow['mn'], $crow['mm'], $crow['mo'], abs($crow['ma']), 'm', $crow['receivedreports']);
-            $wdata[] = array("LPV/r 80/20mg (300ml)", "Paediatric", $crow['n'], $crow['namc'], $crow['nu'], $crow['nn'], $crow['nm'], $crow['no'], abs($crow['na']), 'n', $crow['receivedreports']);
-            $wdata[] = array("LPV/r 40/10mg (Oral Pellets)", "Paediatric", $crow['o'], $crow['oamc'], $crow['ou'], $crow['on'], $crow['om'], $crow['oo'], abs($crow['oa']), 'o', $crow['receivedreports']);
-            $wdata[] = array("AZT/3TC/NVP", "Paediatric", $crow['p'], $crow['pamc'], $crow['pu'], $crow['pn'], $crow['pm'], $crow['po'], abs($crow['pa']), 'p', $crow['receivedreports']);
-            $wdata[] = array("DRV 75mg", "Paediatric", $crow['q'], $crow['qamc'], $crow['qu'], $crow['qn'], $crow['qm'], $crow['qo'], abs($crow['qa']), 'q', $crow['receivedreports']);
-            $wdata[] = array("RAL 100mg", "Paediatric", $crow['r'], $crow['ramc'], $crow['ru'], $crow['rn'], $crow['rm'], $crow['ro'], abs($crow['ra']), 'r', $crow['receivedreports']);
-            $wdata[] = array("ETV 25mg", "Paediatric", $crow['s'], $crow['samc'], $crow['su'], $crow['sn'], $crow['sm'], $crow['so'], abs($crow['sa']), 's', $crow['receivedreports']);
+            $wdata[] = array("Nevirapine (NVP) 50mg", "Paediatric", $crow['a'], $crow['aamc'], $crow['au'], $crow['an'], $crow['am'], $crow['ao'], abs($crow['aa']), 'a', $crow['receivedreports']);
+            $wdata[] = array("Nevirapine (NVP) 10mg/ml (240ml)", "Paediatric", $crow['b'], $crow['bamc'], $crow['bu'], $crow['bn'], $crow['bm'], $crow['bo'], abs($crow['ba']), 'b', $crow['receivedreports']);
+            $wdata[] = array("Nevirapine (NVP) 10mg/ml (100ml)", "Paediatric", $crow['c'], $crow['camc'], $crow['cu'], $crow['cn'], $crow['cm'], $crow['co'], abs($crow['ca']), 'c', $crow['receivedreports']);
+            $wdata[] = array("Efavirenz (EFV) 200mg", "Paediatric", $crow['d'], $crow['damc'], $crow['du'], $crow['dn'], $crow['dm'], $crow['do'], abs($crow['da']), 'd', $crow['receivedreports']);
+            $wdata[] = array("Efavirenz (EFV) 50mg", "Paediatric", $crow['e'], $crow['eamc'], $crow['eu'], $crow['en'], $crow['em'], $crow['eo'], abs($crow['ea']), 'e', $crow['receivedreports']);
+            $wdata[] = array("Abacavir (ABC) 60mg", "Paediatric", $crow['f'], $crow['famc'], $crow['fu'], $crow['fn'], $crow['fm'], $crow['fo'], abs($crow['fa']), 'f', $crow['receivedreports']);
+            $wdata[] = array("Abacavir (ABC) 20mg/ml", "Paediatric", $crow['g'], $crow['gamc'], $crow['gu'], $crow['gn'], $crow['gm'], $crow['go'], abs($crow['ga']), 'g', $crow['receivedreports']);
+            $wdata[] = array("Zidovudine (AZT) 100mg", "Paediatric", $crow['h'], $crow['hamc'], $crow['hu'], $crow['hn'], $crow['hm'], $crow['ho'], abs($crow['ha']), 'h', $crow['receivedreports']);
+            $wdata[] = array("Zidovudine (AZT) 60mg", "Paediatric", $crow['i'], $crow['iamc'], $crow['iu'], $crow['in'], $crow['im'], $crow['io'], abs($crow['ia']), 'i', $crow['receivedreports']);
+            $wdata[] = array("Abacavir/Lamivudine (ABC/3TC) 120/60mg", "Paediatric", $crow['j'], $crow['jamc'], $crow['ju'], $crow['jn'], $crow['jm'], $crow['jo'], abs($crow['ja']), 'j', $crow['receivedreports']);
+            $wdata[] = array("Abacavir/Lamivudine (ABC/3TC) 60/30mg", "Paediatric", $crow['k'], $crow['kamc'], $crow['ku'], $crow['kn'], $crow['km'], $crow['ko'], abs($crow['ka']), 'k', $crow['receivedreports']);
+            $wdata[] = array("Zidovudine/Lamivudine (AZT/3TC) 60/30mg", "Paediatric", $crow['l'], $crow['lamc'], $crow['lu'], $crow['ln'], $crow['lm'], $crow['lo'], abs($crow['la']), 'l', $crow['receivedreports']);
+            $wdata[] = array("Lopinavir/Ritonavir (LPV/r) 100/25mg", "Paediatric", $crow['m'], $crow['mamc'], $crow['mu'], $crow['mn'], $crow['mm'], $crow['mo'], abs($crow['ma']), 'm', $crow['receivedreports']);
+            $wdata[] = array("Lopinavir/Ritonavir (LPV/r) 80/20mg (300ml)", "Paediatric", $crow['n'], $crow['namc'], $crow['nu'], $crow['nn'], $crow['nm'], $crow['no'], abs($crow['na']), 'n', $crow['receivedreports']);
+            $wdata[] = array("Lopinavir/Ritonavir (LPV/r) 40/10mg (Oral Pellets)", "Paediatric", $crow['o'], $crow['oamc'], $crow['ou'], $crow['on'], $crow['om'], $crow['oo'], abs($crow['oa']), 'o', $crow['receivedreports']);
+            $wdata[] = array("Zidovudine/Lamivudine/Nevirapine (AZT/3TC/NVP)", "Paediatric", $crow['p'], $crow['pamc'], $crow['pu'], $crow['pn'], $crow['pm'], $crow['po'], abs($crow['pa']), 'p', $crow['receivedreports']);
+            $wdata[] = array("Darunavir (DRV) 75mg", "Paediatric", $crow['q'], $crow['qamc'], $crow['qu'], $crow['qn'], $crow['qm'], $crow['qo'], abs($crow['qa']), 'q', $crow['receivedreports']);
+            $wdata[] = array("Raltegravir (RAL) 100mg", "Paediatric", $crow['r'], $crow['ramc'], $crow['ru'], $crow['rn'], $crow['rm'], $crow['ro'], abs($crow['ra']), 'r', $crow['receivedreports']);
+            $wdata[] = array("Etravirine (ETV) 25mg", "Paediatric", $crow['s'], $crow['samc'], $crow['su'], $crow['sn'], $crow['sm'], $crow['so'], abs($crow['sa']), 's', $crow['receivedreports']);
 
         }
 
@@ -1292,6 +1413,35 @@ function stock_status(){
             $wdata[] = array("Stat-Pak HIV 1+2 Test", "RTKS", $rrow['b'], "N/A", $rrow['bu'], $rrow['bn'], $rrow['bm'], $rrow['bo'], "N/A", 'b', $rrow['receivedreports']);
             $wdata[] = array("Serum cRAG Test kit", "RTKS", $rrow['c'], "N/A", $rrow['cu'], $rrow['cn'], $rrow['cm'], $rrow['co'], "N/A", 'c', $rrow['receivedreports']);
             $wdata[] = array("SD Bioline HIV 1/2 Test", "RTKS", $rrow['d'], "N/A", $rrow['du'], $rrow['dn'], $rrow['dm'], $rrow['do'], "N/A", 'd', $rrow['receivedreports']);
+
+        }
+
+        //RDT and Results data
+        while($rrow = pg_fetch_array($rdres)) {
+
+            $rdreports[] = $rrow['receivedreports'];
+            $rdreports[] = $rrow['expectedreports'];
+            $rdreports[] = 0; //Replace with reported stockout
+            //RDT Commodities
+            $wdata[] = array("Nasopharyngeal Swab", "RDTS", $rrow['a'], "N/A", 0, 0, 0, 0, "N/A", 'a', $rrow['receivedreports']);
+            $wdata[] = array("Oropharyngeal Swab", "RDTS", $rrow['b'], "N/A", 0, 0, 0, 0, "N/A", 'b', $rrow['receivedreports']);
+            $wdata[] = array("Standard Q", "RDTS", $rrow['c'], "N/A", 0, 0, 0, 0, "N/A", 'c', $rrow['receivedreports']);
+            $wdata[] = array("Abbot Panbio", "RDTS", $rrow['d'], "N/A", 0, 0, 0, 0, "N/A", 'd', $rrow['receivedreports']);
+            $wdata[] = array("Abbot Molecular INC. RealTime Sars-CoV-2 Assay", "RDTS", $rrow['e'], "N/A", 0, 0, 0, 0, "N/A", 'e', $rrow['receivedreports']);
+            $wdata[] = array("Cobas Sars-CoV-2 Test", $rrow['f'], "N/A", 0, 0, 0, 0, "N/A", 'f', $rrow['receivedreports']);
+            $wdata[] = array("Xpert Xpress SARS-CoV-2 Test and AccuPlex", "RDTS", $rrow['g'], "N/A", 0, 0, 0, 0, "N/A", 'g', $rrow['receivedreports']);
+            $wdata[] = array("RealStar SARS-CoV-2 RT-PCR Kit 1.0", "RDTS", $rrow['h'], "N/A", 0, 0, 0, 0, "N/A", 'h', $rrow['receivedreports']);
+            $wdata[] = array("ABI-7500 Sars COV-2 Test", "RDTS", $rrow['s'], "N/A", 0, 0, 0, 0, "N/A", 's', $rrow['receivedreports']);
+            $wdata[] = array("SSIII 1-Step QRT-PCR (500)", "RDTS", $rrow['j'], "N/A", 0, 0, 0, 0, "N/A", 'j', $rrow['receivedreports']);
+            $wdata[] = array("QIAamp Qiagen RNA Mini Kit (250)", "RDTS", $rrow['k'], "N/A", 0, 0, 0, 0, "N/A", 'k', $rrow['receivedreports']);
+            $wdata[] = array("Hologic  Sars-CoV-2 Test", "RDTS", $rrow['t'], "N/A", 0, 0, 0, 0, "N/A", 't', $rrow['receivedreports']);
+            //Results data
+            $wdata[] = array("Number of Positives (Antigens)", "RDTS", $rrow['m'], "N/A", 0, 0, 0, 0, "N/A", 'm', $rrow['receivedreports']);
+            $wdata[] = array("Number of Negatives (Antigens)", "RDTS", $rrow['n'], "N/A", 0, 0, 0, 0, "N/A", 'n', $rrow['receivedreports']);
+            $wdata[] = array("Number of Invalids (Antigens)", "RDTS", $rrow['u'], "N/A", 0, 0, 0, 0, "N/A", 'u', $rrow['receivedreports']);
+            $wdata[] = array("Number of Positives (Antibody)", "RDTS", $rrow['p'], "N/A", 0, 0, 0, 0, "N/A", 'p', $rrow['receivedreports']);
+            $wdata[] = array("Number of Negatives (Antibody)", "RDTS", $rrow['q'], "N/A", 0, 0, 0, 0, "N/A", 'q', $rrow['receivedreports']);
+            $wdata[] = array("Number of Invalids (Antibody)", "RDTS", $rrow['r'], "N/A", 0, 0, 0, 0, "N/A", 'r', $rrow['receivedreports']);
 
         }
 
@@ -1474,12 +1624,45 @@ function stock_status(){
             );
         }
 
+        //RDT Data - bar graph
+        //Regional data KPIs
+        while($rrow1 = pg_fetch_array($rdres1)){
+
+            $stkouts = 0; //$rrow1['rso']; //Replace with rso once available
+            $affc = 0;
+
+            $rdreg["$rrow1[entity]"] = array((int)$stkouts, $affc);
+        }
+        //District data KPIs
+        while($rrow2 = pg_fetch_array($rdres2)){
+
+            $stkouts = 0; //$rrow2['rso']; //Replace with rso once available
+            $affc = 0;
+
+            $rddis["$rrow2[entity]"] = array(
+                array((int)$stkouts, (int)$affc, round(($stkouts * 100) / $rrow2['receivedreports'])),
+                array("Nasopharyngeal Swab", 0, 0),
+                array("Oropharyngeal Swab", 0, 0),
+                array("Standard Q", 0, 0),
+                array("Abbot Panbio", 0, 0),
+                array("Abbot Molecular INC. RealTime Sars-CoV-2 Assay", 0, 0),
+                array("Cobas Sars-CoV-2 Test", 0, 0),
+                array("Xpert Xpress SARS-CoV-2 Test and AccuPlex", 0, 0),
+                array("RealStar SARS-CoV-2 RT-PCR Kit 1.0", 0, 0),
+                array("ABI- 7500 Sars COV-2 Test", 0, 0),
+                array("SSIII 1-Step QRT-PCR (500)", 0, 0),
+                array("QIAamp Qiagen RNA Mini Kit (250)", 0, 0),
+                array("Hologic  Sars-CoV-2 Test", 0, 0)
+            );
+        }
+
         //Data For the Trends Graph
         //$ares = pg_query($db, $asql);
         //$pres = pg_query($db, $psql);
         $atrends = array();
         $ptrends = array();
         $rtrends = array();
+        $rdtrends = array();
         //Adult Trends
         while($arow = pg_fetch_array($ares)){
             //stock outs per week
@@ -1558,6 +1741,27 @@ function stock_status(){
         }
         //print_r($rtrends);
 
+        //RDT Trends
+        //$rdtrends = array('', 0, 0, 0, 0);
+        while($rrow = pg_fetch_array($rdtres)){
+            //stock out rates per week
+            if ($rrow['receivedreports'] > 0)
+                $stkouts = round((0 / $rrow['receivedreports']) * 100, 1); //Replace with 0 with $rrow['rso']
+            else
+                $stkouts = 0;
+            //Reporting rates per week
+            if ($rrow['expectedreports'] > 0)
+                $reportrates = round(($rrow['receivedreports'] / $rrow['expectedreports']) * 100, 1);
+            else
+                $reportrates = 0;
+            //affected clients per week
+            $clients = 0;
+
+            $rdtrends[] = array($rrow['wk'], (float)$stkouts, (int)$clients, (int)$rrow['receivedreports'],
+                (int)$rrow['expectedreports'], (float)$reportrates);
+
+        }
+
         //Stockout/Reporting Rates -STKA
         $snum = $reports[2]; $sden = $reports[0];
         $psrate = $atrends[10][1];
@@ -1629,7 +1833,6 @@ function stock_status(){
             $rcsrate = round(($rsnum / $rsden) * 100, 1);
         else
             $rcsrate = 0;
-
         //Reported sites - Numerator and denominator
         $rrnum = $rreports[0]; $rrden = $rreports[1];
         //Previuos reporting (pr) rates
@@ -1656,18 +1859,57 @@ function stock_status(){
         else
             $rrimg = '<img class = "arrow-img" title="' . ($rcrrate - $rprrate) . '%" src="assets/images/down_red.png" />';
 
-        //All STKA, STKC, RTK Reporting and Stockout rates
+        //Stockout/Reporting Rates - RDTS
+        //Stockout out sites - Numerator and Denominator
+        $rdsnum = $rdreports[2]; $rdsden = $rdreports[0];
+        //Previous Stockout (ps) rates
+        $rdpsrate = $rdtrends[10][1];
+        //Current stockout (cs) rate
+        if($rdsden != 0)
+            $rdcsrate = round(($rdsnum / $rdsden) * 100, 1);
+        else
+            $rdcsrate = 0;
+        //Reported sites - Numerator and denominator
+        $rdrnum = $rdreports[0]; $rdrden = $rdreports[1];
+        //Previuos reporting (pr) rates
+        if($rdtrends[10][4] != 0)
+            $rdprrate = round(($rdtrends[10][3] / $rdtrends[10][4]) * 100);
+        else
+            $rdprrate = 0;
+        //Current reporting (cr) rate
+        if($rdrden != 0)
+            $rdcrrate = round(($rdrnum / $rdrden) * 100);
+        else
+            $rdcrrate = 0;
+
+        //Stockout rate icon/image
+        $rdsimg = "";
+        if ($rdtrends[11][1] > $rdtrends[10][1])
+            $rdsimg = '<img class = "arrow-img" title = "' . round(($rdcsrate - $rdpsrate), 1) . '%" src="assets/images/up_arrow_red.png" />';
+        else
+            $rdsimg = '<img class = "arrow-img" title = "' . round(($rdcsrate - $rdpsrate)) . '%" src="assets/images/down_arrow_green.png" />';
+        //Reoprtng rate icon/image - up down arrow
+        $rdrimg = "";
+        if ($rdtrends[11][3] > $rdtrends[10][3])
+            $rdrimg = '<img class = "arrow-img" title="' . ($rdcrrate - $rdprrate) . '%" src="assets/images/up_green.png" />';
+        else
+            $rdrimg = '<img class = "arrow-img" title="' . ($rdcrrate - $rdprrate) . '%" src="assets/images/down_red.png" />';
+        
+        //All STKA, STKC, RTK, RDT Reporting and Stockout rates
         $report_smry = array(
                 array($csrate, $snum, $sden, $simg, $crrate, $rnum, $rden, $rimg),
                 array($pcsrate, $psnum, $psden, $psimg, $pcrrate, $prnum, $prden, $primg),
-                array($rcsrate, $rsnum, $rsden, $rsimg, $rcrrate, $rrnum, $rrden, $rrimg)
+                array($rcsrate, $rsnum, $rsden, $rsimg, $rcrrate, $rrnum, $rrden, $rrimg),
+                array($rdcsrate, $rdsnum, $rdsden, $rdsimg, $rdcrrate, $rdrnum, $rdrden, $rdrimg)
         );
+        //print_r ($report_smry[3]);
 
         //Org Summaries
 
         $res_orgsmry_a = pg_query($db, $qry_orgsmry_a);
         $res_orgsmry_c = pg_query($db, $qry_orgsmry_c);
         $res_orgsmry_r = pg_query($db, $qry_orgsmry_r);
+        $res_orgsmry_rd = pg_query($db, $qry_orgsmry_rd);
 
         $org_smry_tr_a = "";
         //Load STKAs
@@ -1707,6 +1949,18 @@ function stock_status(){
                 "<td><a href='#' class='show-hfs' data-cat = 'rkpi' data-col = 'ownership' data-ownership = 'sIbY5kh15sT' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>".$row['pnfp']."</a></td>".
                 "<td><a href='#' class='show-hfs' data-cat = 'rkpi' data-col = 'ownership' data-ownership = '2JWKwteWFo3' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>".$row['pfp']."</a></td>".
                 "<td><a href='#' class='show-hfs' data-cat = 'rkpi' data-col = 'ownership' data-ownership = 'VgJIIy7pbvE' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>".$row['ngo']."</a></td>".
+                "</tr>";
+        }
+        //Load RDTs
+        while($row = pg_fetch_array($res_orgsmry_rd)){
+            $org_smry_tr_a .= "<tr>".
+                "<td>RDT</td>".
+                "<td>$row[level]</td>".
+                "<td><a href='#' class='show-hfs' data-cat = 'rdkpi' data-col = 'ownership' data-ownership = 'all' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>" . $row['num'] . "</a></td>".
+                "<td><a href='#' class='show-hfs' data-cat = 'rdkpi' data-col = 'ownership' data-ownership = 'uzg9rPxGZgq' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>".$row['govt']."</a></td>".
+                "<td><a href='#' class='show-hfs' data-cat = 'rdkpi' data-col = 'ownership' data-ownership = 'sIbY5kh15sT' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>".$row['pnfp']."</a></td>".
+                "<td><a href='#' class='show-hfs' data-cat = 'rdkpi' data-col = 'ownership' data-ownership = '2JWKwteWFo3' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>".$row['pfp']."</a></td>".
+                "<td><a href='#' class='show-hfs' data-cat = 'rdkpi' data-col = 'ownership' data-ownership = 'VgJIIy7pbvE' data-toggle='modal' data-target='#modal-hfs' data-backdrop='static' data-keyboard='false'>".$row['ngo']."</a></td>".
                 "</tr>";
         }
 
@@ -1823,7 +2077,7 @@ function stock_status(){
                     <div class="card">
                         <div class="card-block">
                             <div class="card-title-block">
-                                <h3 class="title">Stock Status [HIV Commodities] - Number Of Facilities</h3>
+                                <h3 class="title">Stock Status [Commodities] - Number Of Facilities</h3>
                             </div>
                             <section class="">
                                 <div class="">
@@ -1834,6 +2088,7 @@ function stock_status(){
                                             <tr>
                                                 <th>Commodity</th>
                                                 <th>Category</th>
+                                                <!-- <th>#SOH</th> -->
                                                 <th>#Under</th>
                                                 <th>#Adequate</th>
                                                 <th>#Over</th>
@@ -1854,9 +2109,12 @@ function stock_status(){
                                         <input type="hidden" value='<?php echo json_encode($cdis); ?>' id="cdis" name="cdis" />
                                         <input type="hidden" value='<?php echo json_encode($rreg); ?>' id="rreg" name="rreg" />
                                         <input type="hidden" value='<?php echo json_encode($rdis); ?>' id="rdis" name="rdis" />
+                                        <input type="hidden" value='<?php echo json_encode($rdreg); ?>' id="rdreg" name="rdreg" />
+                                        <input type="hidden" value='<?php echo json_encode($rddis); ?>' id="rddis" name="rddis" />
                                         <input type="hidden" value='<?php echo json_encode($atrends); ?>' id="atrends" name="atrends" />
                                         <input type="hidden" value='<?php echo json_encode($ptrends); ?>' id="ptrends" name="ptrends" />
                                         <input type="hidden" value='<?php echo json_encode($rtrends); ?>' id="rtrends" name="rtrends" />
+                                        <input type="hidden" value='<?php echo json_encode($rdtrends); ?>' id="rdtrends" name="rdtrends" />
                                         <input type="hidden" value='<?php echo json_encode($orgunits); ?>' id="orgunits" name="orgunits" />
                                         <input type="hidden" value='<?php echo $ol; ?>' id="ol" name="ol" />
                                         <!-- <img src="assets/images/up-small.png" />
