@@ -53,23 +53,13 @@ while($row = pg_fetch_array($res)) {
     $tr .= "<tr><td>Oropharyngeal Swab</td><td>".$row['b']."</td><td>NULL</td></tr>";
     $tr .= "<tr><td>Standard Q</td><td>".$row['c']."</td><td>NULL</td></tr>";
     $tr .= "<tr><td>Abbot Panbio</td><td>".$row['d']."</td><td>NULL</td></tr>";
-    $tr .= "<tr><td>Abbot Molecular INC. RealTime Sars-CoV-2 Assay</td><td>".$row['e']."</td><td>NULL</td></tr>";
-    $tr .= "<tr><td>Cobas Sars-CoV-2 Test</td><td>".$row['f']."</td><td>NULL</td></tr>";
-    $tr .= "<tr><td>Xpert Xpress SARS-CoV-2 Test and AccuPlex</td><td>".$row['g']."</td><td>NULL</td></tr>";
-    $tr .= "<tr><td>RealStar SARS-CoV-2 RT-PCR Kit 1.0</td><td>".$row['h']."</td><td>NULL</td></tr>";
-    $tr .= "<tr><td>ABI- 7500 Sars COV-2 Test</td><td>".$row['s']."</td><td>NULL</td></tr>";
-    $tr .= "<tr><td>SSIII 1-Step QRT-PCR (500)</td><td>".$row['j']."</td><td>NULL</td></tr>";
-    $tr .= "<tr><td>QIAamp Qiagen RNA Mini Kit (250)</td><td>".$row['k']."</td><td>NULL</td></tr>";
-    $tr .= "<tr><td>Hologic  Sars-CoV-2 Test</td><td>".$row['t']."</td><td>NULL</td></tr>";
+    
     $tr .=  "</tbody></table><br/><h6>Results</h6>";
 
     $tr .=  "<table><thead><tr><th>Type</th><th>Number</th></tr></thead><tbody>";
     $tr .= "<tr><td>Positives (Antigens)</td><td>".$row['m']."</tr>";
     $tr .= "<tr><td>Negatives (Antigens)</td><td>".$row['n']."</tr>";
     $tr .= "<tr><td>Invalids (Antigens)</td><td>".$row['u']."</tr>";
-    $tr .= "<tr><td>Positives (Antibody)</td><td>".$row['p']."</tr>";
-    $tr .= "<tr><td>Negatives (Antibody)</td><td>".$row['q']."</tr>";
-    $tr .= "<tr><td>Invalids (Antibody)</td><td>".$row['r']."</tr>";
     $tr .=  "</tbody></table>";
 
 }
