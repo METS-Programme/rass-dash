@@ -796,7 +796,7 @@ requireFiles("src/contents");
                             <li>Adults</li>
                             <li>Paediatrics</li>
                             <li>RTKS</li>
-                            <li>CVD-19</li>
+                            <li>COVID-19</li>
                         </ul>
                     </div>
                     <div class="pull-right">
