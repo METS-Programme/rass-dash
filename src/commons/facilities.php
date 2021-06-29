@@ -53,22 +53,45 @@ if ($cat == "rdkpi") {//KPIs for RDTS
 }
 
 if ($col == "aso"){//Facilities reporting stockouts
+    if ($cat == "rdkpi")
+    $sql = "SELECT smry.uid, smry.region, smry.district, smry.subcounty, smry.hf FROM $tbl smry 
+            JOIN staging.rass_reporting_orgs_m org ON smry.uid = org.uid
+            JOIN orgunitgroupmembers ogm ON org.id = ogm.organisationunitid AND ogm.orgunitgroupid = 4040077
+            WHERE smry.rso = 1 AND smry.weekno = $wn AND smry.yr = $yr 
+            AND (smry.cuid = '$o' OR smry.ruid = '$o' OR smry.duid = '$o') AND smry.uid <> '$o'";
+    else
     $sql = "SELECT smry.uid, smry.region, smry.district, smry.subcounty, smry.hf FROM $tbl smry 
             JOIN staging.rass_reporting_orgs_m org ON smry.uid = org.uid
             WHERE smry.rso = 1 AND smry.weekno = $wn AND smry.yr = $yr 
             AND (smry.cuid = '$o' OR smry.ruid = '$o' OR smry.duid = '$o') AND smry.uid <> '$o'";
 }elseif($col == "areports"){//Facilities Reported
+    if ($cat == "rdkpi")
+    $sql = "SELECT smry.uid, smry.region, smry.district, smry.subcounty, smry.hf FROM $tbl smry  
+            JOIN staging.rass_reporting_orgs_m org ON smry.uid = org.uid
+            JOIN orgunitgroupmembers ogm ON org.id = ogm.organisationunitid AND ogm.orgunitgroupid = 4040077
+            WHERE smry.weekno = $wn AND smry.yr = $yr 
+            AND (smry.cuid = '$o' OR smry.ruid = '$o' OR smry.duid = '$o') AND smry.uid <> '$o'";
+    else
     $sql = "SELECT smry.uid, smry.region, smry.district, smry.subcounty, smry.hf FROM $tbl smry  
             JOIN staging.rass_reporting_orgs_m org ON smry.uid = org.uid
             WHERE smry.weekno = $wn AND smry.yr = $yr 
             AND (smry.cuid = '$o' OR smry.ruid = '$o' OR smry.duid = '$o') AND smry.uid <> '$o'";
 }elseif($col == "atotal"){//Total registered facilities
+    if ($cat == "rdkpi")
     $sql = "SELECT uid, region, district, subcounty, hf FROM staging.rass_reporting_orgs_m 
+            rm JOIN orgunitgroupmembers ogm ON rm.id = ogm.organisationunitid AND ogm.orgunitgroupid = 4040077
             WHERE nuid = '$o' OR ruid = '$o' OR duid = '$o'";
+    else $sql = "SELECT uid, region, district, subcounty, hf FROM staging.rass_reporting_orgs_m 
+    WHERE nuid = '$o' OR ruid = '$o' OR duid = '$o'";
 }elseif($col == "missing"){//Facilities missing reports for the selected period
-    $sql = "SELECT uid, country, region, district, subcounty, hf FROM staging.rass_reporting_orgs_m 
-            WHERE uid NOT IN (SELECT uid FROM $tbl  WHERE yr = $yr AND weekno = $wn)
-            AND (nuid = '$o' OR ruid = '$o' OR duid = '$o')";
+    if ($cat == "rdkpi")
+            $sql = "SELECT uid, country, region, district, subcounty, hf FROM staging.rass_reporting_orgs_m 
+                    rm JOIN orgunitgroupmembers ogm ON rm.id = ogm.organisationunitid AND ogm.orgunitgroupid = 4040077
+                    WHERE (uid NOT IN (SELECT uid FROM $tbl  WHERE yr = $yr AND weekno = $wn)
+                    AND (nuid = '$o' OR ruid = '$o' OR duid = '$o'))";
+    else $sql = "SELECT uid, country, region, district, subcounty, hf FROM staging.rass_reporting_orgs_m 
+                WHERE uid NOT IN (SELECT uid FROM $tbl  WHERE yr = $yr AND weekno = $wn)
+                AND (nuid = '$o' OR ruid = '$o' OR duid = '$o')";
 }elseif($col == "ownership"){//Facilities categorized under ownership
 
     $level_filter = ""; $ownership_filter = "";

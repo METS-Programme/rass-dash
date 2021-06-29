@@ -27,7 +27,7 @@ class Content
         @$opt = $this->option;
 
         $title = "Stock Status";
-        $desc = "Sites with Stock out of HIV Commodities";
+        $desc = "Sites with Stock out of Commodities";
 
         if ($opt == "received"){
             $title  = "Received Stock";

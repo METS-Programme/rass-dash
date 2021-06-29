@@ -27,7 +27,7 @@ requireFiles("src/contents");
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>MoH Uganda - Realtime ARV Stock Status Monitoring Dashboard </title>
+    <title>MoH Uganda - Realtime Stock Status Monitoring Dashboard </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -629,7 +629,7 @@ requireFiles("src/contents");
                 </button>
             </div>
             <div class="header-block header-block-search hidden-sm-down">
-                <h3>Realtime ARV Stock Status Monitoring Dashboard</h3>
+                <h3>Realtime Commodity Stock Status Monitoring Dashboard</h3>
             </div>
         </header>
         <aside class="sidebar">
@@ -637,13 +637,13 @@ requireFiles("src/contents");
                 <div class="sidebar-header">
                     <div class="brand">
                         <div class="logo"><img src="assets/images/logo.png" class="img rass_logo"/></div>
-                        RASS Dashboard
+                        RSS Dashboard
                     </div>
                 </div>
                 <nav class="menu">
                     <ul class="nav metismenu" id="sidebar-menu">
                         <li class="active">
-                            <a href="?category=stocks"> <i class="fa fa-th-large"></i> HIV Commodities <i class="fa arrow"></i> </a>
+                            <a href="?category=stocks"> <i class="fa fa-th-large"></i> Commodities <i class="fa arrow"></i> </a>
                             <ul>
                                 <li><a href="?category=stocks&option=stock_status">
                                         Stock Status

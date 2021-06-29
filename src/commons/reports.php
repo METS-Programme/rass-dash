@@ -53,13 +53,15 @@ while($row = pg_fetch_array($res)) {
     $tr .= "<tr><td>Oropharyngeal Swab</td><td>".$row['b']."</td><td>NULL</td></tr>";
     $tr .= "<tr><td>Standard Q</td><td>".$row['c']."</td><td>NULL</td></tr>";
     $tr .= "<tr><td>Abbot Panbio</td><td>".$row['d']."</td><td>NULL</td></tr>";
+    $tr .= "<tr><td>PPEs</td><td>".$row['e']."</td><td>NULL</td></tr>";
+    $tr .= "<tr><td>Quality Usage kits</td><td>".$row['q']."</td><td>NULL</td></tr>";
     
     $tr .=  "</tbody></table><br/><h6>Results</h6>";
 
     $tr .=  "<table><thead><tr><th>Type</th><th>Number</th></tr></thead><tbody>";
-    $tr .= "<tr><td>Positives (Antigens)</td><td>".$row['m']."</tr>";
+    $tr .= "<tr><td>Positives (Antigens)</td><td>".$row['p']."</tr>";
     $tr .= "<tr><td>Negatives (Antigens)</td><td>".$row['n']."</tr>";
-    $tr .= "<tr><td>Invalids (Antigens)</td><td>".$row['u']."</tr>";
+    $tr .= "<tr><td>Invalids (Antigens)</td><td>".$row['v']."</tr>";
     $tr .=  "</tbody></table>";
 
 }

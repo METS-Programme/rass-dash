@@ -49,8 +49,17 @@ function stock_status(){
                 ]
             });
 
+            var tressmrytable = $('#tressmry').DataTable({
+                "order": [[0, "desc"]],
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
+
             dtable.column(1).data().search("Adult").draw();
             orgsmrytable.column(0).data().search("STKA").draw();
+            tressmrytable.column(0).data().search("STKA").draw();
 
 
             var atrends = $('#atrends').val();
@@ -145,10 +154,10 @@ function stock_status(){
                         borderColor: 'grey'
                     },
                     title: {
-                        text: 'HIV Commodity Stockout rates - Last 12 Weeks (' + $('#o').html() + ')'
+                        text: 'Commodity Stockout rates - Last 12 Weeks (' + $('#o').html() + ')'
                     },
                     subtitle: {
-                        text: 'Health Facilities Reporting HIV Commodity Stockstatus during the reporting periods'
+                        text: 'Health Facilities Reporting Commodity Stockstatus during the reporting periods'
                     },
                     xAxis: [{
                         categories: [tobj[0][0], tobj[1][0], tobj[2][0], tobj[3][0], tobj[4][0], tobj[5][0],
@@ -611,7 +620,7 @@ function stock_status(){
                         text: 'Number Of Facilities Stocked Out <br />' + cat + ' (' + $('#w').html() + ')'
                     },
                     subtitle: {
-                        text: 'Click the columns to Drill down to HIV Commodities.'
+                        text: 'Click the columns to Drill down to Commodities.'
                     },
                     xAxis: {
 
@@ -776,7 +785,7 @@ function stock_status(){
                         },
                         credits: {
                             enabled: false,
-                            text: 'Mets.or.ug',
+                            text: 'mets.or.ug',
                             href: 'http://www.mets.or.ug'
                         },
 
@@ -1056,11 +1065,12 @@ function stock_status(){
 
                 $('.arrow-img').tooltip();
 
-                drawBarChart(rdtobj1, rdtobj2, 12); //12 commodities + 6 Results data
+                drawBarChart(rdtobj1, rdtobj2, 6); //6 RDT commodities + 3 Results data
                 drawMap(rddata);
                 plotTrends(rdtobj, colname, linename, "RDTS");
                 dtable.column(1).data().search("RDTS").draw();
                 orgsmrytable.column(0).data().search("RDT").draw();
+                tressmrytable.column(0).data().search("RDTS").draw();
                 
             });
         });
@@ -1314,6 +1324,7 @@ function stock_status(){
         //$numrows = pg_numrows($res);
 
         $wdata = array();
+        $test_res_smry_tr = array();
         //Level data KPIs; Regional, District
         //STKA
         $reg = array();
@@ -1371,6 +1382,13 @@ function stock_status(){
             $wdata[] = array("Darunavir (DRV) 600mg", "Adult", $row['u'], $row['uamc'], $row['uu'], $row['un'], $row['um'], $row['uo'], abs($row['ua']), 'u', $row['receivedreports']);
             $wdata[] = array("Darunavir (DRV) 150mg", "Adult", $row['v'], $row['vamc'], $row['vu'], $row['vn'], $row['vm'], $row['vo'], abs($row['va']), 'v', $row['receivedreports']);
 
+            //Default Test Results
+            /*
+            $test_res_smry_tr[] = array("Positives", "STKA", "N/A", "N/A");
+            $test_res_smry_tr[] = array("Negatives", "STKA", "N/A", "N/A");
+            $test_res_smry_tr[] = array("Invalids", "STKA", "N/A", "N/A");
+            */
+
         }
         //print_r($reports)
         //STKC data
@@ -1400,6 +1418,13 @@ function stock_status(){
             $wdata[] = array("Raltegravir (RAL) 100mg", "Paediatric", $crow['r'], $crow['ramc'], $crow['ru'], $crow['rn'], $crow['rm'], $crow['ro'], abs($crow['ra']), 'r', $crow['receivedreports']);
             $wdata[] = array("Etravirine (ETV) 25mg", "Paediatric", $crow['s'], $crow['samc'], $crow['su'], $crow['sn'], $crow['sm'], $crow['so'], abs($crow['sa']), 's', $crow['receivedreports']);
 
+            //Default Test Results
+            /*
+            $test_res_smry_tr[] = array("Positives", "STKC", "N/A", "N/A");
+            $test_res_smry_tr[] = array("Negatives", "STKC", "N/A", "N/A");
+            $test_res_smry_tr[] = array("Invalids", "STKC", "N/A", "N/A");
+            */
+
         }
 
         //RTK data
@@ -1414,6 +1439,13 @@ function stock_status(){
             $wdata[] = array("Serum cRAG Test kit", "RTKS", $rrow['c'], "N/A", $rrow['cu'], $rrow['cn'], $rrow['cm'], $rrow['co'], "N/A", 'c', $rrow['receivedreports']);
             $wdata[] = array("SD Bioline HIV 1/2 Test", "RTKS", $rrow['d'], "N/A", $rrow['du'], $rrow['dn'], $rrow['dm'], $rrow['do'], "N/A", 'd', $rrow['receivedreports']);
 
+            //Default Test Results
+            /*
+            $test_res_smry_tr[] = array("Positives", "RTKS", "N/A", "N/A");
+            $test_res_smry_tr[] = array("Negatives", "RTKS", "N/A", "N/A");
+            $test_res_smry_tr[] = array("Invalids", "RTKS", "N/A", "N/A");
+            */
+
         }
 
         //RDT and Results data
@@ -1427,21 +1459,14 @@ function stock_status(){
             $wdata[] = array("Oropharyngeal Swab", "RDTS", $rrow['b'], "N/A", 0, 0, 0, 0, "N/A", 'b', $rrow['receivedreports']);
             $wdata[] = array("Standard Q", "RDTS", $rrow['c'], "N/A", 0, 0, 0, 0, "N/A", 'c', $rrow['receivedreports']);
             $wdata[] = array("Abbot Panbio", "RDTS", $rrow['d'], "N/A", 0, 0, 0, 0, "N/A", 'd', $rrow['receivedreports']);
-            $wdata[] = array("Abbot Molecular INC. RealTime Sars-CoV-2 Assay", "RDTS", $rrow['e'], "N/A", 0, 0, 0, 0, "N/A", 'e', $rrow['receivedreports']);
-            $wdata[] = array("Cobas Sars-CoV-2 Test", $rrow['f'], "N/A", 0, 0, 0, 0, "N/A", 'f', $rrow['receivedreports']);
-            $wdata[] = array("Xpert Xpress SARS-CoV-2 Test and AccuPlex", "RDTS", $rrow['g'], "N/A", 0, 0, 0, 0, "N/A", 'g', $rrow['receivedreports']);
-            $wdata[] = array("RealStar SARS-CoV-2 RT-PCR Kit 1.0", "RDTS", $rrow['h'], "N/A", 0, 0, 0, 0, "N/A", 'h', $rrow['receivedreports']);
-            $wdata[] = array("ABI-7500 Sars COV-2 Test", "RDTS", $rrow['s'], "N/A", 0, 0, 0, 0, "N/A", 's', $rrow['receivedreports']);
-            $wdata[] = array("SSIII 1-Step QRT-PCR (500)", "RDTS", $rrow['j'], "N/A", 0, 0, 0, 0, "N/A", 'j', $rrow['receivedreports']);
-            $wdata[] = array("QIAamp Qiagen RNA Mini Kit (250)", "RDTS", $rrow['k'], "N/A", 0, 0, 0, 0, "N/A", 'k', $rrow['receivedreports']);
-            $wdata[] = array("Hologic  Sars-CoV-2 Test", "RDTS", $rrow['t'], "N/A", 0, 0, 0, 0, "N/A", 't', $rrow['receivedreports']);
-            //Results data
-            $wdata[] = array("Number of Positives (Antigens)", "RDTS", $rrow['m'], "N/A", 0, 0, 0, 0, "N/A", 'm', $rrow['receivedreports']);
-            $wdata[] = array("Number of Negatives (Antigens)", "RDTS", $rrow['n'], "N/A", 0, 0, 0, 0, "N/A", 'n', $rrow['receivedreports']);
-            $wdata[] = array("Number of Invalids (Antigens)", "RDTS", $rrow['u'], "N/A", 0, 0, 0, 0, "N/A", 'u', $rrow['receivedreports']);
-            $wdata[] = array("Number of Positives (Antibody)", "RDTS", $rrow['p'], "N/A", 0, 0, 0, 0, "N/A", 'p', $rrow['receivedreports']);
-            $wdata[] = array("Number of Negatives (Antibody)", "RDTS", $rrow['q'], "N/A", 0, 0, 0, 0, "N/A", 'q', $rrow['receivedreports']);
-            $wdata[] = array("Number of Invalids (Antibody)", "RDTS", $rrow['r'], "N/A", 0, 0, 0, 0, "N/A", 'r', $rrow['receivedreports']);
+            $wdata[] = array("PPEs", "RDTS", $rrow['e'], "N/A", 0, 0, 0, 0, "N/A", 'e', $rrow['receivedreports']);
+            $wdata[] = array("Quality Usage kits", "RDTS", $rrow['q'], "N/A", 0, 0, 0, 0, "N/A", 'q', $rrow['receivedreports']);
+            
+            //Test Results
+            $test_res_smry_tr[] = array("Positives", "RDTS", $rrow['p'], 0);
+            $test_res_smry_tr[] = array("Negatives", "RDTS", $rrow['n'], 0);
+            $test_res_smry_tr[] = array("Invalids", "RDTS", $rrow['v'], 0);
+            
 
         }
 
@@ -1480,6 +1505,18 @@ function stock_status(){
             $tr .= "<td>" . $item[3] ."</td>";
             $tr .= "<td>" . $item[8] ."</td>";
             $tr .= "</tr>";
+        }
+
+        //Populate Test Results Table on the dashboard
+        $tests_tr = "";
+        foreach ($test_res_smry_tr as $item){
+            
+            $tests_tr .= "<tr>";
+            $tests_tr .= "<td>" . $item[0] ."</td>";
+            $tests_tr .= "<td>" . $item[1] ."</td>";
+            $tests_tr .= "<td>" . $item[2] ."</td>";
+            $tests_tr .= "<td>" . $item[3] ."</td>";
+            $tests_tr .= "</tr>";
         }
 
         //$row1 = pg_fetch_array($res1);
@@ -1645,14 +1682,8 @@ function stock_status(){
                 array("Oropharyngeal Swab", 0, 0),
                 array("Standard Q", 0, 0),
                 array("Abbot Panbio", 0, 0),
-                array("Abbot Molecular INC. RealTime Sars-CoV-2 Assay", 0, 0),
-                array("Cobas Sars-CoV-2 Test", 0, 0),
-                array("Xpert Xpress SARS-CoV-2 Test and AccuPlex", 0, 0),
-                array("RealStar SARS-CoV-2 RT-PCR Kit 1.0", 0, 0),
-                array("ABI- 7500 Sars COV-2 Test", 0, 0),
-                array("SSIII 1-Step QRT-PCR (500)", 0, 0),
-                array("QIAamp Qiagen RNA Mini Kit (250)", 0, 0),
-                array("Hologic  Sars-CoV-2 Test", 0, 0)
+                array("PPEs", 0, 0),
+                array("Quality Usage kits", 0, 0)
             );
         }
 
@@ -2120,6 +2151,43 @@ function stock_status(){
                                         <!-- <img src="assets/images/up-small.png" />
                                         <img src="assets/images/down-small.png" /> <a href="#">35</a>
                                         -->
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-block">
+                            <div class="card-title-block">
+                                <h3 class="title">COVID-19 Test Results [Number of Individuals]</h3>
+                            </div>
+                            <section class="">
+                                <div class="">
+                                    <div class="table-responsive">
+                                        <!--class="table table-striped table-bordered table-hover"-->
+                                        <table id = "tressmry" class="display" cellspacing="0" >
+                                            <thead>
+                                            <tr>
+                                                <th>Result</th>
+                                                <th>Category</th>
+                                                <th>Antigen</th>
+                                                <th>Antibody</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+                                            echo $tests_tr;
+                                            ?>
+                                            </tbody>
+                                        </table>
+
                                     </div>
                                 </div>
                             </section>
